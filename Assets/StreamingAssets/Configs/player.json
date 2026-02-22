@@ -1,0 +1,10 @@
+{
+    "maxHealth": 3,
+    "acceleration": 15,
+    "maxSpeed": 20,
+    "bulletSpeed": 30,
+    "laserCharges": 3,
+    "laserCooldown": 5,
+    "radius": 12,
+    "mass": 1
+}

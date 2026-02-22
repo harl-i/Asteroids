@@ -1,0 +1,46 @@
+using System.Collections.Generic;
+using Game.Core.World;
+using UnityEngine;
+
+namespace Game.Core.Physics
+{
+    public class Physics2DWorld
+    {
+        private List<Physics2DEntity> _entities = new();
+        private int _nextId = 1;
+
+        public WorldBounds Bounds { get; }
+
+        public IReadOnlyList<Physics2DEntity> Entities => _entities;
+
+        public Physics2DWorld(WorldBounds bounds)
+        {
+            Bounds = bounds;
+        }
+
+        public Physics2DEntity CreateEntity(Vector2 position, float radius, float mass)
+        {
+            Physics2DEntity entity = new Physics2DEntity(_nextId++, position, radius, mass);
+            _entities.Add(entity);
+
+            return entity;
+        }
+
+        public void RemoveEntity(Physics2DEntity entity)
+        {
+            _entities.Remove(entity);
+        }
+
+        public void Tick(float dt)
+        {
+            for (int i = 0; i < _entities.Count; i++)
+            {
+                Physics2DEntity entity = _entities[i];
+                if (!entity.IsActive) continue;
+
+                Physics2DIntegrator.Integrate(entity, dt);
+                entity.Position = Bounds.Wrap(entity.Position);
+            }
+        }
+    }
+}
