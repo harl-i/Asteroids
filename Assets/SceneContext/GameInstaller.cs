@@ -14,8 +14,6 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<GameStartedSignal>();
         Container.DeclareSignal<EnemyKilledSignal>();
 
-        //Container.BindInterfacesAndSelfTo<PlayerConfig>().AsSingle();
-        //Container.BindInterfacesAndSelfTo<WorldConfig>().AsSingle();
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
 
