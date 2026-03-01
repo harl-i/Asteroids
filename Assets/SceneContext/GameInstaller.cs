@@ -24,8 +24,8 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ShipControllerService>().AsSingle();
         Container.Bind<ZenjectCollisionEvents>().AsSingle();
 
-        Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
-        Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
-        Container.BindInterfacesTo<CollisionTest>().AsSingle();
+        //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
+        //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
+        //Container.BindInterfacesTo<CollisionTest>().AsSingle();
     }
 }
