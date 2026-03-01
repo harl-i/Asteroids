@@ -12,12 +12,19 @@ namespace Game.Core.Physics
         public Vector2 Velocity;
         public Vector2 AccumulatedForce;
 
+        public CollisionLayer CollisionLayer;
+        public object PhysicsOwner;
+        public float Restitution;
+
         public float Mass;
         public float Radius;
         public bool IsTrigger;
         public bool IsActive;
 
-        public Physics2DEntity (int id, Vector2 position, float radius, float mass)
+        public Physics2DEntity (
+            int id, Vector2 position,
+            float radius,
+            float mass)
         {
             Id = id;
             Position = position;
@@ -28,6 +35,10 @@ namespace Game.Core.Physics
             AccumulatedForce = Vector2.zero;
             IsTrigger = false;
             IsActive = true;
+
+            CollisionLayer = CollisionLayer.Enemy;
+            PhysicsOwner = null;
+            Restitution = 1f;
         }
 
         public void AddForce(Vector2 force)
