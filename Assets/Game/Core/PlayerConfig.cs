@@ -9,4 +9,5 @@ public class PlayerConfig
     public float laserCooldown;
     public float radius;
     public float mass;
+    public float turnSpeedDeg;
 } 

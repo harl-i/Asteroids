@@ -15,6 +15,11 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<EnemyKilledSignal>();
         Container.DeclareSignal<CollisionSignal>();
 
+        Container.DeclareSignal<ShipDamagedSignal>();
+        Container.DeclareSignal<ShipInvulnerabilityStartedSignal>();
+        Container.DeclareSignal<ShipInvulnerabilityEndedSignal>();
+        Container.DeclareSignal<GameOverSignal>();
+
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
 
@@ -24,8 +29,11 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ShipControllerService>().AsSingle();
         Container.Bind<ZenjectCollisionEvents>().AsSingle();
 
+        Container.BindInterfacesAndSelfTo<ShipDamageService>().AsSingle();
+
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
         //Container.BindInterfacesTo<CollisionTest>().AsSingle();
+        Container.BindInterfacesTo<ShipDebugListener>().AsSingle();
     }
 }
