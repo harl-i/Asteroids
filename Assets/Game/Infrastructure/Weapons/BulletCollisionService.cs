@@ -36,6 +36,9 @@ public class BulletCollisionService : IInitializable, IDisposable
         if (otherEntity.CollisionLayer != CollisionLayer.Enemy)
             return;
 
+        if (!bulletEntity.IsActive || !otherEntity.IsActive)
+            return;
+
         if (bulletEntity.PhysicsOwner is BulletModel bullet)
             bullet.Destroy();
 

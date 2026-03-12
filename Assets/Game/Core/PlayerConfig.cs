@@ -10,4 +10,5 @@ public class PlayerConfig
     public float radius;
     public float mass;
     public float turnSpeedDeg;
+    public float fireRate;
 } 

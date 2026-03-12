@@ -39,6 +39,8 @@ public class GameInstaller : MonoInstaller
         Container.Bind<BulletFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<BulletCollisionService>().AsSingle();
 
+        Container.Bind<BulletPool>().AsSingle();
+
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
         //Container.BindInterfacesTo<CollisionTest>().AsSingle();

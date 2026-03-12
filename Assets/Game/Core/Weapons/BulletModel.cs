@@ -1,4 +1,5 @@
 using Game.Core.Physics;
+using UnityEngine;
 
 namespace Game.Core.Weapons
 {
@@ -14,15 +15,24 @@ namespace Game.Core.Weapons
             LifetimeRemaining = lifetimeSeconds;
         }
 
+        public void Activate(Vector2 position, Vector2 velocity, float lifetimeSeconds)
+        {
+            Entity.Position = position;
+            Entity.Velocity = velocity;
+            Entity.IsActive = true;
+            LifetimeRemaining = lifetimeSeconds;
+        }
+
         public void Tick(float dt)
         {
-            if (!Entity.IsActive) return;
+            if (!Entity.IsActive) 
+                return;
 
             LifetimeRemaining -= dt;
 
             if (LifetimeRemaining <= 0f)
             {
-                Entity.IsActive = false;
+                Destroy();
             }
         }
 

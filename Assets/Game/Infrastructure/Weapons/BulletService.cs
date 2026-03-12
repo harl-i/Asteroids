@@ -13,6 +13,9 @@ namespace Game.Infrastructure.Weapons
         private IShipInput _shipInput;
         private ShipControllerService _shipController;
         private BulletFactory _bulletFactory;
+        private BulletPool _bulletPool;
+        private ConfigService _configService;
+        private float _shotCooldownRemaining;
 
         private float _offsetCoefficient = 2f;
 
@@ -23,27 +26,37 @@ namespace Game.Infrastructure.Weapons
         public BulletService(
             IShipInput shipInput,
             ShipControllerService shipController,
-            BulletFactory bulletFactory)
+            BulletFactory bulletFactory,
+            BulletPool bulletPool,
+            ConfigService configService)
         {
             _shipInput = shipInput;
             _shipController = shipController;
             _bulletFactory = bulletFactory;
+            _bulletPool = bulletPool;
+            _configService = configService;
         }
 
         public void Tick()
         {
+            _shotCooldownRemaining -= Time.deltaTime;
+
             ShipModel ship = _shipController.Ship;
 
             if (ship != null && !ship.IsControlLocked && _shipInput.IsFirePressed)
+            {
                 Shoot(ship);
+                _shotCooldownRemaining = 1f / _configService.PlayerConfig.fireRate;
+            }
 
             for (int i = _bullets.Count - 1; i >= 0; i--)
             {
-                var bullet = _bullets[i];
+                BulletModel bullet = _bullets[i];
                 bullet.Tick(Time.deltaTime);
 
                 if (!bullet.IsAlive)
                 {
+                    DespawnBullet(bullet);
                     _bullets.RemoveAt(i);
                 }
             }
@@ -58,8 +71,18 @@ namespace Game.Infrastructure.Weapons
             Vector2 spawnPosition = ship.Entity.Position + forward * spawnOffset;
             Vector2 inheritedVelocity = ship.Entity.Velocity;
 
-            BulletModel bullet = _bulletFactory.Create(spawnPosition, forward, inheritedVelocity);
+            BulletModel bullet = _bulletPool.HasAvailable
+                ? _bulletPool.Get()
+                : _bulletFactory.Create();
+
+            _bulletFactory.Activate(bullet, spawnPosition, forward, inheritedVelocity);
             _bullets.Add(bullet);
+        }
+
+        private void DespawnBullet(BulletModel bullet)
+        {
+            bullet.Destroy();
+            _bulletPool.Return(bullet);
         }
     }
 }

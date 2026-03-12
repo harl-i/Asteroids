@@ -7,5 +7,6 @@
   "laserCooldown": 5,
   "radius": 1,
   "mass": 1,
-  "turnSpeedDeg": 180
+  "turnSpeedDeg": 180,
+  "fireRate": 4
 }
