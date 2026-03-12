@@ -1,4 +1,5 @@
 using Game.Core.Input;
+using UnityEngine;
 
 namespace Game.Presentation.Input
 {
@@ -22,5 +23,7 @@ namespace Game.Presentation.Input
                 return turn;
             }
         }
+
+        public bool IsFirePressed => UnityEngine.Input.GetKeyDown(KeyCode.Space);
     }
 }

@@ -32,6 +32,12 @@ namespace Game.Presentation.Debug
         {
             if (_body == null) return;
 
+            if (!_body.IsActive)
+            {
+                gameObject.SetActive(false);
+                return;
+            }
+
             transform.position = new Vector3(_body.Position.x, _body.Position.y, 0f);
         }
     }

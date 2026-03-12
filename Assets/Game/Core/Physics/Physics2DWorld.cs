@@ -58,9 +58,18 @@ namespace Game.Core.Physics
                     Physics2DEntity b = _entities[j];
                     if (!b.IsActive) continue;
 
-                    if (CollisionDetector2D.TryCircleCircle(a, b, out CollisionManifold collisionManifold))
+                    //if (CollisionDetector2D.TryCircleCircle(a, b, out CollisionManifold collisionManifold))
+                    //{
+                    //    ImpulseSolver2D.Resolve(collisionManifold);
+                    //    _collisionEvents?.OnCollision(a, b);
+                    //}
+                    if (CollisionDetector2D.TryCircleCircle(a, b, out var manifold))
                     {
-                        ImpulseSolver2D.Resolve(collisionManifold);
+                        if (!a.IsTrigger && !b.IsTrigger)
+                        {
+                            ImpulseSolver2D.Resolve(manifold);
+                        }
+
                         _collisionEvents?.OnCollision(a, b);
                     }
                 }

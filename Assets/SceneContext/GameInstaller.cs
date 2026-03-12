@@ -3,6 +3,7 @@ using Game.Infrastructure.Debug;
 using Game.Infrastructure.Physics;
 using Game.Infrastructure.Ship;
 using Game.Infrastructure.UI;
+using Game.Infrastructure.Weapons;
 using Game.Presentation.Input;
 using Zenject;
 
@@ -33,6 +34,10 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ShipDamageService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<ShipHudPresenter>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<BulletService>().AsSingle();
+        Container.Bind<BulletFactory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<BulletCollisionService>().AsSingle();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
