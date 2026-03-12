@@ -19,7 +19,10 @@ namespace Game.Presentation.Weapons
         public BulletView GetOrCreate(BulletModel bullet)
         {
             if (_views.TryGetValue(bullet, out BulletView existing))
+            {
+                existing.gameObject.SetActive(true);
                 return existing;
+            }
 
             BulletView view = Object.Instantiate(_prefab, _parent);
             view.Bind(bullet);
