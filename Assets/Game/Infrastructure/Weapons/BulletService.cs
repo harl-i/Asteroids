@@ -17,7 +17,7 @@ namespace Game.Infrastructure.Weapons
         private ConfigService _configService;
         private float _shotCooldownRemaining;
 
-        private float _offsetCoefficient = 2f;
+        private float _offsetCoefficient = -0.2f;
 
         private List<BulletModel> _bullets = new List<BulletModel>();
 

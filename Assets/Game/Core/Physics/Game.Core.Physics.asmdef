@@ -1,0 +1,16 @@
+{
+    "name": "Game.Core.Physics",
+    "rootNamespace": "",
+    "references": [
+        "Game.Core.World"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

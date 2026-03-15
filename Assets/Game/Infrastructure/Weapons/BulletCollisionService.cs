@@ -3,45 +3,48 @@ using Game.Core.Physics;
 using Game.Core.Weapons;
 using Zenject;
 
-public class BulletCollisionService : IInitializable, IDisposable
+namespace Game.Infrastructure.Weapons
 {
-    private SignalBus _signalBus;
-
-    public BulletCollisionService(SignalBus signalBus)
+    public class BulletCollisionService : IInitializable, IDisposable
     {
-        _signalBus = signalBus;
-    }
+        private SignalBus _signalBus;
 
-    public void Initialize()
-    {
-        _signalBus.Subscribe<CollisionSignal>(OnCollision);
-    }
+        public BulletCollisionService(SignalBus signalBus)
+        {
+            _signalBus = signalBus;
+        }
 
-    public void Dispose()
-    {
-        _signalBus.Unsubscribe<CollisionSignal>(OnCollision);
-    }
+        public void Initialize()
+        {
+            _signalBus.Subscribe<CollisionSignal>(OnCollision);
+        }
 
-    private void OnCollision(CollisionSignal collisionSignal)
-    {
-        TryHandleBulletVsEnemy(collisionSignal.A, collisionSignal.B);
-        TryHandleBulletVsEnemy(collisionSignal.B, collisionSignal.A);
-    }
+        public void Dispose()
+        {
+            _signalBus.Unsubscribe<CollisionSignal>(OnCollision);
+        }
 
-    private void TryHandleBulletVsEnemy(Physics2DEntity bulletEntity, Physics2DEntity otherEntity)
-    {
-        if (bulletEntity.CollisionLayer != CollisionLayer.Bullet)
-            return;
+        private void OnCollision(CollisionSignal collisionSignal)
+        {
+            TryHandleBulletVsEnemy(collisionSignal.A, collisionSignal.B);
+            TryHandleBulletVsEnemy(collisionSignal.B, collisionSignal.A);
+        }
 
-        if (otherEntity.CollisionLayer != CollisionLayer.Enemy)
-            return;
+        private void TryHandleBulletVsEnemy(Physics2DEntity bulletEntity, Physics2DEntity otherEntity)
+        {
+            if (bulletEntity.CollisionLayer != CollisionLayer.Bullet)
+                return;
 
-        if (!bulletEntity.IsActive || !otherEntity.IsActive)
-            return;
+            if (otherEntity.CollisionLayer != CollisionLayer.Enemy)
+                return;
 
-        if (bulletEntity.PhysicsOwner is BulletModel bullet)
-            bullet.Destroy();
+            if (!bulletEntity.IsActive || !otherEntity.IsActive)
+                return;
 
-        otherEntity.IsActive = false;
+            if (bulletEntity.PhysicsOwner is BulletModel bullet)
+                bullet.Destroy();
+
+            otherEntity.IsActive = false;
+        }
     }
 }

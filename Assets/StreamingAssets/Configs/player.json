@@ -1,7 +1,7 @@
 {
   "maxHealth": 3,
-  "acceleration": 15,
-  "maxSpeed": 20,
+  "acceleration": 7,
+  "maxSpeed": 10,
   "bulletSpeed": 30,
   "laserCharges": 3,
   "laserCooldown": 5,

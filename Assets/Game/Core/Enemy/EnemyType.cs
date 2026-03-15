@@ -1,7 +1,10 @@
-public enum EnemyType
+namespace Game.Core.Enemy
 {
-    AsteroidSmall,
-    AsteroidMedium,
-    AsteroidLarge,
-    UFO
+    public enum EnemyType
+    {
+        AsteroidSmall,
+        AsteroidMedium,
+        AsteroidLarge,
+        UFO
+    }
 }

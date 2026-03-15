@@ -1,4 +1,9 @@
-public struct EnemyKilledSignal
+using Game.Core.Enemy;
+
+namespace Game.Core.Signals
 {
-    public EnemyType type;
+    public struct EnemyKilledSignal
+    {
+        public EnemyType type;
+    }
 }

@@ -6,9 +6,11 @@ public class ConfigService : IInitializable
 {
     private PlayerConfig _playerConfig;
     private WorldConfig _worldConfig;
+    private EnemyConfig _enemyConfig;
 
     public PlayerConfig PlayerConfig => _playerConfig;
     public WorldConfig WorldConfig => _worldConfig;
+    public EnemyConfig EnemyConfig => _enemyConfig;
 
     public void Initialize()
     {
@@ -19,6 +21,7 @@ public class ConfigService : IInitializable
     {
         _playerConfig = LoadJson<PlayerConfig>("player.json");
         _worldConfig = LoadJson<WorldConfig>("world.json");
+        _enemyConfig = LoadJson<EnemyConfig>("enemy.json");
     }
 
     private T LoadJson<T>(string fileName)

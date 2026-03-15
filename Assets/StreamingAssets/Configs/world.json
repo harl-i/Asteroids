@@ -1,3 +1,4 @@
 {
-    "worldSize":  40
+  "worldSize": 40,
+  "maxEnemies": 20
 }

@@ -10,8 +10,8 @@ namespace Game.Infrastructure.Weapons
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
 
-        private float _lifetimeSeconds = 2f;
-        private float _radius = 4f;
+        private float _lifetimeSeconds = 0.4f;
+        private float _radius = 0.3f;
         private float _mass = 0.2f;
 
         public BulletFactory(PhysicsWorldProvider worldProvider, ConfigService configService)

@@ -1,4 +1,6 @@
+using Game.Core.Enemy;
 using Game.Core.Physics;
+using Game.Infrastructure.Enemy;
 using Game.Infrastructure.Physics;
 using UnityEngine;
 using Zenject;
@@ -12,33 +14,38 @@ namespace Game.Presentation.Debug
         [SerializeField] private Vector2 _initialVelocity = new Vector2(-20f, 0f);
 
         private PhysicsWorldProvider _provider;
-        private Physics2DEntity _body;
+        //private Physics2DEntity _body;
+
+        private AsteroidFactory _asteroidFactory;
+        private AsteroidModel _asteroid;
 
         [Inject]
-        public void Construct(PhysicsWorldProvider provider)
+        public void Construct(PhysicsWorldProvider provider, AsteroidFactory asteroidFactory)
         {
             _provider = provider;
+            _asteroidFactory = asteroidFactory;
         }
 
         private void Start()
         {
-            _body = _provider.World.CreateEntity(transform.position, _radius, _mass);
-            _body.CollisionLayer = CollisionLayer.Enemy;
-            _body.Restitution = 1f;
-            _body.Velocity = _initialVelocity;
+            _asteroid = _asteroidFactory.Create(new Vector2(-0.03f, 14.03f), AsteroidSize.Large);
+            _asteroid.Entity.Velocity = _initialVelocity;
+            //_body.CollisionLayer = CollisionLayer.Enemy;
+            //_body.Restitution = 1f;
+            //_body.Velocity = _initialVelocity;
         }
 
         private void Update()
         {
-            if (_body == null) return;
+            if (_asteroid == null) return;
 
-            if (!_body.IsActive)
+            if (!_asteroid.Entity.IsActive)
             {
                 gameObject.SetActive(false);
                 return;
             }
 
-            transform.position = new Vector3(_body.Position.x, _body.Position.y, 0f);
+            transform.position = new Vector3(_asteroid.Entity.Position.x, _asteroid.Entity.Position.y, 0f);
         }
     }
 }

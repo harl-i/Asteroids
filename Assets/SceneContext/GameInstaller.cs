@@ -1,5 +1,7 @@
 using Game.Core.Input;
+using Game.Core.Signals;
 using Game.Infrastructure.Debug;
+using Game.Infrastructure.Enemy;
 using Game.Infrastructure.Physics;
 using Game.Infrastructure.Ship;
 using Game.Infrastructure.UI;
@@ -40,6 +42,12 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<BulletCollisionService>().AsSingle();
 
         Container.Bind<BulletPool>().AsSingle();
+
+        Container.Bind<AsteroidFactory>().AsSingle();
+        Container.BindInterfacesAndSelfTo<AsteroidDestructionService>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<AsteroidService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<AsteroidSpawnService>().AsSingle();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
