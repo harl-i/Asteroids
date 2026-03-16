@@ -1,6 +1,7 @@
 using System;
 using Game.Core.Enemy;
 using Game.Core.Physics;
+using Game.Core.Signals;
 using UnityEngine;
 using Zenject;
 
@@ -47,6 +48,8 @@ namespace Game.Infrastructure.Enemy
                 return;
 
             asteroid.Destroy();
+
+            _signalBus.Fire(new EnemyKilledSignal { type = asteroid.EnemyType });
 
             SpawnFragments(asteroid);
         }

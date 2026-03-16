@@ -3,6 +3,7 @@ using Game.Core.Signals;
 using Game.Infrastructure.Debug;
 using Game.Infrastructure.Enemy;
 using Game.Infrastructure.Physics;
+using Game.Infrastructure.Score;
 using Game.Infrastructure.Ship;
 using Game.Infrastructure.UI;
 using Game.Infrastructure.Weapons;
@@ -23,6 +24,8 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<ShipInvulnerabilityStartedSignal>();
         Container.DeclareSignal<ShipInvulnerabilityEndedSignal>();
         Container.DeclareSignal<GameOverSignal>();
+
+        Container.DeclareSignal<ScoreChangedSignal>();
 
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
@@ -48,6 +51,8 @@ public class GameInstaller : MonoInstaller
 
         Container.BindInterfacesAndSelfTo<AsteroidService>().AsSingle();
         Container.BindInterfacesAndSelfTo<AsteroidSpawnService>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
