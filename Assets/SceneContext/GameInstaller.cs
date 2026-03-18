@@ -27,6 +27,9 @@ public class GameInstaller : MonoInstaller
 
         Container.DeclareSignal<ScoreChangedSignal>();
 
+        Container.DeclareSignal<LaserChargesChangedSignal>();
+        Container.DeclareSignal<LaserFiredSignal>();
+
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
 
@@ -53,6 +56,8 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<AsteroidSpawnService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<LaserService>().AsSingle();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();

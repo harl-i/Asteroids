@@ -8,5 +8,6 @@
   "radius": 1,
   "mass": 1,
   "turnSpeedDeg": 180,
-  "fireRate": 4
+  "fireRate": 4,
+  "laserRange": 250
 }

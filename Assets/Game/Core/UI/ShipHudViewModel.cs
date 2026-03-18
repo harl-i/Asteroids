@@ -9,6 +9,9 @@ namespace Game.Core.UI
         public float Speed { get; private set; }
         public int CurrentHealth { get; private set; }
         public int MaxHealth { get; private set; }
+        public int LaserCharges { get; private set; }
+        public int LaserMaxCharges { get; private set; }
+        public float LaserCooldownRemaining { get; private set; }
 
         public void SetPosition(Vector2 position)
         {
@@ -29,6 +32,13 @@ namespace Game.Core.UI
         {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;
+        }
+
+        public void SetLaserState(int currentCharges, int maxCharges, float cooldownRemaining)
+        {
+            LaserCharges = currentCharges;
+            LaserMaxCharges = maxCharges;
+            LaserCooldownRemaining = cooldownRemaining;
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Game.Infrastructure.Score
 
         private void OnEnemyKilled(EnemyKilledSignal signal)
         {
-            if (!_rewardByEnemyType.TryGetValue(signal.type, out var reward))
+            if (!_rewardByEnemyType.TryGetValue(signal.Type, out var reward))
                 return;
 
             CurrentScore += reward;

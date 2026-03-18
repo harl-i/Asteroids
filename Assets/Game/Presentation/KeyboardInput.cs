@@ -25,5 +25,6 @@ namespace Game.Presentation.Input
         }
 
         public bool IsFirePressed => UnityEngine.Input.GetKeyDown(KeyCode.Space);
+        public bool IsLaserPressed => UnityEngine.Input.GetKeyDown(KeyCode.LeftShift);
     }
 }

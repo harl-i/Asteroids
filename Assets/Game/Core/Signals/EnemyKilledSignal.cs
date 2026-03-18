@@ -4,6 +4,6 @@ namespace Game.Core.Signals
 {
     public struct EnemyKilledSignal
     {
-        public EnemyType type;
+        public EnemyType Type;
     }
 }

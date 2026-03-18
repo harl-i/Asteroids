@@ -11,4 +11,5 @@ public class PlayerConfig
     public float mass;
     public float turnSpeedDeg;
     public float fireRate;
+    public float laserRange;
 } 

@@ -49,7 +49,7 @@ namespace Game.Infrastructure.Enemy
 
             asteroid.Destroy();
 
-            _signalBus.Fire(new EnemyKilledSignal { type = asteroid.EnemyType });
+            _signalBus.Fire(new EnemyKilledSignal { Type = asteroid.EnemyType });
 
             SpawnFragments(asteroid);
         }
