@@ -1,5 +1,6 @@
 using System;
 using Game.Core.Physics;
+using Game.Core.Signals;
 using Game.Core.Weapons;
 using Zenject;
 
@@ -44,7 +45,11 @@ namespace Game.Infrastructure.Weapons
             if (bulletEntity.PhysicsOwner is BulletModel bullet)
                 bullet.Destroy();
 
-            otherEntity.IsActive = false;
+            //otherEntity.IsActive = false;
+            _signalBus.Fire(new EnemyDeathRequestedSignal
+            {
+                Entity = otherEntity
+            });
         }
     }
 }

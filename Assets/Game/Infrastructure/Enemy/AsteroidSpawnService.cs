@@ -8,10 +8,10 @@ namespace Game.Infrastructure.Enemy
 {
     public class AsteroidSpawnService : ITickable
     {
-        private readonly AsteroidFactory _factory;
-        private readonly AsteroidService _asteroidService;
-        private readonly PhysicsWorldProvider _worldProvider;
-        private readonly ConfigService _config;
+        private AsteroidFactory _factory;
+        private AsteroidService _asteroidService;
+        private PhysicsWorldProvider _worldProvider;
+        private ConfigService _config;
 
         private float _spawnTimer;
 

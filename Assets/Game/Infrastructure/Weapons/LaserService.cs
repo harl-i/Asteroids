@@ -107,24 +107,34 @@ namespace Game.Infrastructure.Weapons
                 direction,
                 range);
 
+            //foreach (var hit in hits)
+            //{
+            //    if (!hit.Entity.IsActive)
+            //        continue;
+
+            //    if (hit.Entity.PhysicsOwner is AsteroidModel asteroid)
+            //    {
+            //        asteroid.Destroy();
+
+            //        _signalBus.Fire(new EnemyKilledSignal
+            //        {
+            //            Type = asteroid.EnemyType
+            //        });
+            //    }
+            //    else
+            //    {
+            //        hit.Entity.IsActive = false;
+            //    }
+            //}
             foreach (var hit in hits)
             {
                 if (!hit.Entity.IsActive)
                     continue;
 
-                if (hit.Entity.PhysicsOwner is AsteroidModel asteroid)
+                _signalBus.Fire(new EnemyDeathRequestedSignal
                 {
-                    asteroid.Destroy();
-
-                    _signalBus.Fire(new EnemyKilledSignal
-                    {
-                        Type = asteroid.EnemyType
-                    });
-                }
-                else
-                {
-                    hit.Entity.IsActive = false;
-                }
+                    Entity = hit.Entity
+                });
             }
 
             Vector2 endPoint = origin + direction.normalized * range;
