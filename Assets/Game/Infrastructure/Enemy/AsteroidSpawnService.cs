@@ -9,7 +9,7 @@ namespace Game.Infrastructure.Enemy
     public class AsteroidSpawnService : ITickable
     {
         private AsteroidFactory _factory;
-        private AsteroidService _asteroidService;
+        private EnemyService _enemyService;
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
 
@@ -17,12 +17,12 @@ namespace Game.Infrastructure.Enemy
 
         public AsteroidSpawnService(
             AsteroidFactory factory,
-            AsteroidService asteroidService,
+            EnemyService enemyService,
             PhysicsWorldProvider worldProvider,
             ConfigService config)
         {
             _factory = factory;
-            _asteroidService = asteroidService;
+            _enemyService = enemyService;
             _worldProvider = worldProvider;
             _config = config;
         }
@@ -36,7 +36,7 @@ namespace Game.Infrastructure.Enemy
 
             _spawnTimer = _config.EnemyConfig.asteroidSpawnInterval;
 
-            if (_asteroidService.ActiveCount >= _config.WorldConfig.maxEnemies)
+            if (_enemyService.ActiveCount >= _config.WorldConfig.maxEnemies)
                 return;
 
             SpawnLargeAsteroid();

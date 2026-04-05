@@ -1,3 +1,4 @@
+using Game.Core.Enemy;
 using Game.Infrastructure.Enemy;
 using UnityEngine;
 using Zenject;
@@ -9,13 +10,13 @@ namespace Game.Presentation.Enemy
         [SerializeField] private UfoView _ufoPrefab;
         [SerializeField] private Transform _container;
 
-        private UfoService _ufoService;
+        private EnemyService _enemyService;
         private UfoViewFactory _factory;
 
         [Inject]
-        public void Construct(UfoService ufoService)
+        public void Construct(EnemyService enemyService)
         {
-            _ufoService = ufoService;
+            _enemyService = enemyService;
         }
 
         private void Awake()
@@ -25,9 +26,12 @@ namespace Game.Presentation.Enemy
 
         private void Update()
         {
-            foreach (var ufo in _ufoService.Ufos)
+            foreach (var enemy in _enemyService.Enemies)
             {
-                _factory.GetOrCreate(ufo);
+                if (enemy is UfoModel ufo)
+                {
+                    _factory.GetOrCreate(ufo);
+                }
             }
         }
     }

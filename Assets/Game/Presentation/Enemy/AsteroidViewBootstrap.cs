@@ -1,3 +1,4 @@
+using Game.Core.Enemy;
 using Game.Infrastructure.Enemy;
 using UnityEngine;
 using Zenject;
@@ -9,13 +10,13 @@ namespace Game.Presentation.Enemy
         [SerializeField] private AsteroidView _asteroidPrefab;
         [SerializeField] private Transform _container;
 
-        private AsteroidService _asteroidService;
+        private EnemyService _enemyService;
         private AsteroidViewFactory _factory;
 
         [Inject]
-        public void Construct(AsteroidService asteroidService)
+        public void Construct(EnemyService enemyService)
         {
-            _asteroidService = asteroidService;
+            _enemyService = enemyService;
         }
 
         private void Awake()
@@ -25,9 +26,12 @@ namespace Game.Presentation.Enemy
 
         private void Update()
         {
-            foreach (var asteroid in _asteroidService.Asteroids)
+            foreach (var enemy in _enemyService.Enemies)
             {
-                _factory.GetOrCreate(asteroid);
+                if (enemy is AsteroidModel asteroid)
+                {
+                    _factory.GetOrCreate(asteroid);
+                }
             }
         }
     }

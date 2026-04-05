@@ -2,7 +2,7 @@ using Game.Core.Physics;
 
 namespace Game.Core.Enemy
 {
-    public class AsteroidModel
+    public class AsteroidModel : IEnemy
     {
         public Physics2DEntity Entity { get; }
         public AsteroidSize Size { get; }

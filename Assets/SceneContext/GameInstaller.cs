@@ -55,7 +55,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<AsteroidFactory>().AsSingle();
         //Container.BindInterfacesAndSelfTo<AsteroidDestructionService>().AsSingle();
 
-        Container.BindInterfacesAndSelfTo<AsteroidService>().AsSingle();
+        //Container.BindInterfacesAndSelfTo<AsteroidService>().AsSingle();
         Container.BindInterfacesAndSelfTo<AsteroidSpawnService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle();
@@ -68,6 +68,8 @@ public class GameInstaller : MonoInstaller
         Container.Bind<UfoFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<UfoSpawnService>().AsSingle();
         Container.BindInterfacesAndSelfTo<UfoMovementService>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<EnemyService>().AsSingle();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();

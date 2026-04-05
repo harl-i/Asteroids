@@ -8,17 +8,17 @@ namespace Game.Infrastructure.Enemy
     public class AsteroidFactory
     {
         private PhysicsWorldProvider _world;
-        private AsteroidService _asteroidService;
+        private EnemyService _enemyService;
 
         private float _largeSize = 1.3f;
         private float _mediumSize = 0.7f;
         private float _smallSize = 0.4f;
         private float _massFactor = 0.5f;
 
-        public AsteroidFactory(PhysicsWorldProvider world, AsteroidService asteroidService)
+        public AsteroidFactory(PhysicsWorldProvider world, EnemyService enemyService)
         {
             _world = world;
-            _asteroidService = asteroidService;
+            _enemyService = enemyService;
         }
 
         public AsteroidModel Create(Vector2 position, AsteroidSize size)
@@ -41,7 +41,7 @@ namespace Game.Infrastructure.Enemy
             AsteroidModel asteroid = new AsteroidModel(entity, size);
             entity.PhysicsOwner = asteroid;
 
-            _asteroidService.Add(asteroid);
+            _enemyService.Add(asteroid);
             return asteroid;
         }
     }
