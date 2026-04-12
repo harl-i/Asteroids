@@ -24,7 +24,7 @@ namespace Game.Infrastructure.Game
 
             if (Input.GetKeyDown(KeyCode.R))
             {
-                _signalBus.Fire(new RestartGameSignal());
+                _signalBus.Fire<RestartGameSignal>();
             }
         }
     }

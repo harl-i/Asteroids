@@ -45,7 +45,10 @@ namespace Game.Infrastructure.Score
 
             CurrentScore += reward;
 
-            _signalBus.Fire(new ScoreChangedSignal { Score = CurrentScore });
+            _signalBus.Fire(new ScoreChangedSignal 
+            { 
+                Score = CurrentScore 
+            });
         }
 
         private void OnRestart()

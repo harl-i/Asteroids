@@ -43,7 +43,11 @@ namespace Game.Infrastructure.Ship
             if (!isShipEnemyCollision || !ship.CanTakeDamage()) return;
 
             ship.ApplyDamage(_damagePerHit);
-            _signalBus.Fire(new ShipDamagedSignal { CurrentHealth = ship.CurrentHealth });
+
+            _signalBus.Fire(new ShipDamagedSignal 
+            { 
+                CurrentHealth = ship.CurrentHealth 
+            });
 
             if (ship.CurrentHealth <= 0)
             {

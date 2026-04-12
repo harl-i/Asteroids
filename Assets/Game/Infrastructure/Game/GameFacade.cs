@@ -13,12 +13,12 @@ namespace Game.Infrastructure.Game
 
         public void StartGame()
         {
-            _signalBus.Fire(new RestartGameSignal());
+            _signalBus.Fire<RestartGameSignal>();
         }
 
         public void RestartGame()
         {
-            _signalBus.Fire(new RestartGameSignal());
+            _signalBus.Fire<RestartGameSignal>();
         }
     }
 }
