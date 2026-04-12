@@ -1,6 +1,7 @@
 using Game.Core.Enemy;
+using Game.Core.Game;
 using Game.Core.World;
-using Game.Infrastructure.Enemy;
+using Game.Infrastructure.Game;
 using Game.Infrastructure.Physics;
 using UnityEngine;
 using Zenject;
@@ -12,21 +13,27 @@ namespace Game.Infrastructure.Enemy
         private UfoFactory _factory;
         private UfoService _ufoService;
         private PhysicsWorldProvider _worldProvider;
+        private GameStateService _gameStateService;
 
         private float _spawnTimer = 8f;
 
         public UfoSpawnService(
             UfoFactory factory,
             UfoService ufoService,
-            PhysicsWorldProvider worldProvider)
+            PhysicsWorldProvider worldProvider,
+            GameStateService gameStateService)
         {
             _factory = factory;
             _ufoService = ufoService;
             _worldProvider = worldProvider;
+            _gameStateService = gameStateService;
         }
 
         public void Tick()
         {
+            if (_gameStateService.CurrentState != GameState.Playing)
+                return;
+
             _spawnTimer -= Time.deltaTime;
 
             if (_spawnTimer > 0f)

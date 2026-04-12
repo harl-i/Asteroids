@@ -1,8 +1,9 @@
-using Game.Core.Enemy;
+using Game.Core.Game;
 using Game.Core.Input;
 using Game.Core.Physics;
 using Game.Core.Ship;
 using Game.Core.Signals;
+using Game.Infrastructure.Game;
 using Game.Infrastructure.Physics;
 using Game.Infrastructure.Ship;
 using UnityEngine;
@@ -17,6 +18,7 @@ namespace Game.Infrastructure.Weapons
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
         private SignalBus _signalBus;
+        private GameStateService _gameStateService;
 
         private int _currentCharges;
         private int _maxCharges;
@@ -32,13 +34,15 @@ namespace Game.Infrastructure.Weapons
             ShipControllerService shipController,
             PhysicsWorldProvider worldProvider,
             ConfigService config,
-            SignalBus signalBus)
+            SignalBus signalBus,
+            GameStateService gameStateService)
         {
             _input = input;
             _shipController = shipController;
             _worldProvider = worldProvider;
             _config = config;
             _signalBus = signalBus;
+            _gameStateService = gameStateService;
         }
 
         public void Initialize()
@@ -52,6 +56,9 @@ namespace Game.Infrastructure.Weapons
 
         public void Tick()
         {
+            if (_gameStateService.CurrentState != GameState.Playing)
+                return;
+
             RechargeTick();
 
             ShipModel ship = _shipController.Ship;
@@ -62,6 +69,16 @@ namespace Game.Infrastructure.Weapons
             {
                 FireLaser(ship);
             }
+        }
+
+        public void ResetState()
+        {
+            _maxCharges = _config.PlayerConfig.laserCharges;
+            _currentCharges = _maxCharges;
+            _cooldownSeconds = _config.PlayerConfig.laserCooldown;
+            _cooldownRemaining = 0f;
+
+            PublishState();
         }
 
         private void RechargeTick()

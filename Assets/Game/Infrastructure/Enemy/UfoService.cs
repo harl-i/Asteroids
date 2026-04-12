@@ -29,5 +29,15 @@ namespace Game.Infrastructure.Enemy
                 }
             }
         }
+
+        public void Clear()
+        {
+            for (int i = 0; i < _ufos.Count; i++)
+            {
+                _ufos[i].Destroy();
+            }
+
+            _ufos.Clear();
+        }
     }
 }

@@ -62,6 +62,19 @@ namespace Game.Infrastructure.Weapons
             }
         }
 
+        public void Clear()
+        {
+            for (int i = _bullets.Count - 1; i >= 0; i--)
+            {
+                var bullet = _bullets[i];
+                bullet.Destroy();
+                _bulletPool.Return(bullet);
+            }
+
+            _bullets.Clear();
+            _shotCooldownRemaining = 0f;
+        }
+
         private void Shoot(ShipModel ship)
         {
             float rad = ship.RotationDeg * Mathf.Deg2Rad;

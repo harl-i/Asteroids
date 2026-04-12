@@ -29,11 +29,13 @@ namespace Game.Infrastructure.Score
         public void Initialize()
         {
             _signalBus.Subscribe<EnemyKilledSignal>(OnEnemyKilled);
+            _signalBus.Subscribe<RestartGameSignal>(OnRestart);
         }
 
         public void Dispose()
         {
             _signalBus.Unsubscribe<EnemyKilledSignal>(OnEnemyKilled);
+            _signalBus.Unsubscribe<RestartGameSignal>(OnRestart);
         }
 
         private void OnEnemyKilled(EnemyKilledSignal signal)
@@ -44,6 +46,16 @@ namespace Game.Infrastructure.Score
             CurrentScore += reward;
 
             _signalBus.Fire(new ScoreChangedSignal { Score = CurrentScore });
+        }
+
+        private void OnRestart()
+        {
+            CurrentScore = 0;
+
+            _signalBus.Fire(new ScoreChangedSignal
+            {
+                Score = CurrentScore
+            });
         }
     }
 }

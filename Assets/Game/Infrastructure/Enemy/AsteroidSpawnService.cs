@@ -1,5 +1,7 @@
 using Game.Core.Enemy;
+using Game.Core.Game;
 using Game.Core.World;
+using Game.Infrastructure.Game;
 using Game.Infrastructure.Physics;
 using UnityEngine;
 using Zenject;
@@ -12,6 +14,7 @@ namespace Game.Infrastructure.Enemy
         private EnemyService _enemyService;
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
+        private GameStateService _gameStateService;
 
         private float _spawnTimer;
 
@@ -19,16 +22,22 @@ namespace Game.Infrastructure.Enemy
             AsteroidFactory factory,
             EnemyService enemyService,
             PhysicsWorldProvider worldProvider,
-            ConfigService config)
+            ConfigService config,
+            GameStateService gameStateService)
         {
             _factory = factory;
             _enemyService = enemyService;
             _worldProvider = worldProvider;
             _config = config;
+            _gameStateService = gameStateService;
         }
 
         public void Tick()
         {
+            if (_gameStateService.CurrentState != GameState.Playing)
+                return;
+
+            UnityEngine.Debug.Log("ASTEROIDS SPAWN WORKED!!!");
             _spawnTimer -= Time.deltaTime;
 
             if (_spawnTimer > 0f)

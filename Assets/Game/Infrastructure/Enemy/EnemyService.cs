@@ -29,5 +29,15 @@ namespace Game.Infrastructure.Enemy
                 }
             }
         }
+
+        public void Clear()
+        {
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                _enemies[i].Destroy();
+            }
+
+            _enemies.Clear();
+        }
     }
 }

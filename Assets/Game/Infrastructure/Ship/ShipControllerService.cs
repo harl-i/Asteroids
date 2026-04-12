@@ -1,5 +1,7 @@
+using Game.Core.Game;
 using Game.Core.Input;
 using Game.Core.Ship;
+using Game.Infrastructure.Game;
 using UnityEngine;
 using Zenject;
 
@@ -9,13 +11,18 @@ namespace Game.Infrastructure.Ship
     {
         public ShipModel Ship { get; private set; }
 
-        private readonly IShipInput _input;
-        private readonly ShipFactory _factory;
+        private IShipInput _input;
+        private ShipFactory _factory;
+        private GameStateService _gameStateService;
 
-        public ShipControllerService(IShipInput input, ShipFactory factory)
+        public ShipControllerService(
+            IShipInput input, 
+            ShipFactory factory,
+            GameStateService gameStateService)
         {
             _input = input;
             _factory = factory;
+            _gameStateService = gameStateService;
         }
 
         public void CreateIfNeeded()
@@ -26,10 +33,23 @@ namespace Game.Infrastructure.Ship
 
         public void Tick()
         {
+            if (_gameStateService.CurrentState != GameState.Playing)
+                return;
+
             if (Ship == null) return;
 
             var dt = Time.deltaTime;
             Ship.Tick(dt, _input.Thrust, _input.Turn);
+        }
+
+        public void ResetShip()
+        {
+            if (Ship != null)
+            {
+                Ship.Entity.IsActive = false;
+            }
+
+            Ship = _factory.Create(Vector2.zero);
         }
     }
 }

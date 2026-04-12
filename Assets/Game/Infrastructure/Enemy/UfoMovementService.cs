@@ -1,4 +1,6 @@
+using Game.Core.Game;
 using Game.Core.Ship;
+using Game.Infrastructure.Game;
 using Game.Infrastructure.Ship;
 using UnityEngine;
 using Zenject;
@@ -9,26 +11,35 @@ namespace Game.Infrastructure.Enemy
     {
         private UfoService _ufoService;
         private ShipControllerService _shipController;
+        private GameStateService _gameStateService;
 
         private float _ufoAcceleration = 1f;
         private float _maxUfoSpeed = 3f;
 
         public UfoMovementService(
             UfoService ufoService,
-            ShipControllerService shipController)
+            ShipControllerService shipController,
+            GameStateService gameStateService)
         {
             _ufoService = ufoService;
             _shipController = shipController;
+            _gameStateService = gameStateService;
         }
 
         public void Tick()
         {
+            UnityEngine.Debug.Log("CurrentState: " + _gameStateService.CurrentState);
+            if (_gameStateService.CurrentState != GameState.Playing)
+                return;
+
             ShipModel ship = _shipController.Ship;
             if (ship == null)
                 return;
 
             foreach (var ufo in _ufoService.Ufos)
             {
+                UnityEngine.Debug.Log("UFO WORKED!!!");
+
                 if (!ufo.Entity.IsActive)
                     continue;
 

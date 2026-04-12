@@ -1,8 +1,10 @@
+using Game.Core.Game;
 using Game.Core.Input;
 using Game.Core.Signals;
 using Game.Infrastructure.Debug;
 using Game.Infrastructure.Enemies;
 using Game.Infrastructure.Enemy;
+using Game.Infrastructure.Game;
 using Game.Infrastructure.Physics;
 using Game.Infrastructure.Score;
 using Game.Infrastructure.Ship;
@@ -32,6 +34,9 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<LaserFiredSignal>();
 
         Container.DeclareSignal<EnemyDeathRequestedSignal>();
+
+        Container.DeclareSignal<RestartGameSignal>();
+        Container.DeclareSignal<GameStateChangedSignal>();
 
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
@@ -70,6 +75,11 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<UfoMovementService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<EnemyService>().AsSingle();
+
+        Container.BindInterfacesAndSelfTo<GameStateService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<WorldResetService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RestartInputService>().AsSingle();
+        Container.Bind<GameFacade>().AsSingle();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
