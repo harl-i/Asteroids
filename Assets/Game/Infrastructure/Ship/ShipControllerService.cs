@@ -14,21 +14,26 @@ namespace Game.Infrastructure.Ship
         private IShipInput _input;
         private ShipFactory _factory;
         private GameStateService _gameStateService;
+        private SignalBus _signalBus;
 
         public ShipControllerService(
             IShipInput input, 
             ShipFactory factory,
-            GameStateService gameStateService)
+            GameStateService gameStateService,
+            SignalBus signalBus)
         {
             _input = input;
             _factory = factory;
             _gameStateService = gameStateService;
+            _signalBus = signalBus;
         }
 
         public void CreateIfNeeded()
         {
             if (Ship != null) return;
             Ship = _factory.Create(Vector2.zero);
+
+            _signalBus.Fire<ShipChangedSignal>();
         }
 
         public void Tick()
@@ -50,6 +55,7 @@ namespace Game.Infrastructure.Ship
             }
 
             Ship = _factory.Create(Vector2.zero);
+            _signalBus.Fire<ShipChangedSignal>();
         }
     }
 }

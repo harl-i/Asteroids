@@ -38,6 +38,8 @@ public class GameInstaller : MonoInstaller
         Container.DeclareSignal<RestartGameSignal>();
         Container.DeclareSignal<GameStateChangedSignal>();
 
+        Container.DeclareSignal<ShipChangedSignal>();
+
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
 
