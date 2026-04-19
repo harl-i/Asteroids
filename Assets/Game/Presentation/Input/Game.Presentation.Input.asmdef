@@ -1,0 +1,16 @@
+{
+    "name": "Game.Presentation.Input",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d1c9affb8a714254cb322d4854edd721"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

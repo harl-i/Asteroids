@@ -22,7 +22,7 @@ namespace Game.Infrastructure.Game
             if (_gameStateService.CurrentState != GameState.GameOver)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.R))
+            if (UnityEngine.Input.GetKeyDown(KeyCode.R))
             {
                 _signalBus.Fire<RestartGameSignal>();
             }

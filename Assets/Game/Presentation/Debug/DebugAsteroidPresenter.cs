@@ -1,5 +1,4 @@
 using Game.Core.Enemy;
-using Game.Core.Physics;
 using Game.Infrastructure.Enemy;
 using Game.Infrastructure.Physics;
 using UnityEngine;

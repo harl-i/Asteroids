@@ -5,6 +5,7 @@ using Game.Infrastructure.Debug;
 using Game.Infrastructure.Enemies;
 using Game.Infrastructure.Enemy;
 using Game.Infrastructure.Game;
+using Game.Infrastructure.Input;
 using Game.Infrastructure.Physics;
 using Game.Infrastructure.Score;
 using Game.Infrastructure.Ship;
@@ -43,7 +44,7 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
 
-        Container.Bind<IShipInput>().To<KeyboardInput>().AsSingle();
+        //Container.Bind<IShipInput>().To<KeyboardInput>().AsSingle();
 
         Container.Bind<ShipFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<ShipControllerService>().AsSingle();
@@ -82,6 +83,22 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<WorldResetService>().AsSingle();
         Container.BindInterfacesAndSelfTo<RestartInputService>().AsSingle();
         Container.Bind<GameFacade>().AsSingle();
+
+        Container.Bind<MobileInputSceneRefs>().FromComponentInHierarchy().AsSingle();
+
+        Container.Bind<KeyboardInput>().AsSingle();
+
+        Container.Bind<VirtualJoystickInput>().FromMethod(ctx =>
+        {
+            var refs = ctx.Container.Resolve<MobileInputSceneRefs>();
+            return new VirtualJoystickInput(
+                refs.JoystickView,
+                refs.FireButton,
+                refs.LaserButton);
+        }).AsSingle();
+
+        //Container.Bind<IShipInput>().To<InputRouter>().AsSingle();
+        Container.BindInterfacesAndSelfTo<InputRouter>().AsSingle();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
