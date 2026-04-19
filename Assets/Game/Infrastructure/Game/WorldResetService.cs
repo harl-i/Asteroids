@@ -14,6 +14,7 @@ namespace Game.Infrastructure.Game
         private UfoService _ufoService;
         private ShipControllerService _shipController;
         private LaserService _laserService;
+        private IFirebaseAnalyticsService _analyticsService;
 
         public WorldResetService(
             SignalBus signalBus,
@@ -21,7 +22,8 @@ namespace Game.Infrastructure.Game
             EnemyService enemyService,
             UfoService ufoService,
             ShipControllerService shipController,
-            LaserService laserService)
+            LaserService laserService,
+            IFirebaseAnalyticsService analyticsService)
         {
             _signalBus = signalBus;
             _bulletService = bulletService;
@@ -29,6 +31,7 @@ namespace Game.Infrastructure.Game
             _ufoService = ufoService;
             _shipController = shipController;
             _laserService = laserService;
+            _analyticsService = analyticsService;
         }
 
         public void Initialize()
@@ -43,6 +46,8 @@ namespace Game.Infrastructure.Game
 
         private void OnRestart()
         {
+            _analyticsService.LogEvent("game_restart");
+
             _bulletService.Clear();
             _enemyService.Clear();
             _ufoService.Clear();

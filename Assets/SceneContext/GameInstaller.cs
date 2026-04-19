@@ -1,5 +1,6 @@
 using Game.Core.Game;
 using Game.Core.Input;
+using Game.Core.Services;
 using Game.Core.Signals;
 using Game.Infrastructure.Debug;
 using Game.Infrastructure.Enemies;
@@ -8,6 +9,7 @@ using Game.Infrastructure.Game;
 using Game.Infrastructure.Input;
 using Game.Infrastructure.Physics;
 using Game.Infrastructure.Score;
+using Game.Infrastructure.Services;
 using Game.Infrastructure.Ship;
 using Game.Infrastructure.UI;
 using Game.Infrastructure.Weapons;
@@ -99,6 +101,9 @@ public class GameInstaller : MonoInstaller
 
         //Container.Bind<IShipInput>().To<InputRouter>().AsSingle();
         Container.BindInterfacesAndSelfTo<InputRouter>().AsSingle();
+
+        Container.Bind<IAdService>().To<MockAdService>().AsSingle();
+        Container.Bind<IFirebaseAnalyticsService>().To<MockFirebaseAnalyticsService>().AsSingle();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();

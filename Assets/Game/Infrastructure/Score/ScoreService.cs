@@ -10,12 +10,14 @@ namespace Game.Infrastructure.Score
     {
         private SignalBus _signalBus;
         private Dictionary<EnemyType, int> _rewardByEnemyType;
+        private IFirebaseAnalyticsService _analyticsService;
 
         public int CurrentScore { get; private set; }
 
-        public ScoreService(SignalBus signalBus)
+        public ScoreService(SignalBus signalBus, IFirebaseAnalyticsService analyticsService)
         {
             _signalBus = signalBus;
+            _analyticsService = analyticsService;
 
             _rewardByEnemyType = new Dictionary<EnemyType, int>
             {
@@ -49,6 +51,8 @@ namespace Game.Infrastructure.Score
             { 
                 Score = CurrentScore 
             });
+
+            _analyticsService.LogEvent("enemy_killed", "type", signal.Type.ToString());
         }
 
         private void OnRestart()
