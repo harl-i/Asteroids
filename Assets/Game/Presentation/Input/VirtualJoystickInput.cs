@@ -36,7 +36,7 @@ namespace Game.Presentation.Input
             get
             {
                 var input = _joystickView != null ? _joystickView.InputVector : Vector2.zero;
-                return Mathf.Clamp(input.x, -1f, 1f);
+                return Mathf.Clamp(-input.x, -1f, 1f);
             }
         }
 
