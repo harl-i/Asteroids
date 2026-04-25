@@ -105,7 +105,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<IAdService>().To<MockAdService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<FirebaseAnalyticsService>().AsSingle();
-        Container.Bind<IFirebaseAnalyticsService>().To<FirebaseAnalyticsService>().FromResolve();
+        //Container.Bind<IFirebaseAnalyticsService>().To<FirebaseAnalyticsService>().FromResolve();
 
         //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
         //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
