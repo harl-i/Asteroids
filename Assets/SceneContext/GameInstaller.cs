@@ -98,6 +98,7 @@ public class GameInstaller : MonoInstaller
                 refs.FireButton,
                 refs.LaserButton);
         }).AsSingle();
+        Container.BindInterfacesAndSelfTo<MobileInputVisibilityService>().AsSingle();
 
         //Container.Bind<IShipInput>().To<InputRouter>().AsSingle();
         Container.BindInterfacesAndSelfTo<InputRouter>().AsSingle();

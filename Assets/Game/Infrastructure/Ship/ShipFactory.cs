@@ -1,6 +1,7 @@
 using Game.Core.Physics;
 using Game.Core.Ship;
 using Game.Infrastructure.Physics;
+using Game.Infrastructure.Services;
 using UnityEngine;
 
 namespace Game.Infrastructure.Ship

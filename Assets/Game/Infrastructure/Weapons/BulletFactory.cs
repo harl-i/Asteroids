@@ -1,6 +1,7 @@
 using Game.Core.Physics;
 using Game.Core.Weapons;
 using Game.Infrastructure.Physics;
+using Game.Infrastructure.Services;
 using UnityEngine;
 
 namespace Game.Infrastructure.Weapons

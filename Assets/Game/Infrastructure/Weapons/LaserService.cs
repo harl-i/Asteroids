@@ -5,6 +5,7 @@ using Game.Core.Ship;
 using Game.Core.Signals;
 using Game.Infrastructure.Game;
 using Game.Infrastructure.Physics;
+using Game.Infrastructure.Services;
 using Game.Infrastructure.Ship;
 using UnityEngine;
 using Zenject;

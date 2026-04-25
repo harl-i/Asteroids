@@ -1,10 +1,11 @@
 {
-    "name": "Game.Presentation.Input",
+    "name": "Game.Infrastructure.Services",
     "rootNamespace": "",
     "references": [
-        "GUID:d1c9affb8a714254cb322d4854edd721",
-        "GUID:8fd39e6e11ae6e44f94b9da1bbd2bbae",
-        "GUID:66d0ff85cefd470429ca90ff222094ce"
+        "GUID:66d0ff85cefd470429ca90ff222094ce",
+        "GUID:05788b7f6f6fb6748870adf55bddafb9",
+        "GUID:ee1830d760cb89f4294f74ff6deccf6a",
+        "GUID:9957dc7abca093c4ca3aa91976b63cac"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

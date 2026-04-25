@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Game.Core.Input;
 using Game.Core.Ship;
 using Game.Core.Weapons;
+using Game.Infrastructure.Services;
 using Game.Infrastructure.Ship;
 using UnityEngine;
 using Zenject;

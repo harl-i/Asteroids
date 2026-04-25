@@ -3,6 +3,7 @@ using Game.Core.Game;
 using Game.Core.World;
 using Game.Infrastructure.Game;
 using Game.Infrastructure.Physics;
+using Game.Infrastructure.Services;
 using UnityEngine;
 using Zenject;
 

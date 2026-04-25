@@ -1,5 +1,6 @@
 using Game.Core.Physics;
 using Game.Core.World;
+using Game.Infrastructure.Services;
 using Zenject;
 
 namespace Game.Infrastructure.Physics
