@@ -40,7 +40,7 @@ namespace Game.Presentation.Input
             }
         }
 
-        public bool IsFirePressed => _fireButton != null && _fireButton.IsPressed;
-        public bool IsLaserPressed => _laserButton != null && _laserButton.WasPressedThisFrame;
+        public bool IsFirePressed => _fireButton != null && _fireButton.ConsumePress();
+        public bool IsLaserPressed => _laserButton != null && _laserButton.ConsumePress();
     }
 }

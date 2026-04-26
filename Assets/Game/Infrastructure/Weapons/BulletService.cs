@@ -44,7 +44,10 @@ namespace Game.Infrastructure.Weapons
 
             ShipModel ship = _shipController.Ship;
 
-            if (ship != null && !ship.IsControlLocked && _shipInput.IsFirePressed)
+            if (ship != null &&
+                !ship.IsControlLocked &&
+                _shipInput.IsFirePressed &&
+                _shotCooldownRemaining <= 0f)
             {
                 Shoot(ship);
                 _shotCooldownRemaining = 1f / _configService.PlayerConfig.fireRate;

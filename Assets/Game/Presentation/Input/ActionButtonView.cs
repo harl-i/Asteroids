@@ -6,12 +6,12 @@ namespace Game.Presentation.Input
     public class ActionButtonView : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public bool IsPressed { get; private set; }
-        public bool WasPressedThisFrame { get; private set; }
+        private bool _hasPendingPress;
 
         public void OnPointerDown(PointerEventData eventData)
         {
             IsPressed = true;
-            WasPressedThisFrame = true;
+            _hasPendingPress = true;
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -19,9 +19,13 @@ namespace Game.Presentation.Input
             IsPressed = false;
         }
 
-        private void LateUpdate()
-        {
-            WasPressedThisFrame = false;
+        public bool ConsumePress()
+        { 
+            if (!_hasPendingPress)
+                return false;
+
+            _hasPendingPress = false;
+            return true;
         }
     }
 }

@@ -10,5 +10,5 @@
   "turnSpeedDeg": 180,
   "fireRate": 4,
   "laserRange": 250,
-  "useMobileInput": false
+  "useMobileInput": true
 }
