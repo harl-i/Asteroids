@@ -103,7 +103,7 @@ public class GameInstaller : MonoInstaller
         //Container.Bind<IShipInput>().To<InputRouter>().AsSingle();
         Container.BindInterfacesAndSelfTo<InputRouter>().AsSingle();
 
-        Container.Bind<IAdService>().To<MockAdService>().AsSingle();
+        Container.Bind<IAdService>().To<YandexAdService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<FirebaseAnalyticsService>().AsSingle();
         //Container.Bind<IFirebaseAnalyticsService>().To<FirebaseAnalyticsService>().FromResolve();
