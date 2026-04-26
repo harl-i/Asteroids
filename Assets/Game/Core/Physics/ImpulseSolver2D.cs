@@ -31,7 +31,7 @@ namespace Game.Core.Physics
             float impulseScalar = -(1f + restitutionCoefficient) * velAlongNormal;
             impulseScalar /= (invMassA + invMassB);
 
-            var impulse = impulseScalar * normal;
+            Vector2 impulse = impulseScalar * normal;
             a.Velocity -= impulse * invMassA;
             b.Velocity += impulse * invMassB;
 

@@ -8,7 +8,7 @@ namespace Game.Infrastructure.Physics
     public class PhysicsWorldProvider : IInitializable
     {
         private ConfigService _config;
-        private float halfFactor = 2f;
+        private float _halfFactor = 2f;
         private ZenjectCollisionEvents _collisionEvents;
 
         public Physics2DWorld World { get; private set; }
@@ -22,7 +22,7 @@ namespace Game.Infrastructure.Physics
         public void Initialize()
         {
             float size = _config.WorldConfig.worldSize;
-            float half = size / halfFactor;
+            float half = size / _halfFactor;
 
             WorldBounds bounds = new WorldBounds(-half, half, -half, half);
             World = new Physics2DWorld(bounds, _collisionEvents);

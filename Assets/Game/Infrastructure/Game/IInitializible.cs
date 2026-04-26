@@ -1,3 +1,4 @@
-﻿public interface IInitializible
+﻿namespace Game.Infrastructure.Game
 {
+    public interface IInitializible { }
 }

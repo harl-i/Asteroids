@@ -1,4 +1,5 @@
 using Game.Core.Physics;
+using Game.Core.Signals;
 using Zenject;
 
 namespace Game.Infrastructure.Physics

@@ -37,11 +37,11 @@ namespace Game.Core.Ship
 
             RotationDeg += thrustMinus * _turnSpeedDeg * dt;
 
-            var rad = RotationDeg * Mathf.Deg2Rad;
-            var forward = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
+            float rad = RotationDeg * Mathf.Deg2Rad;
+            Vector2 forward = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
-            var clampThrust = Mathf.Clamp01(thrust);
-            var force = forward * (_acceleration * Entity.Mass * clampThrust);
+            float clampThrust = Mathf.Clamp01(thrust);
+            Vector2 force = forward * (_acceleration * Entity.Mass * clampThrust);
 
             Entity.AddForce(force);
         }

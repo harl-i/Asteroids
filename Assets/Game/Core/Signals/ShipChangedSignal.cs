@@ -1,1 +1,4 @@
-public struct ShipChangedSignal { }
+namespace Game.Core.Signals
+{
+    public struct ShipChangedSignal { }
+}

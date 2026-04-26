@@ -1,4 +1,7 @@
-public struct ShipDamagedSignal
+namespace Game.Core.Signals
 {
-    public int CurrentHealth;
+    public struct ShipDamagedSignal
+    {
+        public int CurrentHealth;
+    }
 }

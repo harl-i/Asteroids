@@ -1,7 +1,10 @@
 using Game.Core.Physics;
 
-public struct CollisionSignal
+namespace Game.Core.Signals
 {
-    public Physics2DEntity A;
-    public Physics2DEntity B;
+    public struct CollisionSignal
+    {
+        public Physics2DEntity A;
+        public Physics2DEntity B;
+    }
 }

@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using Game.Core.Physics;
 using Game.Core.Ship;
+using Game.Core.Signals;
 using Zenject;
 
 namespace Game.Infrastructure.Ship

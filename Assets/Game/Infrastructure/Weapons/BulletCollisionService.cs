@@ -45,7 +45,6 @@ namespace Game.Infrastructure.Weapons
             if (bulletEntity.PhysicsOwner is BulletModel bullet)
                 bullet.Destroy();
 
-            //otherEntity.IsActive = false;
             _signalBus.Fire(new EnemyDeathRequestedSignal
             {
                 Entity = otherEntity

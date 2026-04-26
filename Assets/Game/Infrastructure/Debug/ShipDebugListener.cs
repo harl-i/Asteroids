@@ -1,4 +1,5 @@
 using System;
+using Game.Core.Signals;
 using Zenject;
 
 namespace Game.Infrastructure.Debug

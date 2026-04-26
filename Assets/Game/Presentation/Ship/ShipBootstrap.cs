@@ -1,3 +1,4 @@
+using Game.Core.Signals;
 using Game.Infrastructure.Ship;
 using UnityEngine;
 using Zenject;

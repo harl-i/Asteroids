@@ -38,8 +38,6 @@ namespace Game.Infrastructure.Enemy
 
             foreach (var ufo in _ufoService.Ufos)
             {
-                UnityEngine.Debug.Log("UFO WORKED!!!");
-
                 if (!ufo.Entity.IsActive)
                     continue;
 

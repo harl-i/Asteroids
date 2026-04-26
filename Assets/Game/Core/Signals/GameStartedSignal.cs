@@ -1,1 +1,4 @@
-public struct GameStartedSignal { }
+namespace Game.Core.Signals
+{
+    public struct GameStartedSignal { }
+}

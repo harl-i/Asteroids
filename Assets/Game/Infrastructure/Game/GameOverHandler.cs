@@ -1,5 +1,6 @@
 using System;
 using Game.Core.Services;
+using Game.Core.Signals;
 using Zenject;
 
 namespace Game.Infrastructure.Game

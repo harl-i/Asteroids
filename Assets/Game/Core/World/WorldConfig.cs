@@ -1,6 +1,9 @@
-[System.Serializable]
-public class WorldConfig
+namespace Game.Core.World
 {
-    public float worldSize;
-    public int maxEnemies;
+    [System.Serializable]
+    public class WorldConfig
+    {
+        public float worldSize;
+        public int maxEnemies;
+    }
 }

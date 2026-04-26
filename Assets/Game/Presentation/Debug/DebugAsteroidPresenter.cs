@@ -13,7 +13,6 @@ namespace Game.Presentation.Debug
         [SerializeField] private Vector2 _initialVelocity = new Vector2(-20f, 0f);
 
         private PhysicsWorldProvider _provider;
-        //private Physics2DEntity _body;
 
         private AsteroidFactory _asteroidFactory;
         private AsteroidModel _asteroid;
@@ -29,9 +28,6 @@ namespace Game.Presentation.Debug
         {
             _asteroid = _asteroidFactory.Create(new Vector2(-0.03f, 14.03f), AsteroidSize.Large);
             _asteroid.Entity.Velocity = _initialVelocity;
-            //_body.CollisionLayer = CollisionLayer.Enemy;
-            //_body.Restitution = 1f;
-            //_body.Velocity = _initialVelocity;
         }
 
         private void Update()

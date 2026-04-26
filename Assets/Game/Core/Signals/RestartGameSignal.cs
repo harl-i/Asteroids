@@ -1,1 +1,4 @@
-public struct RestartGameSignal { }
+namespace Game.Core.Signals
+{
+    public struct RestartGameSignal { }
+}

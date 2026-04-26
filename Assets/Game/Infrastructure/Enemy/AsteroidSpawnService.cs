@@ -38,7 +38,6 @@ namespace Game.Infrastructure.Enemy
             if (_gameStateService.CurrentState != GameState.Playing)
                 return;
 
-            UnityEngine.Debug.Log("ASTEROIDS SPAWN WORKED!!!");
             _spawnTimer -= Time.deltaTime;
 
             if (_spawnTimer > 0f)

@@ -46,8 +46,6 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
 
-        //Container.Bind<IShipInput>().To<KeyboardInput>().AsSingle();
-
         Container.Bind<ShipFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<ShipControllerService>().AsSingle();
         Container.Bind<ZenjectCollisionEvents>().AsSingle();
@@ -63,9 +61,7 @@ public class GameInstaller : MonoInstaller
         Container.Bind<BulletPool>().AsSingle();
 
         Container.Bind<AsteroidFactory>().AsSingle();
-        //Container.BindInterfacesAndSelfTo<AsteroidDestructionService>().AsSingle();
 
-        //Container.BindInterfacesAndSelfTo<AsteroidService>().AsSingle();
         Container.BindInterfacesAndSelfTo<AsteroidSpawnService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle();
@@ -102,17 +98,12 @@ public class GameInstaller : MonoInstaller
         }).AsSingle();
         Container.BindInterfacesAndSelfTo<MobileInputVisibilityService>().AsSingle();
 
-        //Container.Bind<IShipInput>().To<InputRouter>().AsSingle();
         Container.BindInterfacesAndSelfTo<InputRouter>().AsSingle();
 
         Container.Bind<IAdService>().To<YandexAdService>().AsSingle();
 
         Container.BindInterfacesAndSelfTo<FirebaseAnalyticsService>().AsSingle();
-        //Container.Bind<IFirebaseAnalyticsService>().To<FirebaseAnalyticsService>().FromResolve();
 
-        //Container.BindInterfacesAndSelfTo<DebugInitializer>().AsSingle();
-        //Container.BindInterfacesTo<TestPhysicsBootstrap>().AsSingle();
-        //Container.BindInterfacesTo<CollisionTest>().AsSingle();
         Container.BindInterfacesTo<ShipDebugListener>().AsSingle();
     }
 }

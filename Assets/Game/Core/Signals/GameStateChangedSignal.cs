@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Game.Core.Game;
 
-namespace Game.Core.Game
+namespace Game.Core.Signals
 {
     public struct GameStateChangedSignal
     {

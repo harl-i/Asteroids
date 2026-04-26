@@ -7,13 +7,11 @@ namespace Game.Infrastructure.Services
 {
     public class YandexAdService : IAdService
     {
-//#if UNITY_WEBGL && !UNITY_EDITOR
         [DllImport("__Internal")]
         private static extern void ShowInterstitialAd();
 
         [DllImport("__Internal")]
         private static extern void ShowRewardedAd();
-//#endif
 
         public void ShowInterstitial()
         {
