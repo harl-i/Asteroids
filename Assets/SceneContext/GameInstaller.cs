@@ -86,6 +86,8 @@ public class GameInstaller : MonoInstaller
         Container.BindInterfacesAndSelfTo<RestartInputService>().AsSingle();
         Container.Bind<GameFacade>().AsSingle();
 
+        Container.BindInterfacesAndSelfTo<GameOverHandler>().AsSingle();
+
         Container.Bind<MobileInputSceneRefs>().FromComponentInHierarchy().AsSingle();
 
         Container.Bind<KeyboardInput>().AsSingle();
