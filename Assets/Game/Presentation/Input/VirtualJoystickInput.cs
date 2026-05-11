@@ -25,8 +25,6 @@ namespace Game.Presentation.Input
             {
                 var input = _joystickView != null ? _joystickView.InputVector : Vector2.zero;
 
-                Debug.Log($"[Joystick] Input: {input}");
-
                 return Mathf.Clamp01(input.y > 0f ? input.y : 0f);
             }
         }
