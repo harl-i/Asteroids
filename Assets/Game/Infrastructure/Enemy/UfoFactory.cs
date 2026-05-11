@@ -9,14 +9,19 @@ namespace Game.Infrastructure.Enemy
     {
         private PhysicsWorldProvider _world;
         private EnemyService _enemyService;
+        private UfoService _ufoService;
 
         private float _radius = 1.4f;
         private float _mass = 1.5f;
 
-        public UfoFactory(PhysicsWorldProvider world, EnemyService enemyService)
+        public UfoFactory(
+            PhysicsWorldProvider world,
+            EnemyService enemyService,
+            UfoService ufoService)
         {
             _world = world;
             _enemyService = enemyService;
+            _ufoService = ufoService;
         }
 
         public UfoModel Create(Vector2 position)
@@ -29,6 +34,7 @@ namespace Game.Infrastructure.Enemy
             entity.PhysicsOwner = ufo;
 
             _enemyService.Add(ufo);
+            _ufoService.Add(ufo);
             return ufo;
         }
     }
