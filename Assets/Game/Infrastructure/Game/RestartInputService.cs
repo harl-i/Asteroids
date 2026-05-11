@@ -23,7 +23,11 @@ namespace Game.Infrastructure.Game
             if (_gameStateService.CurrentState != GameState.GameOver)
                 return;
 
-            if (UnityEngine.Input.GetKeyDown(KeyCode.R))
+            bool restartPressed = UnityEngine.Input.GetKeyDown(KeyCode.R);
+            bool restartTapped = Application.isMobilePlatform && UnityEngine.Input.touchCount > 0 &&
+                                UnityEngine.Input.GetTouch(0).phase == TouchPhase.Began;
+
+            if (restartPressed || restartTapped)
             {
                 _signalBus.Fire<RestartGameSignal>();
             }
