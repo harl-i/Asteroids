@@ -31,6 +31,7 @@ namespace Game.Infrastructure.Services
             if (!_isInitialized) return;
 
             FirebaseAnalytics.LogEvent(eventName);
+            UnityEngine.Debug.Log("FIREBASE event called. Event name: " + eventName);
         }
 
         public void LogEvent(string eventName, string param, object value)

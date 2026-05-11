@@ -28,7 +28,6 @@ namespace Game.Infrastructure.Enemy
 
         public void Tick()
         {
-            UnityEngine.Debug.Log("CurrentState: " + _gameStateService.CurrentState);
             if (_gameStateService.CurrentState != GameState.Playing)
                 return;
 
