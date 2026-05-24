@@ -1,4 +1,3 @@
-using Game.Core.Game;
 using Game.Core.Services;
 using Game.Core.Signals;
 using Game.Infrastructure.Debug;
@@ -20,7 +19,6 @@ public class GameStateInstaller : Installer<GameStateInstaller>
 
     private void DeclareSignals()
     {
-        Container.DeclareSignal<GameStartedSignal>();
         Container.DeclareSignal<GameOverSignal>();
         Container.DeclareSignal<RestartGameSignal>();
         Container.DeclareSignal<GameStateChangedSignal>();
@@ -38,7 +36,6 @@ public class GameStateInstaller : Installer<GameStateInstaller>
     {
         Container.BindInterfacesAndSelfTo<GameStateService>().AsSingle();
         Container.BindInterfacesAndSelfTo<WorldResetService>().AsSingle();
-        Container.Bind<GameFacade>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameOverHandler>().AsSingle();
     }
 
