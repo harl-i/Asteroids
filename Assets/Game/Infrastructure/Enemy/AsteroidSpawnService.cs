@@ -9,7 +9,7 @@ using Zenject;
 
 namespace Game.Infrastructure.Enemy
 {
-    public class AsteroidSpawnService : ITickable
+    public class AsteroidSpawnService : IInitializable, ITickable
     {
         private AsteroidFactory _factory;
         private EnemyService _enemyService;
@@ -31,6 +31,11 @@ namespace Game.Infrastructure.Enemy
             _worldProvider = worldProvider;
             _config = config;
             _gameStateService = gameStateService;
+        }
+
+        public void Initialize()
+        {
+            _spawnTimer = _config.EnemyConfig.AsteroidSpawnInterval;
         }
 
         public void Tick()
@@ -70,7 +75,7 @@ namespace Game.Infrastructure.Enemy
 
         private Vector2 GetSpawnPositionOutside(WorldBounds bounds)
         {
-            float padding = _config.EnemyConfig.AsteroidSpawnPadding;
+            float padding = _config.EnemyConfig.SpawnPadding;
             int side = Random.Range(0, 4);
 
             return side switch

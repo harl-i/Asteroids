@@ -30,6 +30,9 @@ public class GameStateInstaller : Installer<GameStateInstaller>
         Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
         Container.Bind<ZenjectCollisionEvents>().AsSingle();
+
+        Container.BindExecutionOrder<ConfigService>(-100);
+        Container.BindExecutionOrder<PhysicsWorldProvider>(-90);
     }
 
     private void BindGameState()
