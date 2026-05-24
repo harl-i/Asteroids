@@ -3,6 +3,7 @@ using Game.Core.Enemy;
 using Game.Core.Physics;
 using Game.Core.Signals;
 using Game.Infrastructure.Enemy;
+using Game.Infrastructure.Services;
 using UnityEngine;
 using Zenject;
 
@@ -12,13 +13,16 @@ namespace Game.Infrastructure.Enemies
     {
         private SignalBus _signalBus;
         private AsteroidFactory _asteroidFactory;
+        private ConfigService _configService;
 
         public EnemyDeathService(
             SignalBus signalBus,
-            AsteroidFactory asteroidFactory)
+            AsteroidFactory asteroidFactory,
+            ConfigService configService)
         {
             _signalBus = signalBus;
             _asteroidFactory = asteroidFactory;
+            _configService = configService;
         }
 
         public void Initialize()
@@ -82,8 +86,9 @@ namespace Game.Infrastructure.Enemies
             AsteroidModel a1 = _asteroidFactory.Create(position, newSize);
             AsteroidModel a2 = _asteroidFactory.Create(position, newSize);
 
-            a1.Entity.Velocity = UnityEngine.Random.insideUnitCircle * 4f;
-            a2.Entity.Velocity = UnityEngine.Random.insideUnitCircle * 4f;
+            float fragmentSpeed = _configService.EnemyConfig.AsteroidFragmentSpeed;
+            a1.Entity.Velocity = UnityEngine.Random.insideUnitCircle * fragmentSpeed;
+            a2.Entity.Velocity = UnityEngine.Random.insideUnitCircle * fragmentSpeed;
         }
 
         private void KillUfo(UfoModel ufo)

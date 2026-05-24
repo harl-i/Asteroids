@@ -2,5 +2,5 @@
   "asteroidSpawnInterval": 5,
   "asteroidMinSpeed": 0.5,
   "asteroidMaxSpeed": 2,
-  "asteroidFragmentSpeed": 6
+  "asteroidFragmentSpeed": 4
 }
