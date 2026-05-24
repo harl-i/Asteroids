@@ -70,7 +70,7 @@ namespace Game.Infrastructure.Enemy
 
         private Vector2 GetSpawnPositionOutside(WorldBounds bounds)
         {
-            float padding = 40f;
+            float padding = _config.EnemyConfig.AsteroidSpawnPadding;
             int side = Random.Range(0, 4);
 
             return side switch
