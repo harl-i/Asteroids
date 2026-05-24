@@ -13,6 +13,6 @@ public class DebugInitializer : IInitializable
 
     public void Initialize()
     {
-        Debug.Log($"Max HP: {_configService.PlayerConfig.maxHealth}");
+        Debug.Log($"Max HP: {_configService.PlayerConfig.MaxHealth}");
     }
 }

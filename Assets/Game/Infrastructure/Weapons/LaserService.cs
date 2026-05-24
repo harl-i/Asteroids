@@ -48,9 +48,9 @@ namespace Game.Infrastructure.Weapons
 
         public void Initialize()
         {
-            _maxCharges = _config.PlayerConfig.laserCharges;
+            _maxCharges = _config.PlayerConfig.LaserCharges;
             _currentCharges = _maxCharges;
-            _cooldownSeconds = _config.PlayerConfig.laserCooldown;
+            _cooldownSeconds = _config.PlayerConfig.LaserCooldown;
 
             PublishState();
         }
@@ -74,9 +74,9 @@ namespace Game.Infrastructure.Weapons
 
         public void ResetState()
         {
-            _maxCharges = _config.PlayerConfig.laserCharges;
+            _maxCharges = _config.PlayerConfig.LaserCharges;
             _currentCharges = _maxCharges;
-            _cooldownSeconds = _config.PlayerConfig.laserCooldown;
+            _cooldownSeconds = _config.PlayerConfig.LaserCooldown;
             _cooldownRemaining = 0f;
 
             PublishState();
@@ -117,7 +117,7 @@ namespace Game.Infrastructure.Weapons
             float rad = ship.RotationDeg * Mathf.Deg2Rad;
             Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
             Vector2 origin = ship.Entity.Position;
-            float range = _config.PlayerConfig.laserRange;
+            float range = _config.PlayerConfig.LaserRange;
 
             var hits = Physics2DRaycaster.RaycastAll(
                 _worldProvider.World.Entities,

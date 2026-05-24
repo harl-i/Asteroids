@@ -34,7 +34,7 @@ namespace Game.Infrastructure.Input
 
         public void Initialize()
         {
-            _useMobileInput = _configService.PlayerConfig.useMobileInput;
+            _useMobileInput = _configService.PlayerConfig.UseMobileInput;
         }
     }
 }

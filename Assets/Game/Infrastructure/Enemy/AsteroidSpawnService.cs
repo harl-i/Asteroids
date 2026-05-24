@@ -43,7 +43,7 @@ namespace Game.Infrastructure.Enemy
             if (_spawnTimer > 0f)
                 return;
 
-            _spawnTimer = _config.EnemyConfig.asteroidSpawnInterval;
+            _spawnTimer = _config.EnemyConfig.AsteroidSpawnInterval;
 
             if (_enemyService.ActiveCount >= _config.WorldConfig.maxEnemies)
                 return;
@@ -62,8 +62,8 @@ namespace Game.Infrastructure.Enemy
             Vector2 direction = (targetDirection + randomSpread).normalized;
 
             float speed = Random.Range(
-                _config.EnemyConfig.asteroidMinSpeed,
-                _config.EnemyConfig.asteroidMaxSpeed);
+                _config.EnemyConfig.AsteroidMinSpeed,
+                _config.EnemyConfig.AsteroidMaxSpeed);
 
             asteroid.Entity.Velocity = direction * speed;
         }

@@ -50,7 +50,7 @@ namespace Game.Infrastructure.Weapons
                 _shotCooldownRemaining <= 0f)
             {
                 Shoot(ship);
-                _shotCooldownRemaining = 1f / _configService.PlayerConfig.fireRate;
+                _shotCooldownRemaining = 1f / _configService.PlayerConfig.FireRate;
             }
 
             for (int i = _bullets.Count - 1; i >= 0; i--)

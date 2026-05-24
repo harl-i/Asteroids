@@ -19,15 +19,15 @@ namespace Game.Infrastructure.Ship
 
         public ShipModel Create(Vector2 startPosition)
         {
-            float radius = _config.PlayerConfig.radius;
-            float mass = _config.PlayerConfig.mass;
+            float radius = _config.PlayerConfig.Radius;
+            float mass = _config.PlayerConfig.Mass;
             Physics2DEntity entity = _worldProvider.World.CreateEntity(startPosition, radius, mass);
             entity.CollisionLayer = CollisionLayer.Ship;
             entity.Restitution = 1f;
 
-            float acceleration = _config.PlayerConfig.acceleration;
-            float turnSpeedDeg = _config.PlayerConfig.turnSpeedDeg;
-            int maxHealth = _config.PlayerConfig.maxHealth;
+            float acceleration = _config.PlayerConfig.Acceleration;
+            float turnSpeedDeg = _config.PlayerConfig.TurnSpeedDeg;
+            int maxHealth = _config.PlayerConfig.MaxHealth;
             ShipModel ship = new ShipModel(entity, acceleration, turnSpeedDeg, maxHealth);
 
             entity.PhysicsOwner = ship;

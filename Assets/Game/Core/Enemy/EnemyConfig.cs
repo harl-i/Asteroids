@@ -1,8 +1,8 @@
 [System.Serializable]
 public class EnemyConfig
 {
-    public float asteroidSpawnInterval;
-    public float asteroidMinSpeed;
-    public float asteroidMaxSpeed;
-    public float asteroidFragmentSpeed;
+    public float AsteroidSpawnInterval;
+    public float AsteroidMinSpeed;
+    public float AsteroidMaxSpeed;
+    public float AsteroidFragmentSpeed;
 }

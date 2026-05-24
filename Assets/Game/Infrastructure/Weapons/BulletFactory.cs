@@ -37,7 +37,7 @@ namespace Game.Infrastructure.Weapons
 
         public void Activate(BulletModel bullet, Vector2 position, Vector2 direction, Vector2 inheritedVelocity)
         {
-            float speed = _config.PlayerConfig.bulletSpeed;
+            float speed = _config.PlayerConfig.BulletSpeed;
             Vector2 velocity = inheritedVelocity + direction.normalized * speed;
 
             bullet.Activate(position, velocity, _lifetimeSeconds);
