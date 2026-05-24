@@ -6,11 +6,11 @@ public class GameInstaller : MonoInstaller
     {
         SignalBusInstaller.Install(Container);
 
+        GameStateInstaller.Install(Container);
         InputInstaller.Install(Container);
         ShipInstaller.Install(Container);
         EnemyInstaller.Install(Container);
         WeaponsInstaller.Install(Container);
         UIInstaller.Install(Container);
-        GameStateInstaller.Install(Container);
     }
 }
