@@ -107,6 +107,22 @@ firebase-debug.*.log
 firebase-export-*
 firebase-data/
 
-# Firebase plugins
-Assets/Firebase/Plugins/*
-!Assets/Firebase/Plugins/*.meta
+# Firebase generated / heavyweight Unity artifacts
+/[Aa]ssets/GeneratedLocalRepo/
+/[Aa]ssets/GeneratedLocalRepo.meta
+/[Aa]ssets/[Ff]irebase/m2repository/
+/[Aa]ssets/[Ff]irebase/m2repository.meta
+/[Aa]ssets/[Ff]irebase/Plugins/**/*.dll
+/[Aa]ssets/[Ff]irebase/Plugins/**/*.dll.meta
+/[Aa]ssets/[Ff]irebase/**/*.pdb
+/[Aa]ssets/[Ff]irebase/**/*.pdb.meta
+/[Aa]ssets/[Ff]irebase/Plugins/**/*.bundle
+/[Aa]ssets/[Ff]irebase/Plugins/**/*.bundle.meta
+/[Aa]ssets/[Ff]irebase/Plugins/**/*.so
+/[Aa]ssets/[Ff]irebase/Plugins/**/*.so.meta
+/[Aa]ssets/[Ff]irebase/Plugins/iOS/
+/[Aa]ssets/[Ff]irebase/Plugins/iOS.meta
+/[Aa]ssets/[Pp]lugins/iOS/Firebase/
+/[Aa]ssets/[Pp]lugins/iOS/Firebase.meta
+/[Aa]ssets/[Pp]lugins/tvOS/Firebase/
+/[Aa]ssets/[Pp]lugins/tvOS/Firebase.meta
