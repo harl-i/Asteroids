@@ -52,7 +52,10 @@ namespace Game.Infrastructure.Score
                 Score = CurrentScore 
             });
 
-            _analyticsService.LogEvent("enemy_killed", "type", signal.Type.ToString());
+            _analyticsService.LogEvent(
+                AnalyticsConstants.Events.EnemyKilled,
+                AnalyticsConstants.Parameters.EnemyType,
+                signal.Type.ToString());
         }
 
         private void OnRestart()
