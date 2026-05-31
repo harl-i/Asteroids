@@ -23,13 +23,11 @@ namespace Game.Infrastructure.Weapons
             float mass = _config.PlayerConfig.BulletMass;
 
             Physics2DEntity entity = _worldProvider.World.CreateEntity(Vector2.zero, radius, mass);
-            entity.CollisionLayer = CollisionLayer.Bullet;
-            entity.Restitution = 0f;
-            entity.IsTrigger = true;
-            entity.IsActive = false;
+            entity.ConfigureCollision(CollisionLayer.Bullet, 0f, true);
+            entity.SetActive(false);
 
             var bullet = new BulletModel(entity, 0f);
-            entity.PhysicsOwner = bullet;
+            entity.SetPhysicsOwner(bullet);
 
             return bullet;
         }

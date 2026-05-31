@@ -29,11 +29,10 @@ namespace Game.Infrastructure.Enemy
 
             Physics2DEntity entity = _world.World.CreateEntity(position, radius, mass);
 
-            entity.CollisionLayer = CollisionLayer.Enemy;
-            entity.Restitution = 0.1f;
+            entity.ConfigureCollision(CollisionLayer.Enemy, 0.1f);
 
             AsteroidModel asteroid = new AsteroidModel(entity, size);
-            entity.PhysicsOwner = asteroid;
+            entity.SetPhysicsOwner(asteroid);
 
             _enemyService.Add(asteroid);
             return asteroid;

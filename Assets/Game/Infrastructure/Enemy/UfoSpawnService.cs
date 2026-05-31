@@ -70,7 +70,7 @@ namespace Game.Infrastructure.Enemy
             Vector2 position = _spawnPositionService.GetPositionOutside(bounds);
 
             UfoModel ufo = _factory.Create(position);
-            ufo.Entity.Velocity = Random.insideUnitCircle * _config.EnemyConfig.UfoSpawnSpeed;
+            ufo.Entity.SetVelocity(Random.insideUnitCircle * _config.EnemyConfig.UfoSpawnSpeed);
         }
     }
 }

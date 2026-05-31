@@ -27,7 +27,7 @@ namespace Game.Presentation.Debug
         private void Start()
         {
             _asteroid = _asteroidFactory.Create(new Vector2(-0.03f, 14.03f), AsteroidSize.Large);
-            _asteroid.Entity.Velocity = _initialVelocity;
+            _asteroid.Entity.SetVelocity(_initialVelocity);
         }
 
         private void Update()

@@ -17,9 +17,9 @@ namespace Game.Core.Weapons
 
         public void Activate(Vector2 position, Vector2 velocity, float lifetimeSeconds)
         {
-            Entity.Position = position;
-            Entity.Velocity = velocity;
-            Entity.IsActive = true;
+            Entity.SetPosition(position);
+            Entity.SetVelocity(velocity);
+            Entity.SetActive(true);
             LifetimeRemaining = lifetimeSeconds;
         }
 
@@ -38,7 +38,7 @@ namespace Game.Core.Weapons
 
         public void Destroy()
         {
-            Entity.IsActive = false;
+            Entity.SetActive(false);
             LifetimeRemaining = 0f;
         }
     }

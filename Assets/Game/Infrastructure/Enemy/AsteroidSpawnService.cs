@@ -78,7 +78,7 @@ namespace Game.Infrastructure.Enemy
                 _config.EnemyConfig.AsteroidMinSpeed,
                 _config.EnemyConfig.AsteroidMaxSpeed);
 
-            asteroid.Entity.Velocity = direction * speed;
+            asteroid.Entity.SetVelocity(direction * speed);
         }
     }
 }

@@ -57,7 +57,7 @@ namespace Game.Infrastructure.Enemy
                 Vector2 desiredVelocity = direction * _config.EnemyConfig.UfoMaxSpeed;
                 float maxDelta = _config.EnemyConfig.UfoAcceleration * Time.deltaTime;
 
-                ufo.Entity.Velocity = Vector2.MoveTowards(ufo.Entity.Velocity, desiredVelocity, maxDelta);
+                ufo.Entity.SetVelocity(Vector2.MoveTowards(ufo.Entity.Velocity, desiredVelocity, maxDelta));
             }
         }
 

@@ -16,7 +16,7 @@ namespace Game.Core.Enemy
 
         public void Destroy()
         {
-            Entity.IsActive = false;
+            Entity.SetActive(false);
         }
     }
 }

@@ -32,8 +32,8 @@ namespace Game.Core.Physics
             impulseScalar /= (invMassA + invMassB);
 
             Vector2 impulse = impulseScalar * normal;
-            a.Velocity -= impulse * invMassA;
-            b.Velocity += impulse * invMassB;
+            a.AddVelocity(-impulse * invMassA);
+            b.AddVelocity(impulse * invMassB);
 
             PositionalCorrection(a, b, normal, collisionManifold.Penetration);
         }
@@ -49,8 +49,8 @@ namespace Game.Core.Physics
             float correctionMag = Mathf.Max(penetration - slop, 0f) / (invMassA + invMassB) * percent;
             Vector2 correction = correctionMag * normal;
 
-            a.Position -= correction * invMassA;
-            b.Position += correction * invMassB;
+            a.Translate(-correction * invMassA);
+            b.Translate(correction * invMassB);
         }
     }
 }

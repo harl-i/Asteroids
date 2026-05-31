@@ -40,7 +40,7 @@ namespace Game.Core.Physics
                 if (!entity.IsActive) continue;
 
                 Physics2DIntegrator.Integrate(entity, dt);
-                entity.Position = Bounds.Wrap(entity.Position);
+                entity.SetPosition(Bounds.Wrap(entity.Position));
             }
 
             for (int i = 0; i < _entities.Count; i++)

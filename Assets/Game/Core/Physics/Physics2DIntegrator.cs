@@ -9,8 +9,8 @@ namespace Game.Core.Physics
             if (!entity.IsActive) return;
 
             Vector2 acceleration = entity.AccumulatedForce / entity.Mass;
-            entity.Velocity += acceleration * dt;
-            entity.Position += entity.Velocity * dt;
+            entity.AddVelocity(acceleration * dt);
+            entity.Translate(entity.Velocity * dt);
 
             entity.ClearForces();
         }

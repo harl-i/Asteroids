@@ -27,11 +27,10 @@ namespace Game.Infrastructure.Enemy
         public UfoModel Create(Vector2 position)
         {
             Physics2DEntity entity = _world.World.CreateEntity(position, _radius, _mass);
-            entity.CollisionLayer = CollisionLayer.Enemy;
-            entity.Restitution = 1f;
+            entity.ConfigureCollision(CollisionLayer.Enemy, 1f);
 
             UfoModel ufo = new UfoModel(entity);
-            entity.PhysicsOwner = ufo;
+            entity.SetPhysicsOwner(ufo);
 
             _enemyService.Add(ufo);
             _ufoService.Add(ufo);

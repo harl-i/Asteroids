@@ -54,7 +54,7 @@ namespace Game.Infrastructure.Enemies
                 return;
             }
 
-            entity.IsActive = false;
+            entity.SetActive(false);
         }
 
         private void KillAsteroid(AsteroidModel asteroid)
@@ -87,8 +87,8 @@ namespace Game.Infrastructure.Enemies
             AsteroidModel a2 = _asteroidFactory.Create(position, newSize);
 
             float fragmentSpeed = _configService.EnemyConfig.AsteroidFragmentSpeed;
-            a1.Entity.Velocity = UnityEngine.Random.insideUnitCircle * fragmentSpeed;
-            a2.Entity.Velocity = UnityEngine.Random.insideUnitCircle * fragmentSpeed;
+            a1.Entity.SetVelocity(UnityEngine.Random.insideUnitCircle * fragmentSpeed);
+            a2.Entity.SetVelocity(UnityEngine.Random.insideUnitCircle * fragmentSpeed);
         }
 
         private void KillUfo(UfoModel ufo)

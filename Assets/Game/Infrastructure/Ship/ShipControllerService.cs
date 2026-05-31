@@ -52,7 +52,7 @@ namespace Game.Infrastructure.Ship
         {
             if (Ship != null)
             {
-                Ship.Entity.IsActive = false;
+                Ship.Entity.SetActive(false);
             }
 
             Ship = _factory.Create(Vector2.zero);

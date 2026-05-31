@@ -17,14 +17,12 @@ namespace Game.Infrastructure.Debug
         public void Initialize()
         {
             Physics2DEntity a = _provider.World.CreateEntity(new Vector2(-100, 0), radius: 18f, mass: 3f);
-            a.CollisionLayer = CollisionLayer.Enemy;
-            a.Restitution = 1f;
-            a.Velocity = new Vector2(20, 0);
+            a.ConfigureCollision(CollisionLayer.Enemy, 1f);
+            a.SetVelocity(new Vector2(20, 0));
 
             Physics2DEntity b = _provider.World.CreateEntity(new Vector2(100, 0), radius: 18f, mass: 3f);
-            b.CollisionLayer = CollisionLayer.Enemy;
-            b.Restitution = 1f;
-            b.Velocity = new Vector2(-20, 0);
+            b.ConfigureCollision(CollisionLayer.Enemy, 1f);
+            b.SetVelocity(new Vector2(-20, 0));
         }
     }
 }

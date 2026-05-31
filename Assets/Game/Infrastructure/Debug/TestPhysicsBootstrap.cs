@@ -17,7 +17,7 @@ namespace Game.Infrastructure.Debug
         public void Initialize()
         {
             Physics2DEntity entity = _provider.World.CreateEntity(new Vector2(490, 0), radius: 10, mass: 1);
-            entity.Velocity = new Vector2(30, 0);
+            entity.SetVelocity(new Vector2(30, 0));
         }
     }
 }
