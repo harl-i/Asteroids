@@ -39,6 +39,8 @@ public class GameStateInstaller : Installer<GameStateInstaller>
     {
         Container.BindInterfacesAndSelfTo<GameStateService>().AsSingle();
         Container.BindInterfacesAndSelfTo<WorldResetService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ShipResetService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RestartAnalyticsService>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameOverHandler>().AsSingle();
     }
 
