@@ -5,5 +5,7 @@
   "AsteroidFragmentSpeed": 4,
   "SpawnPadding": 40,
   "UfoSpawnInterval": 10,
-  "UfoSpawnSpeed": 2
+  "UfoSpawnSpeed": 2,
+  "UfoAcceleration": 5,
+  "UfoMaxSpeed": 1.5
 }

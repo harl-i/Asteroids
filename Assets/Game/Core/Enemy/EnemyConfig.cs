@@ -8,4 +8,6 @@ public class EnemyConfig
     public float SpawnPadding;
     public float UfoSpawnInterval;
     public float UfoSpawnSpeed;
+    public float UfoAcceleration;
+    public float UfoMaxSpeed;
 }
