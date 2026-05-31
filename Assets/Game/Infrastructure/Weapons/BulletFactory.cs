@@ -11,10 +11,6 @@ namespace Game.Infrastructure.Weapons
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
 
-        private float _lifetimeSeconds = 0.4f;
-        private float _radius = 0.3f;
-        private float _mass = 0.2f;
-
         public BulletFactory(PhysicsWorldProvider worldProvider, ConfigService configService)
         {
             _worldProvider = worldProvider;
@@ -23,7 +19,10 @@ namespace Game.Infrastructure.Weapons
 
         public BulletModel Create()
         {
-            Physics2DEntity entity = _worldProvider.World.CreateEntity(Vector2.zero, _radius, _mass);
+            float radius = _config.PlayerConfig.BulletRadius;
+            float mass = _config.PlayerConfig.BulletMass;
+
+            Physics2DEntity entity = _worldProvider.World.CreateEntity(Vector2.zero, radius, mass);
             entity.CollisionLayer = CollisionLayer.Bullet;
             entity.Restitution = 0f;
             entity.IsTrigger = true;
@@ -38,9 +37,10 @@ namespace Game.Infrastructure.Weapons
         public void Activate(BulletModel bullet, Vector2 position, Vector2 direction, Vector2 inheritedVelocity)
         {
             float speed = _config.PlayerConfig.BulletSpeed;
+            float lifetimeSeconds = _config.PlayerConfig.BulletLifetimeSeconds;
             Vector2 velocity = inheritedVelocity + direction.normalized * speed;
 
-            bullet.Activate(position, velocity, _lifetimeSeconds);
+            bullet.Activate(position, velocity, lifetimeSeconds);
         }
     }
 }
