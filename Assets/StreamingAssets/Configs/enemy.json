@@ -1,9 +1,9 @@
 {
-  "asteroidSpawnInterval": 5,
-  "asteroidMinSpeed": 0.5,
-  "asteroidMaxSpeed": 2,
-  "asteroidFragmentSpeed": 4,
-  "spawnPadding": 40,
-  "ufoSpawnInterval": 10,
-  "ufoSpawnSpeed": 2
+  "AsteroidSpawnInterval": 5,
+  "AsteroidMinSpeed": 0.5,
+  "AsteroidMaxSpeed": 2,
+  "AsteroidFragmentSpeed": 4,
+  "SpawnPadding": 40,
+  "UfoSpawnInterval": 10,
+  "UfoSpawnSpeed": 2
 }
