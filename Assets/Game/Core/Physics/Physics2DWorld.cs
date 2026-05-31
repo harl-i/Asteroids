@@ -32,11 +32,6 @@ namespace Game.Core.Physics
             return entity;
         }
 
-        public void RemoveEntity(Physics2DEntity entity)
-        {
-            _entities.Remove(entity);
-        }
-
         public void Tick(float dt)
         {
             for (int i = 0; i < _entities.Count; i++)
