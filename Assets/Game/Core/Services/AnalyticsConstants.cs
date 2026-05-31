@@ -4,6 +4,7 @@ public static class AnalyticsConstants
     {
         public const string EnemyKilled = "enemy_killed";
         public const string GameRestart = "game_restart";
+        public const string GameOver = "game_over";
     }
 
     public static class Parameters

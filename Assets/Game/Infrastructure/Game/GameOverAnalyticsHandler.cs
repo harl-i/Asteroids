@@ -1,23 +1,19 @@
 using System;
-using Game.Core.Services;
 using Game.Core.Signals;
 using Zenject;
 
 namespace Game.Infrastructure.Game
 {
-    public class GameOverHandler : IInitializable, IDisposable
+    public class GameOverAnalyticsHandler : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private IAdService _adService;
         private IFirebaseAnalyticsService _analytics;
 
-        public GameOverHandler(
+        public GameOverAnalyticsHandler(
             SignalBus signalBus,
-            IAdService adService,
             IFirebaseAnalyticsService analytics)
         {
             _signalBus = signalBus;
-            _adService = adService;
             _analytics = analytics;
         }
 
@@ -33,9 +29,7 @@ namespace Game.Infrastructure.Game
 
         private void OnGameOver()
         {
-            _analytics.LogEvent("game_over");
-
-            _adService.ShowInterstitial();
+            _analytics.LogEvent(AnalyticsConstants.Events.GameOver);
         }
     }
 }
