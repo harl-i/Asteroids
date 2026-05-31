@@ -10,6 +10,10 @@ namespace Game.Infrastructure.Services
 {
     public class ConfigService : IInitializable
     {
+        private const string PlayerConfigFileName = "player.json";
+        private const string WorldConfigFileName = "world.json";
+        private const string EnemyConfigFileName = "enemy.json";
+
         private PlayerConfig _playerConfig;
         private WorldConfig _worldConfig;
         private EnemyConfig _enemyConfig;
@@ -42,9 +46,9 @@ namespace Game.Infrastructure.Services
 
             try
             {
-                _playerConfig = await LoadJsonAsync<PlayerConfig>("player.json");
-                _worldConfig = await LoadJsonAsync<WorldConfig>("world.json");
-                _enemyConfig = await LoadJsonAsync<EnemyConfig>("enemy.json");
+                _playerConfig = await LoadJsonAsync<PlayerConfig>(PlayerConfigFileName);
+                _worldConfig = await LoadJsonAsync<WorldConfig>(WorldConfigFileName);
+                _enemyConfig = await LoadJsonAsync<EnemyConfig>(EnemyConfigFileName);
                 IsLoaded = true;
                 _loadCompletion.TrySetResult();
             }
