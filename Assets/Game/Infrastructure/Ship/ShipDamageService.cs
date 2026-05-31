@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Game.Core.Physics;
 using Game.Core.Ship;
@@ -11,15 +12,16 @@ namespace Game.Infrastructure.Ship
     {
         private SignalBus _signalBus;
         private ShipControllerService _shipController;
+        private CancellationTokenSource _lifetimeCancellation;
 
         private int _damagePerHit = 1;
         private float _invulnerabilityDuration = 3f;
-        private int _timeMultiplier = 1000;
 
         public ShipDamageService(SignalBus signalBus, ShipControllerService shipController)
         {
             _signalBus = signalBus;
             _shipController = shipController;
+            _lifetimeCancellation = new CancellationTokenSource();
         }
 
         public void Initialize()
@@ -30,6 +32,8 @@ namespace Game.Infrastructure.Ship
         public void Dispose()
         {
             _signalBus.Unsubscribe<CollisionSignal>(OnCollision);
+            _lifetimeCancellation.Cancel();
+            _lifetimeCancellation.Dispose();
         }
 
         private void OnCollision(CollisionSignal signal)
@@ -56,19 +60,26 @@ namespace Game.Infrastructure.Ship
                 return;
             }
 
-            StartInvulnerability(ship).Forget();
+            StartInvulnerabilityAsync(ship, _lifetimeCancellation.Token).Forget();
         }
 
-        private async UniTaskVoid StartInvulnerability(ShipModel ship)
+        private async UniTask StartInvulnerabilityAsync(ShipModel ship, CancellationToken cancellationToken)
         {
             ship.SetInvulnerable(true);
             ship.SetControlLocked(true);
 
             _signalBus.Fire<ShipInvulnerabilityStartedSignal>();
 
-            await UniTask.Delay((int)(_invulnerabilityDuration * _timeMultiplier));
+            try
+            {
+                await UniTask.Delay(TimeSpan.FromSeconds(_invulnerabilityDuration), cancellationToken: cancellationToken);
+            }
+            catch (OperationCanceledException)
+            {
+                return;
+            }
 
-            if (ship.CurrentHealth <= 0) return;
+            if (cancellationToken.IsCancellationRequested || ship.CurrentHealth <= 0) return;
 
             ship.SetInvulnerable(false);
             ship.SetControlLocked(false);
