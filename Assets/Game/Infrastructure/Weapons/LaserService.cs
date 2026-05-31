@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Game.Core.Game;
 using Game.Core.Input;
 using Game.Core.Physics;
@@ -46,8 +47,9 @@ namespace Game.Infrastructure.Weapons
             _gameStateService = gameStateService;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
+            await _config.LoadAsync();
             _maxCharges = _config.PlayerConfig.LaserCharges;
             _currentCharges = _maxCharges;
             _cooldownSeconds = _config.PlayerConfig.LaserCooldown;
@@ -57,6 +59,9 @@ namespace Game.Infrastructure.Weapons
 
         public void Tick()
         {
+            if (!_config.IsLoaded)
+                return;
+
             if (_gameStateService.CurrentState != GameState.Playing)
                 return;
 

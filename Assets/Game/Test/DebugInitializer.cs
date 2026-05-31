@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Game.Infrastructure.Services;
 using UnityEngine;
 using Zenject;
@@ -11,8 +12,9 @@ public class DebugInitializer : IInitializable
         _configService = configService;
     }
 
-    public void Initialize()
+    public async void Initialize()
     {
+        await _configService.LoadAsync();
         Debug.Log($"Max HP: {_configService.PlayerConfig.MaxHealth}");
     }
 }

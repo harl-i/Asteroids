@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Game.Core.Physics;
 using Game.Core.World;
 using Game.Infrastructure.Services;
@@ -19,8 +20,10 @@ namespace Game.Infrastructure.Physics
             _collisionEvents = collisionEvents;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
+            await _config.LoadAsync();
+
             float size = _config.WorldConfig.worldSize;
             float half = size / _halfFactor;
 

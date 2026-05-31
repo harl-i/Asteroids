@@ -34,6 +34,9 @@ namespace Game.Infrastructure.Enemy
 
         public void Tick()
         {
+            if (!_config.IsLoaded)
+                return;
+
             if (_gameStateService.CurrentState != GameState.Playing)
                 return;
 

@@ -1,6 +1,7 @@
 using Game.Core.Enemy;
 using Game.Core.Game;
 using Game.Core.World;
+using Cysharp.Threading.Tasks;
 using Game.Infrastructure.Game;
 using Game.Infrastructure.Physics;
 using Game.Infrastructure.Services;
@@ -36,13 +37,17 @@ namespace Game.Infrastructure.Enemy
             _spawnPositionService = spawnPositionService;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
+            await _config.LoadAsync();
             _spawnTimer = _config.EnemyConfig.AsteroidSpawnInterval;
         }
 
         public void Tick()
         {
+            if (!_config.IsLoaded)
+                return;
+
             if (_gameStateService.CurrentState != GameState.Playing)
                 return;
 

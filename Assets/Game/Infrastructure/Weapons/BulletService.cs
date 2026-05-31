@@ -38,6 +38,9 @@ namespace Game.Infrastructure.Weapons
 
         public void Tick()
         {
+            if (!_configService.IsLoaded)
+                return;
+
             _shotCooldownRemaining -= Time.deltaTime;
 
             ShipModel ship = _shipController.Ship;

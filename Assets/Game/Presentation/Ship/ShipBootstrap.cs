@@ -1,4 +1,8 @@
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Game.Core.Signals;
+using Game.Infrastructure.Physics;
+using Game.Infrastructure.Services;
 using Game.Infrastructure.Ship;
 using UnityEngine;
 using Zenject;
@@ -11,12 +15,20 @@ namespace Game.Presentation.Ship
 
         private ShipControllerService _controller;
         private SignalBus _signalBus;
+        private ConfigService _config;
+        private PhysicsWorldProvider _worldProvider;
 
         [Inject]
-        public void Construct(ShipControllerService controller, SignalBus signalBus)
+        public void Construct(
+            ShipControllerService controller,
+            SignalBus signalBus,
+            ConfigService config,
+            PhysicsWorldProvider worldProvider)
         {
             _controller = controller;
             _signalBus = signalBus;
+            _config = config;
+            _worldProvider = worldProvider;
         }
 
         private void OnEnable()
@@ -31,6 +43,14 @@ namespace Game.Presentation.Ship
 
         private void Start()
         {
+            CreateShipAsync(this.GetCancellationTokenOnDestroy()).Forget();
+        }
+
+        private async UniTask CreateShipAsync(CancellationToken cancellationToken)
+        {
+            await _config.LoadAsync();
+            await UniTask.WaitUntil(() => _worldProvider.World != null, cancellationToken: cancellationToken);
+
             _controller.CreateIfNeeded();
             _shipView.Bind(_controller.Ship);
         }

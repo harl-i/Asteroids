@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using Game.Infrastructure.Services;
 using UnityEngine;
 using Zenject;
@@ -17,8 +18,9 @@ namespace Game.Presentation.Input
             _refs = refs;
         }
 
-        public void Initialize()
+        public async void Initialize()
         {
+            await _config.LoadAsync();
             UpdateVisibility();
         }
 

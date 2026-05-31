@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Cysharp.Threading.Tasks;
 using Game.Core.World;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -12,29 +13,52 @@ namespace Game.Infrastructure.Services
         private PlayerConfig _playerConfig;
         private WorldConfig _worldConfig;
         private EnemyConfig _enemyConfig;
+        private UniTaskCompletionSource _loadCompletion;
+        private bool _isLoading;
 
         public PlayerConfig PlayerConfig => _playerConfig;
         public WorldConfig WorldConfig => _worldConfig;
         public EnemyConfig EnemyConfig => _enemyConfig;
+        public bool IsLoaded { get; private set; }
 
         public void Initialize()
         {
-            Load();
+            LoadAsync().Forget();
         }
 
-        private void Load()
+        public async UniTask LoadAsync()
         {
-            _playerConfig = LoadJson<PlayerConfig>("player.json");
-            _worldConfig = LoadJson<WorldConfig>("world.json");
-            _enemyConfig = LoadJson<EnemyConfig>("enemy.json");
+            if (IsLoaded)
+                return;
+
+            if (_isLoading)
+            {
+                await _loadCompletion.Task;
+                return;
+            }
+
+            _isLoading = true;
+            _loadCompletion = new UniTaskCompletionSource();
+
+            try
+            {
+                _playerConfig = await LoadJsonAsync<PlayerConfig>("player.json");
+                _worldConfig = await LoadJsonAsync<WorldConfig>("world.json");
+                _enemyConfig = await LoadJsonAsync<EnemyConfig>("enemy.json");
+                IsLoaded = true;
+                _loadCompletion.TrySetResult();
+            }
+            catch (Exception exception)
+            {
+                _loadCompletion.TrySetException(exception);
+                throw;
+            }
         }
 
-        private T LoadJson<T>(string fileName)
+        private async UniTask<T> LoadJsonAsync<T>(string fileName)
         {
             var path = Path.Combine(Application.streamingAssetsPath, "Configs", fileName);
-            //var json = File.ReadAllText(path);
-
-            var json = ReadConfigText(path);
+            var json = await ReadConfigTextAsync(path);
 
             if (string.IsNullOrEmpty(json))
                 throw new InvalidOperationException($"Config file '{fileName}' is empty or missing. Path: {path}");
@@ -42,15 +66,11 @@ namespace Game.Infrastructure.Services
             return JsonUtility.FromJson<T>(json);
         }
 
-        private static string ReadConfigText(string path)
+        private static async UniTask<string> ReadConfigTextAsync(string path)
         {
 #if UNITY_ANDROID && !UNITY_EDITOR
             using var request = UnityWebRequest.Get(path);
-            var operation = request.SendWebRequest();
-
-            while (!operation.isDone)
-            {
-            }
+            await request.SendWebRequest().ToUniTask();
 
             if (request.result != UnityWebRequest.Result.Success)
                 throw new IOException($"Failed to load config from '{path}': {request.error}");
