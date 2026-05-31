@@ -16,6 +16,7 @@ namespace Game.Infrastructure.Enemy
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
         private GameStateService _gameStateService;
+        private SpawnPositionService _spawnPositionService;
 
         private float _spawnTimer;
 
@@ -24,13 +25,15 @@ namespace Game.Infrastructure.Enemy
             EnemyService enemyService,
             PhysicsWorldProvider worldProvider,
             ConfigService config,
-            GameStateService gameStateService)
+            GameStateService gameStateService,
+            SpawnPositionService spawnPositionService)
         {
             _factory = factory;
             _enemyService = enemyService;
             _worldProvider = worldProvider;
             _config = config;
             _gameStateService = gameStateService;
+            _spawnPositionService = spawnPositionService;
         }
 
         public void Initialize()
@@ -59,7 +62,7 @@ namespace Game.Infrastructure.Enemy
         private void SpawnLargeAsteroid()
         {
             WorldBounds bounds = _worldProvider.World.Bounds;
-            Vector2 spawnPosition = GetSpawnPositionOutside(bounds);
+            Vector2 spawnPosition = _spawnPositionService.GetPositionOutside(bounds);
             AsteroidModel asteroid = _factory.Create(spawnPosition, AsteroidSize.Large);
 
             Vector2 targetDirection = (Vector2.zero - spawnPosition).normalized;
@@ -71,20 +74,6 @@ namespace Game.Infrastructure.Enemy
                 _config.EnemyConfig.AsteroidMaxSpeed);
 
             asteroid.Entity.Velocity = direction * speed;
-        }
-
-        private Vector2 GetSpawnPositionOutside(WorldBounds bounds)
-        {
-            float padding = _config.EnemyConfig.SpawnPadding;
-            int side = Random.Range(0, 4);
-
-            return side switch
-            {
-                0 => new Vector2(Random.Range(bounds.MinX, bounds.MaxX), bounds.MaxY + padding),
-                1 => new Vector2(Random.Range(bounds.MinX, bounds.MaxX), bounds.MinY - padding),
-                2 => new Vector2(bounds.MinX - padding, Random.Range(bounds.MinY, bounds.MaxY)),
-                _ => new Vector2(bounds.MaxX + padding, Random.Range(bounds.MinY, bounds.MaxY))
-            };
         }
     }
 }

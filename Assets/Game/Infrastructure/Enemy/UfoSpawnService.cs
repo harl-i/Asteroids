@@ -16,6 +16,7 @@ namespace Game.Infrastructure.Enemy
         private PhysicsWorldProvider _worldProvider;
         private GameStateService _gameStateService;
         private ConfigService _config;
+        private SpawnPositionService _spawnPositionService;
 
         private float _spawnTimer;
 
@@ -24,13 +25,15 @@ namespace Game.Infrastructure.Enemy
             UfoService ufoService,
             PhysicsWorldProvider worldProvider,
             GameStateService gameStateService,
-            ConfigService config)
+            ConfigService config,
+            SpawnPositionService spawnPositionService)
         {
             _factory = factory;
             _ufoService = ufoService;
             _worldProvider = worldProvider;
             _gameStateService = gameStateService;
             _config = config;
+            _spawnPositionService = spawnPositionService;
         }
 
         public void Initialize()
@@ -59,24 +62,10 @@ namespace Game.Infrastructure.Enemy
         private void SpawnUfo()
         {
             WorldBounds bounds = _worldProvider.World.Bounds;
-            Vector2 position = GetSpawnPositionOutside(bounds);
+            Vector2 position = _spawnPositionService.GetPositionOutside(bounds);
 
             UfoModel ufo = _factory.Create(position);
             ufo.Entity.Velocity = Random.insideUnitCircle * _config.EnemyConfig.UfoSpawnSpeed;
-        }
-
-        private Vector2 GetSpawnPositionOutside(WorldBounds bounds)
-        {
-            float padding = _config.EnemyConfig.SpawnPadding;
-            int side = Random.Range(0, 4);
-
-            return side switch
-            {
-                0 => new Vector2(Random.Range(bounds.MinX, bounds.MaxX), bounds.MaxY + padding),
-                1 => new Vector2(Random.Range(bounds.MinX, bounds.MaxX), bounds.MinY - padding),
-                2 => new Vector2(bounds.MinX - padding, Random.Range(bounds.MinY, bounds.MaxY)),
-                _ => new Vector2(bounds.MaxX + padding, Random.Range(bounds.MinY, bounds.MaxY))
-            };
         }
     }
 }
