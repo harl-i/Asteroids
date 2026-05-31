@@ -1,6 +1,7 @@
 [System.Serializable]
 public class EnemyConfig
 {
+    public AsteroidConfig Asteroid;
     public float AsteroidSpawnInterval;
     public float AsteroidMinSpeed;
     public float AsteroidMaxSpeed;

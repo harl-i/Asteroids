@@ -1,6 +1,7 @@
 using Game.Core.Enemy;
 using Game.Core.Physics;
 using Game.Infrastructure.Physics;
+using Game.Infrastructure.Services;
 using UnityEngine;
 
 namespace Game.Infrastructure.Enemy
@@ -9,29 +10,22 @@ namespace Game.Infrastructure.Enemy
     {
         private PhysicsWorldProvider _world;
         private EnemyService _enemyService;
+        private ConfigService _config;
 
-        private float _largeSize = 1.3f;
-        private float _mediumSize = 0.7f;
-        private float _smallSize = 0.4f;
-        private float _massFactor = 0.5f;
-
-        public AsteroidFactory(PhysicsWorldProvider world, EnemyService enemyService)
+        public AsteroidFactory(
+            PhysicsWorldProvider world,
+            EnemyService enemyService,
+            ConfigService config)
         {
             _world = world;
             _enemyService = enemyService;
+            _config = config;
         }
 
         public AsteroidModel Create(Vector2 position, AsteroidSize size)
         {
-            float radius = size switch
-            {
-                AsteroidSize.Large => _largeSize,
-                AsteroidSize.Medium => _mediumSize,
-                AsteroidSize.Small => _smallSize,
-                _ => _smallSize
-            };
-
-            float mass = radius * _massFactor;
+            float radius = GetRadius(size);
+            float mass = radius * _config.EnemyConfig.Asteroid.MassFactor;
 
             Physics2DEntity entity = _world.World.CreateEntity(position, radius, mass);
 
@@ -43,6 +37,19 @@ namespace Game.Infrastructure.Enemy
 
             _enemyService.Add(asteroid);
             return asteroid;
+        }
+
+        private float GetRadius(AsteroidSize size)
+        {
+            AsteroidConfig asteroidConfig = _config.EnemyConfig.Asteroid;
+
+            return size switch
+            {
+                AsteroidSize.Large => asteroidConfig.LargeRadius,
+                AsteroidSize.Medium => asteroidConfig.MediumRadius,
+                AsteroidSize.Small => asteroidConfig.SmallRadius,
+                _ => asteroidConfig.SmallRadius
+            };
         }
     }
 }

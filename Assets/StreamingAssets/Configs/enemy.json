@@ -1,4 +1,10 @@
 {
+  "Asteroid": {
+    "LargeRadius": 1.3,
+    "MediumRadius": 0.7,
+    "SmallRadius": 0.4,
+    "MassFactor": 0.5
+  },
   "AsteroidSpawnInterval": 5,
   "AsteroidMinSpeed": 0.5,
   "AsteroidMaxSpeed": 2,
