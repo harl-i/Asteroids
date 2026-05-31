@@ -8,6 +8,7 @@ public class PlayerConfig
     public float BulletLifetimeSeconds;
     public float BulletRadius;
     public float BulletMass;
+    public float BulletSpawnOffset;
     public int LaserCharges;
     public float LaserCooldown;
     public float Radius;

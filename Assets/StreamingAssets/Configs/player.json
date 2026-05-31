@@ -6,6 +6,7 @@
   "BulletLifetimeSeconds": 0.4,
   "BulletRadius": 0.3,
   "BulletMass": 0.2,
+  "BulletSpawnOffset": -0.2,
   "LaserCharges": 3,
   "LaserCooldown": 5,
   "Radius": 1,

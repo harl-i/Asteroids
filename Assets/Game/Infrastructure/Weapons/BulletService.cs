@@ -18,8 +18,6 @@ namespace Game.Infrastructure.Weapons
         private ConfigService _configService;
         private float _shotCooldownRemaining;
 
-        private float _offsetCoefficient = -0.2f;
-
         private List<BulletModel> _bullets = new List<BulletModel>();
 
         public IReadOnlyList<BulletModel> Bullets => _bullets;
@@ -84,7 +82,7 @@ namespace Game.Infrastructure.Weapons
             float rad = ship.RotationDeg * Mathf.Deg2Rad;
             Vector2 forward = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
-            float spawnOffset = ship.Entity.Radius + _offsetCoefficient;
+            float spawnOffset = ship.Entity.Radius + _configService.PlayerConfig.BulletSpawnOffset;
             Vector2 spawnPosition = ship.Entity.Position + forward * spawnOffset;
             Vector2 inheritedVelocity = ship.Entity.Velocity;
 
