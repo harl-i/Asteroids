@@ -30,6 +30,7 @@ public class WeaponsInstaller : Installer<WeaponsInstaller>
 
     private void BindLaser()
     {
-        Container.BindInterfacesAndSelfTo<LaserService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LaserStateService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LaserFireService>().AsSingle();
     }
 }

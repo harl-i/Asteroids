@@ -10,16 +10,16 @@ namespace Game.Infrastructure.Game
     {
         private SignalBus _signalBus;
         private ShipService _shipService;
-        private LaserService _laserService;
+        private LaserStateService _laserStateService;
 
         public ShipResetService(
             SignalBus signalBus,
             ShipService shipService,
-            LaserService laserService)
+            LaserStateService laserStateService)
         {
             _signalBus = signalBus;
             _shipService = shipService;
-            _laserService = laserService;
+            _laserStateService = laserStateService;
         }
 
         public void Initialize()
@@ -34,7 +34,7 @@ namespace Game.Infrastructure.Game
 
         private void OnRestart()
         {
-            _laserService.ResetState();
+            _laserStateService.ResetState();
             _shipService.ResetShip();
         }
     }

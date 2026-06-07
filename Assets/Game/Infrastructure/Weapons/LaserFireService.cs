@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using Game.Core.Game;
 using Game.Core.Input;
 using Game.Core.Physics;
@@ -13,27 +12,20 @@ using Zenject;
 
 namespace Game.Infrastructure.Weapons
 {
-    public class LaserService : ITickable, IInitializable
+    public class LaserFireService : ITickable
     {
         private IShipInput _input;
         private ShipService _shipService;
+        private LaserStateService _laserStateService;
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
         private SignalBus _signalBus;
         private GameStateService _gameStateService;
 
-        private int _currentCharges;
-        private int _maxCharges;
-        private float _cooldownSeconds;
-        private float _cooldownRemaining;
-
-        public int CurrentCharges => _currentCharges;
-        public int MaxCharges => _maxCharges;
-        public float CooldownRemaining => _cooldownRemaining;
-
-        public LaserService(
+        public LaserFireService(
             IShipInput input,
             ShipService shipService,
+            LaserStateService laserStateService,
             PhysicsWorldProvider worldProvider,
             ConfigService config,
             SignalBus signalBus,
@@ -41,20 +33,11 @@ namespace Game.Infrastructure.Weapons
         {
             _input = input;
             _shipService = shipService;
+            _laserStateService = laserStateService;
             _worldProvider = worldProvider;
             _config = config;
             _signalBus = signalBus;
             _gameStateService = gameStateService;
-        }
-
-        public async void Initialize()
-        {
-            await _config.LoadAsync();
-            _maxCharges = _config.PlayerConfig.LaserCharges;
-            _currentCharges = _maxCharges;
-            _cooldownSeconds = _config.PlayerConfig.LaserCooldown;
-
-            PublishState();
         }
 
         public void Tick()
@@ -65,60 +48,18 @@ namespace Game.Infrastructure.Weapons
             if (_gameStateService.CurrentState != GameState.Playing)
                 return;
 
-            RechargeTick();
-
             ShipModel ship = _shipService.Ship;
             if (ship == null || ship.IsControlLocked)
                 return;
 
-            if (_input.IsLaserPressed && _currentCharges > 0)
+            if (_input.IsLaserPressed && _laserStateService.TrySpendCharge())
             {
                 FireLaser(ship);
             }
         }
 
-        public void ResetState()
-        {
-            _maxCharges = _config.PlayerConfig.LaserCharges;
-            _currentCharges = _maxCharges;
-            _cooldownSeconds = _config.PlayerConfig.LaserCooldown;
-            _cooldownRemaining = 0f;
-
-            PublishState();
-        }
-
-        private void RechargeTick()
-        {
-            if (_currentCharges >= _maxCharges)
-                return;
-
-            _cooldownRemaining -= Time.deltaTime;
-
-            if (_cooldownRemaining <= 0f)
-            {
-                _currentCharges++;
-                if (_currentCharges < _maxCharges)
-                {
-                    _cooldownRemaining = _cooldownSeconds;
-                }
-                else
-                {
-                    _cooldownRemaining = 0f;
-                }
-
-                PublishState();
-            }
-        }
-
         private void FireLaser(ShipModel ship)
         {
-            _currentCharges--;
-
-            if (_currentCharges < _maxCharges && _cooldownRemaining <= 0f)
-            {
-                _cooldownRemaining = _cooldownSeconds;
-            }
-
             float rad = ship.RotationDeg * Mathf.Deg2Rad;
             Vector2 direction = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
             Vector2 origin = ship.Entity.Position;
@@ -147,18 +88,6 @@ namespace Game.Infrastructure.Weapons
             {
                 Start = origin,
                 End = endPoint
-            });
-
-            PublishState();
-        }
-
-        private void PublishState()
-        {
-            _signalBus.Fire(new LaserChargesChangedSignal
-            {
-                CurrentCharges = _currentCharges,
-                MaxCharges = _maxCharges,
-                CooldownRemaining = _cooldownRemaining
             });
         }
     }
