@@ -8,6 +8,13 @@ namespace Game.Presentation.UI
 {
     public class ShipHudView : MonoBehaviour
     {
+        private const string CoordinatesFormat = "Coordinates: {0:F1}, {1:F1}";
+        private const string AngleFormat = "Angle: {0:F1}";
+        private const string SpeedFormat = "Speed: {0:F1}";
+        private const string HealthFormat = "HP: {0}/{1}";
+        private const string LaserChargesFormat = "Laser Charges: {0}/{1}";
+        private const string LaserCooldownFormat = "Laser Cooldown: {0:F1}";
+
         [SerializeField] private TextMeshProUGUI _coordinatesText;
         [SerializeField] private TextMeshProUGUI _rotationText;
         [SerializeField] private TextMeshProUGUI _speedText;
@@ -27,12 +34,12 @@ namespace Game.Presentation.UI
         {
             ShipHudViewModel viewModel = _shipHudPresenter.ShipHudViewModel;
 
-            _coordinatesText.text = $"Coordinates: {viewModel.Position.x:F1}, {viewModel.Position.y:F1}";
-            _rotationText.text = $"Angle: {viewModel.RotationDeg:F1}";
-            _speedText.text = $"Speed: {viewModel.Speed:F1}";
-            _healthText.text = $"HP: {viewModel.CurrentHealth}/{viewModel.MaxHealth}";
-            _laserChargesText.text = $"Laser Charges: {viewModel.LaserCharges}/{viewModel.LaserMaxCharges}";
-            _laserCooldownText.text = $"Laser Cooldown: {viewModel.LaserCooldownRemaining:F1}";
+            _coordinatesText.text = string.Format(CoordinatesFormat, viewModel.Position.x, viewModel.Position.y);
+            _rotationText.text = string.Format(AngleFormat, viewModel.RotationDeg);
+            _speedText.text = string.Format(SpeedFormat, viewModel.Speed);
+            _healthText.text = string.Format(HealthFormat, viewModel.CurrentHealth, viewModel.MaxHealth);
+            _laserChargesText.text = string.Format(LaserChargesFormat, viewModel.LaserCharges, viewModel.LaserMaxCharges);
+            _laserCooldownText.text = string.Format(LaserCooldownFormat, viewModel.LaserCooldownRemaining);
         }
     }
 }
