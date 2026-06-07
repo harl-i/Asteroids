@@ -5,8 +5,9 @@ namespace Game.Presentation.Ship
 {
     public class ShipView : MonoBehaviour
     {
+        [SerializeField] private float _spriteRotationOffset = 90f;
+
         private ShipModel _model;
-        private float _spriteCorrectAngle = 90f;
 
         public void Bind(ShipModel shipModel)
         {
@@ -20,7 +21,7 @@ namespace Game.Presentation.Ship
             Vector2 position = _model.Entity.Position;
             transform.position = new Vector3(position.x, position.y, 0f);
 
-            transform.rotation = Quaternion.Euler(0f, 0f, _model.RotationDeg - _spriteCorrectAngle);
+            transform.rotation = Quaternion.Euler(0f, 0f, _model.RotationDeg - _spriteRotationOffset);
         }
     }
 }
