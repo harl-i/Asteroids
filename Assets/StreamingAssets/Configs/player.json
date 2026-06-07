@@ -13,6 +13,5 @@
   "Mass": 1,
   "TurnSpeedDeg": 180,
   "FireRate": 4,
-  "LaserRange": 250,
-  "UseMobileInput": true
+  "LaserRange": 250
 }

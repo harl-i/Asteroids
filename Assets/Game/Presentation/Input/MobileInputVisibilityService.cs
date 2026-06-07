@@ -26,8 +26,8 @@ namespace Game.Presentation.Input
 
         private void UpdateVisibility()
         {
-            bool isMobile = _config.PlayerConfig != null &&
-                            _config.PlayerConfig.UseMobileInput;
+            bool isMobile = _config.InputConfig != null &&
+                            _config.InputConfig.UseMobileInput;
 
             if (_refs != null && _refs.gameObject != null)
             {

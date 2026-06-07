@@ -16,5 +16,4 @@ public class PlayerConfig
     public float TurnSpeedDeg;
     public float FireRate;
     public float LaserRange;
-    public bool UseMobileInput;
 } 
