@@ -27,6 +27,8 @@ namespace Game.Presentation.Weapons
             {
                 _bulletViewFactory.GetOrCreate(bullet, _bulletPrefab, _container);
             }
+
+            _bulletViewFactory.CleanupInactive(bullet => bullet.IsAlive);
         }
     }
 }

@@ -31,6 +31,8 @@ namespace Game.Presentation.Enemy
                     _factory.GetOrCreate(asteroid, _asteroidPrefab, _container);
                 }
             }
+
+            _factory.CleanupInactive(asteroid => asteroid.IsAlive);
         }
     }
 }

@@ -31,6 +31,8 @@ namespace Game.Presentation.Enemy
                     _factory.GetOrCreate(ufo, _ufoPrefab, _container);
                 }
             }
+
+            _factory.CleanupInactive(ufo => ufo.IsAlive);
         }
     }
 }
