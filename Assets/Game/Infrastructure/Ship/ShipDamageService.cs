@@ -11,16 +11,16 @@ namespace Game.Infrastructure.Ship
     public class ShipDamageService : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private ShipControllerService _shipController;
+        private ShipService _shipService;
         private CancellationTokenSource _lifetimeCancellation;
 
         private int _damagePerHit = 1;
         private float _invulnerabilityDuration = 3f;
 
-        public ShipDamageService(SignalBus signalBus, ShipControllerService shipController)
+        public ShipDamageService(SignalBus signalBus, ShipService shipService)
         {
             _signalBus = signalBus;
-            _shipController = shipController;
+            _shipService = shipService;
             _lifetimeCancellation = new CancellationTokenSource();
         }
 
@@ -38,7 +38,7 @@ namespace Game.Infrastructure.Ship
 
         private void OnCollision(CollisionSignal signal)
         {
-            ShipModel ship = _shipController.Ship;
+            ShipModel ship = _shipService.Ship;
             if (ship == null) return;
 
             bool isShipEnemyCollision =

@@ -12,7 +12,7 @@ namespace Game.Infrastructure.Weapons
     public class BulletService : ITickable
     {
         private IShipInput _shipInput;
-        private ShipControllerService _shipController;
+        private ShipService _shipService;
         private BulletFactory _bulletFactory;
         private BulletPool _bulletPool;
         private ConfigService _configService;
@@ -24,13 +24,13 @@ namespace Game.Infrastructure.Weapons
 
         public BulletService(
             IShipInput shipInput,
-            ShipControllerService shipController,
+            ShipService shipService,
             BulletFactory bulletFactory,
             BulletPool bulletPool,
             ConfigService configService)
         {
             _shipInput = shipInput;
-            _shipController = shipController;
+            _shipService = shipService;
             _bulletFactory = bulletFactory;
             _bulletPool = bulletPool;
             _configService = configService;
@@ -43,7 +43,7 @@ namespace Game.Infrastructure.Weapons
 
             _shotCooldownRemaining -= Time.deltaTime;
 
-            ShipModel ship = _shipController.Ship;
+            ShipModel ship = _shipService.Ship;
 
             if (ship != null &&
                 !ship.IsControlLocked &&

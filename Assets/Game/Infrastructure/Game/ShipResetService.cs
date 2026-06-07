@@ -9,16 +9,16 @@ namespace Game.Infrastructure.Game
     public class ShipResetService : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private ShipControllerService _shipController;
+        private ShipService _shipService;
         private LaserService _laserService;
 
         public ShipResetService(
             SignalBus signalBus,
-            ShipControllerService shipController,
+            ShipService shipService,
             LaserService laserService)
         {
             _signalBus = signalBus;
-            _shipController = shipController;
+            _shipService = shipService;
             _laserService = laserService;
         }
 
@@ -35,7 +35,7 @@ namespace Game.Infrastructure.Game
         private void OnRestart()
         {
             _laserService.ResetState();
-            _shipController.ResetShip();
+            _shipService.ResetShip();
         }
     }
 }

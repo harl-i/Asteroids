@@ -16,7 +16,7 @@ namespace Game.Infrastructure.Weapons
     public class LaserService : ITickable, IInitializable
     {
         private IShipInput _input;
-        private ShipControllerService _shipController;
+        private ShipService _shipService;
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
         private SignalBus _signalBus;
@@ -33,14 +33,14 @@ namespace Game.Infrastructure.Weapons
 
         public LaserService(
             IShipInput input,
-            ShipControllerService shipController,
+            ShipService shipService,
             PhysicsWorldProvider worldProvider,
             ConfigService config,
             SignalBus signalBus,
             GameStateService gameStateService)
         {
             _input = input;
-            _shipController = shipController;
+            _shipService = shipService;
             _worldProvider = worldProvider;
             _config = config;
             _signalBus = signalBus;
@@ -67,7 +67,7 @@ namespace Game.Infrastructure.Weapons
 
             RechargeTick();
 
-            ShipModel ship = _shipController.Ship;
+            ShipModel ship = _shipService.Ship;
             if (ship == null || ship.IsControlLocked)
                 return;
 

@@ -14,20 +14,20 @@ namespace Game.Infrastructure.Enemy
     public class UfoMovementService : ITickable
     {
         private EnemyService _enemyService;
-        private ShipControllerService _shipController;
+        private ShipService _shipService;
         private GameStateService _gameStateService;
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
 
         public UfoMovementService(
             EnemyService enemyService,
-            ShipControllerService shipController,
+            ShipService shipService,
             GameStateService gameStateService,
             PhysicsWorldProvider worldProvider,
             ConfigService config)
         {
             _enemyService = enemyService;
-            _shipController = shipController;
+            _shipService = shipService;
             _gameStateService = gameStateService;
             _worldProvider = worldProvider;
             _config = config;
@@ -41,7 +41,7 @@ namespace Game.Infrastructure.Enemy
             if (_gameStateService.CurrentState != GameState.Playing)
                 return;
 
-            ShipModel ship = _shipController.Ship;
+            ShipModel ship = _shipService.Ship;
             if (ship == null)
                 return;
 
