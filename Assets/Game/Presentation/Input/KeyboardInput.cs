@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Presentation.Input
 {
-    public class KeyboardInput : IShipInput
+    public class KeyboardInput : IGameInput
     {
         public float Thrust
         {
@@ -26,5 +26,6 @@ namespace Game.Presentation.Input
 
         public bool IsFirePressed => UnityEngine.Input.GetKeyDown(KeyCode.Space);
         public bool IsLaserPressed => UnityEngine.Input.GetKeyDown(KeyCode.LeftShift);
+        public bool IsRestartPressed => UnityEngine.Input.GetKeyDown(KeyCode.R);
     }
 }

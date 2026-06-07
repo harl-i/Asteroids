@@ -6,7 +6,7 @@ using Zenject;
 
 namespace Game.Infrastructure.Input
 {
-    public class InputRouter : IShipInput, IInitializable
+    public class InputRouter : IShipInput, IGameInput, IInitializable
     {
         private KeyboardInput _keyboardInput;
         private VirtualJoystickInput _virtualJoystickInput;
@@ -24,7 +24,7 @@ namespace Game.Infrastructure.Input
             _configService = configService;
         }
 
-        private IShipInput ActiveInput => _useMobileInput
+        private IGameInput ActiveInput => _useMobileInput
             ? _virtualJoystickInput
             : _keyboardInput;
 
@@ -32,6 +32,7 @@ namespace Game.Infrastructure.Input
         public float Turn => ActiveInput.Turn;
         public bool IsFirePressed => ActiveInput.IsFirePressed;
         public bool IsLaserPressed => ActiveInput.IsLaserPressed;
+        public bool IsRestartPressed => ActiveInput.IsRestartPressed;
 
         public async void Initialize()
         {

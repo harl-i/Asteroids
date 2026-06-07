@@ -1,19 +1,22 @@
+using Game.Core.Input;
 using Game.Core.Game;
 using Game.Core.Signals;
-using UnityEngine;
 using Zenject;
 
 namespace Game.Infrastructure.Game
 {
     public class RestartInputService : ITickable
     {
+        private IGameInput _input;
         private SignalBus _signalBus;
         private GameStateService _gameStateService;
 
         public RestartInputService(
+            IGameInput input,
             SignalBus signalBus,
             GameStateService gameStateService)
         {
+            _input = input;
             _signalBus = signalBus;
             _gameStateService = gameStateService;
         }
@@ -23,11 +26,7 @@ namespace Game.Infrastructure.Game
             if (_gameStateService.CurrentState != GameState.GameOver)
                 return;
 
-            bool restartPressed = UnityEngine.Input.GetKeyDown(KeyCode.R);
-            bool restartTapped = Application.isMobilePlatform && UnityEngine.Input.touchCount > 0 &&
-                                UnityEngine.Input.GetTouch(0).phase == TouchPhase.Began;
-
-            if (restartPressed || restartTapped)
+            if (_input.IsRestartPressed)
             {
                 _signalBus.Fire<RestartGameSignal>();
             }

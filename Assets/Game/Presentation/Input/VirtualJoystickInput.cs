@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Presentation.Input
 {
-    public class VirtualJoystickInput : IShipInput
+    public class VirtualJoystickInput : IGameInput
     {
         private VirtualJoystickView _joystickView;
         private ActionButtonView _fireButton;
@@ -40,5 +40,8 @@ namespace Game.Presentation.Input
 
         public bool IsFirePressed => _fireButton != null && _fireButton.ConsumePress();
         public bool IsLaserPressed => _laserButton != null && _laserButton.ConsumePress();
+        public bool IsRestartPressed => Application.isMobilePlatform &&
+                                        UnityEngine.Input.touchCount > 0 &&
+                                        UnityEngine.Input.GetTouch(0).phase == TouchPhase.Began;
     }
 }
