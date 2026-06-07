@@ -27,20 +27,20 @@ public class GameStateInstaller : Installer<GameStateInstaller>
 
     private void BindInfrastructure()
     {
-        Container.BindInterfacesAndSelfTo<ConfigService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ConfigRepository>().AsSingle();
         Container.BindInterfacesAndSelfTo<PhysicsWorldProvider>().AsSingle();
         Container.Bind<ZenjectCollisionEvents>().AsSingle();
 
-        Container.BindExecutionOrder<ConfigService>(-100);
+        Container.BindExecutionOrder<ConfigRepository>(-100);
         Container.BindExecutionOrder<PhysicsWorldProvider>(-90);
     }
 
     private void BindGameState()
     {
-        Container.BindInterfacesAndSelfTo<GameStateService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<WorldResetService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ShipResetService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<RestartAnalyticsService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<GameStateMachine>().AsSingle();
+        Container.BindInterfacesAndSelfTo<WorldResetHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ShipResetHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RestartAnalyticsHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameOverAnalyticsHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<GameOverAdHandler>().AsSingle();
     }
@@ -49,8 +49,8 @@ public class GameStateInstaller : Installer<GameStateInstaller>
     {
         Container.Bind<YandexBridge>().FromComponentInHierarchy().AsSingle();
         Container.Bind<IYandexAdsPlatformAdapter>().To<YandexAdsPlatformAdapter>().AsSingle();
-        Container.Bind<IAdService>().To<YandexAdService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<FirebaseAnalyticsService>().AsSingle();
+        Container.Bind<IAdProvider>().To<YandexAdProvider>().AsSingle();
+        Container.BindInterfacesAndSelfTo<FirebaseAnalyticsTracker>().AsSingle();
     }
 
     private void BindDebug()

@@ -6,11 +6,11 @@ using Zenject;
 
 namespace Game.Infrastructure.Weapons
 {
-    public class BulletCollisionService : IInitializable, IDisposable
+    public class BulletCollisionHandler : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
 
-        public BulletCollisionService(SignalBus signalBus)
+        public BulletCollisionHandler(SignalBus signalBus)
         {
             _signalBus = signalBus;
         }

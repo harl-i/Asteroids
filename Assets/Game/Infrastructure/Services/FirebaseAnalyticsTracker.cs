@@ -1,10 +1,11 @@
 using Firebase;
 using Firebase.Analytics;
+using Game.Core.Services;
 using Zenject;
 
 namespace Game.Infrastructure.Services
 {
-    public class FirebaseAnalyticsService : IFirebaseAnalyticsService, IInitializable
+    public class FirebaseAnalyticsTracker : IAnalyticsTracker, IInitializable
     {
         private bool _isInitialized;
 

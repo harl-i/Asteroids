@@ -9,12 +9,12 @@ namespace Game.Infrastructure.Weapons
     public class BulletFactory
     {
         private PhysicsWorldProvider _worldProvider;
-        private ConfigService _config;
+        private ConfigRepository _config;
 
-        public BulletFactory(PhysicsWorldProvider worldProvider, ConfigService configService)
+        public BulletFactory(PhysicsWorldProvider worldProvider, ConfigRepository configRepository)
         {
             _worldProvider = worldProvider;
-            _config = configService;
+            _config = configRepository;
         }
 
         public BulletModel Create()

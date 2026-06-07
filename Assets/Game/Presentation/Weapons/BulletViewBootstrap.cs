@@ -9,21 +9,21 @@ namespace Game.Presentation.Weapons
         [SerializeField] private BulletView _bulletPrefab;
         [SerializeField] private Transform _container;
 
-        private BulletService _bulletService;
+        private BulletRegistry _bulletRegistry;
         private BulletViewFactory _bulletViewFactory;
 
         [Inject]
         private void Construct(
-            BulletService bulletService,
+            BulletRegistry bulletRegistry,
             BulletViewFactory bulletViewFactory)
         {
-            _bulletService = bulletService;
+            _bulletRegistry = bulletRegistry;
             _bulletViewFactory = bulletViewFactory;
         }
 
         private void Update()
         {
-            foreach (var bullet in _bulletService.Bullets)
+            foreach (var bullet in _bulletRegistry.Bullets)
             {
                 _bulletViewFactory.GetOrCreate(bullet, _bulletPrefab, _container);
             }

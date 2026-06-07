@@ -5,13 +5,13 @@ using Zenject;
 
 namespace Game.Infrastructure.Game
 {
-    public class GameStateService : IInitializable, IDisposable
+    public class GameStateMachine : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
 
         public GameState CurrentState { get; private set; } = GameState.Bootstrap;
 
-        public GameStateService(SignalBus signalBus)
+        public GameStateMachine(SignalBus signalBus)
         {
             _signalBus = signalBus;
         }

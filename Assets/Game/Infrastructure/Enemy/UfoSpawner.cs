@@ -10,31 +10,31 @@ using Zenject;
 
 namespace Game.Infrastructure.Enemy
 {
-    public class UfoSpawnService : IInitializable, ITickable
+    public class UfoSpawner : IInitializable, ITickable
     {
         private UfoFactory _factory;
-        private EnemyService _enemyService;
+        private EnemyRegistry _enemyRegistry;
         private PhysicsWorldProvider _worldProvider;
-        private GameStateService _gameStateService;
-        private ConfigService _config;
-        private SpawnPositionService _spawnPositionService;
+        private GameStateMachine _gameStateMachine;
+        private ConfigRepository _config;
+        private SpawnPositionProvider _spawnPositionProvider;
 
         private float _spawnTimer;
 
-        public UfoSpawnService(
+        public UfoSpawner(
             UfoFactory factory,
-            EnemyService enemyService,
+            EnemyRegistry enemyRegistry,
             PhysicsWorldProvider worldProvider,
-            GameStateService gameStateService,
-            ConfigService config,
-            SpawnPositionService spawnPositionService)
+            GameStateMachine gameStateMachine,
+            ConfigRepository config,
+            SpawnPositionProvider spawnPositionProvider)
         {
             _factory = factory;
-            _enemyService = enemyService;
+            _enemyRegistry = enemyRegistry;
             _worldProvider = worldProvider;
-            _gameStateService = gameStateService;
+            _gameStateMachine = gameStateMachine;
             _config = config;
-            _spawnPositionService = spawnPositionService;
+            _spawnPositionProvider = spawnPositionProvider;
         }
 
         public async void Initialize()
@@ -48,7 +48,7 @@ namespace Game.Infrastructure.Enemy
             if (!_config.IsLoaded)
                 return;
 
-            if (_gameStateService.CurrentState != GameState.Playing)
+            if (_gameStateMachine.CurrentState != GameState.Playing)
                 return;
 
             _spawnTimer -= Time.deltaTime;
@@ -58,7 +58,7 @@ namespace Game.Infrastructure.Enemy
 
             _spawnTimer = _config.EnemyConfig.UfoSpawnInterval;
 
-            if (_enemyService.ActiveUfoCount > 0)
+            if (_enemyRegistry.ActiveUfoCount > 0)
                 return;
 
             SpawnUfo();
@@ -67,7 +67,7 @@ namespace Game.Infrastructure.Enemy
         private void SpawnUfo()
         {
             WorldBounds bounds = _worldProvider.World.Bounds;
-            Vector2 position = _spawnPositionService.GetPositionOutside(bounds);
+            Vector2 position = _spawnPositionProvider.GetPositionOutside(bounds);
 
             UfoModel ufo = _factory.Create(position);
             ufo.Entity.SetVelocity(Random.insideUnitCircle * _config.EnemyConfig.UfoSpawnSpeed);

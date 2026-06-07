@@ -9,7 +9,7 @@ public class UIInstaller : Installer<UIInstaller>
     {
         DeclareSignals();
 
-        Container.BindInterfacesAndSelfTo<ScoreService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ScoreTracker>().AsSingle();
         Container.BindInterfacesAndSelfTo<ShipHudPresenter>().AsSingle();
     }
 

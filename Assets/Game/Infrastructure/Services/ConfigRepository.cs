@@ -8,7 +8,7 @@ using Zenject;
 
 namespace Game.Infrastructure.Services
 {
-    public class ConfigService : IInitializable
+    public class ConfigRepository : IInitializable
     {
         private const string PlayerConfigFileName = "player.json";
         private const string WorldConfigFileName = "world.json";

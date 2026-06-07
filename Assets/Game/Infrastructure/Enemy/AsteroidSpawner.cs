@@ -10,31 +10,31 @@ using Zenject;
 
 namespace Game.Infrastructure.Enemy
 {
-    public class AsteroidSpawnService : IInitializable, ITickable
+    public class AsteroidSpawner : IInitializable, ITickable
     {
         private AsteroidFactory _factory;
-        private EnemyService _enemyService;
+        private EnemyRegistry _enemyRegistry;
         private PhysicsWorldProvider _worldProvider;
-        private ConfigService _config;
-        private GameStateService _gameStateService;
-        private SpawnPositionService _spawnPositionService;
+        private ConfigRepository _config;
+        private GameStateMachine _gameStateMachine;
+        private SpawnPositionProvider _spawnPositionProvider;
 
         private float _spawnTimer;
 
-        public AsteroidSpawnService(
+        public AsteroidSpawner(
             AsteroidFactory factory,
-            EnemyService enemyService,
+            EnemyRegistry enemyRegistry,
             PhysicsWorldProvider worldProvider,
-            ConfigService config,
-            GameStateService gameStateService,
-            SpawnPositionService spawnPositionService)
+            ConfigRepository config,
+            GameStateMachine gameStateMachine,
+            SpawnPositionProvider spawnPositionProvider)
         {
             _factory = factory;
-            _enemyService = enemyService;
+            _enemyRegistry = enemyRegistry;
             _worldProvider = worldProvider;
             _config = config;
-            _gameStateService = gameStateService;
-            _spawnPositionService = spawnPositionService;
+            _gameStateMachine = gameStateMachine;
+            _spawnPositionProvider = spawnPositionProvider;
         }
 
         public async void Initialize()
@@ -48,7 +48,7 @@ namespace Game.Infrastructure.Enemy
             if (!_config.IsLoaded)
                 return;
 
-            if (_gameStateService.CurrentState != GameState.Playing)
+            if (_gameStateMachine.CurrentState != GameState.Playing)
                 return;
 
             _spawnTimer -= Time.deltaTime;
@@ -58,7 +58,7 @@ namespace Game.Infrastructure.Enemy
 
             _spawnTimer = _config.EnemyConfig.AsteroidSpawnInterval;
 
-            if (_enemyService.ActiveCount >= _config.WorldConfig.maxEnemies)
+            if (_enemyRegistry.ActiveCount >= _config.WorldConfig.maxEnemies)
                 return;
 
             SpawnLargeAsteroid();
@@ -67,7 +67,7 @@ namespace Game.Infrastructure.Enemy
         private void SpawnLargeAsteroid()
         {
             WorldBounds bounds = _worldProvider.World.Bounds;
-            Vector2 spawnPosition = _spawnPositionService.GetPositionOutside(bounds);
+            Vector2 spawnPosition = _spawnPositionProvider.GetPositionOutside(bounds);
             AsteroidModel asteroid = _factory.Create(spawnPosition, AsteroidSize.Large);
 
             Vector2 targetDirection = (Vector2.zero - spawnPosition).normalized;

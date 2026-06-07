@@ -8,19 +8,19 @@ using Zenject;
 
 namespace Game.Infrastructure.Ship
 {
-    public class ShipDamageService : IInitializable, IDisposable
+    public class ShipDamageHandler : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private ShipService _shipService;
+        private ShipRepository _shipRepository;
         private CancellationTokenSource _lifetimeCancellation;
 
         private int _damagePerHit = 1;
         private float _invulnerabilityDuration = 3f;
 
-        public ShipDamageService(SignalBus signalBus, ShipService shipService)
+        public ShipDamageHandler(SignalBus signalBus, ShipRepository shipRepository)
         {
             _signalBus = signalBus;
-            _shipService = shipService;
+            _shipRepository = shipRepository;
             _lifetimeCancellation = new CancellationTokenSource();
         }
 
@@ -38,7 +38,7 @@ namespace Game.Infrastructure.Ship
 
         private void OnCollision(CollisionSignal signal)
         {
-            ShipModel ship = _shipService.Ship;
+            ShipModel ship = _shipRepository.Ship;
             if (ship == null) return;
 
             bool isShipEnemyCollision =

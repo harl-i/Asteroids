@@ -5,16 +5,16 @@ using Zenject;
 
 public class DebugInitializer : IInitializable
 {
-    private ConfigService _configService;
+    private ConfigRepository _configRepository;
 
-    public DebugInitializer(ConfigService configService)
+    public DebugInitializer(ConfigRepository configRepository)
     {
-        _configService = configService;
+        _configRepository = configRepository;
     }
 
     public async void Initialize()
     {
-        await _configService.LoadAsync();
-        Debug.Log($"Max HP: {_configService.PlayerConfig.MaxHealth}");
+        await _configRepository.LoadAsync();
+        Debug.Log($"Max HP: {_configRepository.PlayerConfig.MaxHealth}");
     }
 }

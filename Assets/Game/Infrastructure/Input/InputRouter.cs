@@ -10,18 +10,18 @@ namespace Game.Infrastructure.Input
     {
         private KeyboardInput _keyboardInput;
         private VirtualJoystickInput _virtualJoystickInput;
-        private ConfigService _configService;
+        private ConfigRepository _configRepository;
 
         private bool _useMobileInput;
 
         public InputRouter(
             KeyboardInput keyboardInput,
             VirtualJoystickInput virtualJoystickInput,
-            ConfigService configService)
+            ConfigRepository configRepository)
         {
             _keyboardInput = keyboardInput;
             _virtualJoystickInput = virtualJoystickInput;
-            _configService = configService;
+            _configRepository = configRepository;
         }
 
         private IGameInput ActiveInput => _useMobileInput
@@ -36,8 +36,8 @@ namespace Game.Infrastructure.Input
 
         public async void Initialize()
         {
-            await _configService.LoadAsync();
-            _useMobileInput = _configService.InputConfig.UseMobileInput;
+            await _configRepository.LoadAsync();
+            _useMobileInput = _configRepository.InputConfig.UseMobileInput;
         }
     }
 }

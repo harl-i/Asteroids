@@ -11,24 +11,24 @@ using Zenject;
 
 namespace Game.Infrastructure.Enemy
 {
-    public class UfoMovementService : ITickable
+    public class UfoMovementController : ITickable
     {
-        private EnemyService _enemyService;
-        private ShipService _shipService;
-        private GameStateService _gameStateService;
+        private EnemyRegistry _enemyRegistry;
+        private ShipRepository _shipRepository;
+        private GameStateMachine _gameStateMachine;
         private PhysicsWorldProvider _worldProvider;
-        private ConfigService _config;
+        private ConfigRepository _config;
 
-        public UfoMovementService(
-            EnemyService enemyService,
-            ShipService shipService,
-            GameStateService gameStateService,
+        public UfoMovementController(
+            EnemyRegistry enemyRegistry,
+            ShipRepository shipRepository,
+            GameStateMachine gameStateMachine,
             PhysicsWorldProvider worldProvider,
-            ConfigService config)
+            ConfigRepository config)
         {
-            _enemyService = enemyService;
-            _shipService = shipService;
-            _gameStateService = gameStateService;
+            _enemyRegistry = enemyRegistry;
+            _shipRepository = shipRepository;
+            _gameStateMachine = gameStateMachine;
             _worldProvider = worldProvider;
             _config = config;
         }
@@ -38,14 +38,14 @@ namespace Game.Infrastructure.Enemy
             if (!_config.IsLoaded)
                 return;
 
-            if (_gameStateService.CurrentState != GameState.Playing)
+            if (_gameStateMachine.CurrentState != GameState.Playing)
                 return;
 
-            ShipModel ship = _shipService.Ship;
+            ShipModel ship = _shipRepository.Ship;
             if (ship == null)
                 return;
 
-            foreach (var ufo in _enemyService.GetEnemies<UfoModel>())
+            foreach (var ufo in _enemyRegistry.GetEnemies<UfoModel>())
             {
                 if (!ufo.Entity.IsActive)
                     continue;

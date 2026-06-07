@@ -5,17 +5,17 @@ using UnityEngine;
 
 namespace Game.Infrastructure.Enemies
 {
-    public class AsteroidSplitService
+    public class AsteroidSplitter
     {
         private AsteroidFactory _asteroidFactory;
-        private ConfigService _configService;
+        private ConfigRepository _configRepository;
 
-        public AsteroidSplitService(
+        public AsteroidSplitter(
             AsteroidFactory asteroidFactory,
-            ConfigService configService)
+            ConfigRepository configRepository)
         {
             _asteroidFactory = asteroidFactory;
-            _configService = configService;
+            _configRepository = configRepository;
         }
 
         public void Split(AsteroidModel asteroid)
@@ -32,7 +32,7 @@ namespace Game.Infrastructure.Enemies
             AsteroidModel firstFragment = _asteroidFactory.Create(position, newSize);
             AsteroidModel secondFragment = _asteroidFactory.Create(position, newSize);
 
-            float fragmentSpeed = _configService.EnemyConfig.AsteroidFragmentSpeed;
+            float fragmentSpeed = _configRepository.EnemyConfig.AsteroidFragmentSpeed;
             firstFragment.Entity.SetVelocity(Random.insideUnitCircle * fragmentSpeed);
             secondFragment.Entity.SetVelocity(Random.insideUnitCircle * fragmentSpeed);
         }

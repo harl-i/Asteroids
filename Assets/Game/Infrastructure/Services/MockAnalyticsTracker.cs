@@ -1,6 +1,8 @@
+using Game.Core.Services;
+
 namespace Game.Infrastructure.Services
 {
-    public class MockFirebaseAnalyticsService : IFirebaseAnalyticsService
+    public class MockAnalyticsTracker : IAnalyticsTracker
     {
         public void LogEvent(string eventName)
         {

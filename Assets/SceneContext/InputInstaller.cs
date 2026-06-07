@@ -19,8 +19,8 @@ public class InputInstaller : Installer<InputInstaller>
                 refs.LaserButton);
         }).AsSingle();
 
-        Container.BindInterfacesAndSelfTo<MobileInputVisibilityService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<MobileInputVisibilityHandler>().AsSingle();
         Container.BindInterfacesAndSelfTo<InputRouter>().AsSingle();
-        Container.BindInterfacesAndSelfTo<RestartInputService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<RestartInputHandler>().AsSingle();
     }
 }

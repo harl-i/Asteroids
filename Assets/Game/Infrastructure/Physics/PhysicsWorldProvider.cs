@@ -8,13 +8,13 @@ namespace Game.Infrastructure.Physics
 {
     public class PhysicsWorldProvider : IInitializable
     {
-        private ConfigService _config;
+        private ConfigRepository _config;
         private float _halfFactor = 2f;
         private ZenjectCollisionEvents _collisionEvents;
 
         public Physics2DWorld World { get; private set; }
 
-        public PhysicsWorldProvider(ConfigService config, ZenjectCollisionEvents collisionEvents)
+        public PhysicsWorldProvider(ConfigRepository config, ZenjectCollisionEvents collisionEvents)
         {
             _config = config;
             _collisionEvents = collisionEvents;

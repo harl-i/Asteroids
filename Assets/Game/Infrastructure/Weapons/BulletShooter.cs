@@ -8,40 +8,40 @@ using Zenject;
 
 namespace Game.Infrastructure.Weapons
 {
-    public class BulletShooterService : ITickable
+    public class BulletShooter : ITickable
     {
         private IShipInput _shipInput;
-        private ShipService _shipService;
-        private BulletService _bulletService;
+        private ShipRepository _shipRepository;
+        private BulletRegistry _bulletRegistry;
         private BulletFactory _bulletFactory;
         private BulletPool _bulletPool;
-        private ConfigService _configService;
+        private ConfigRepository _configRepository;
         private float _shotCooldownRemaining;
 
-        public BulletShooterService(
+        public BulletShooter(
             IShipInput shipInput,
-            ShipService shipService,
-            BulletService bulletService,
+            ShipRepository shipRepository,
+            BulletRegistry bulletRegistry,
             BulletFactory bulletFactory,
             BulletPool bulletPool,
-            ConfigService configService)
+            ConfigRepository configRepository)
         {
             _shipInput = shipInput;
-            _shipService = shipService;
-            _bulletService = bulletService;
+            _shipRepository = shipRepository;
+            _bulletRegistry = bulletRegistry;
             _bulletFactory = bulletFactory;
             _bulletPool = bulletPool;
-            _configService = configService;
+            _configRepository = configRepository;
         }
 
         public void Tick()
         {
-            if (!_configService.IsLoaded)
+            if (!_configRepository.IsLoaded)
                 return;
 
             _shotCooldownRemaining -= Time.deltaTime;
 
-            ShipModel ship = _shipService.Ship;
+            ShipModel ship = _shipRepository.Ship;
             if (ship == null ||
                 ship.IsControlLocked ||
                 !_shipInput.IsFirePressed ||
@@ -51,7 +51,7 @@ namespace Game.Infrastructure.Weapons
             }
 
             Shoot(ship);
-            _shotCooldownRemaining = 1f / _configService.PlayerConfig.FireRate;
+            _shotCooldownRemaining = 1f / _configRepository.PlayerConfig.FireRate;
         }
 
         public void ResetCooldown()
@@ -64,7 +64,7 @@ namespace Game.Infrastructure.Weapons
             float rad = ship.RotationDeg * Mathf.Deg2Rad;
             Vector2 forward = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
-            float spawnOffset = ship.Entity.Radius + _configService.PlayerConfig.BulletSpawnOffset;
+            float spawnOffset = ship.Entity.Radius + _configRepository.PlayerConfig.BulletSpawnOffset;
             Vector2 spawnPosition = ship.Entity.Position + forward * spawnOffset;
             Vector2 inheritedVelocity = ship.Entity.Velocity;
 
@@ -73,7 +73,7 @@ namespace Game.Infrastructure.Weapons
                 : _bulletFactory.Create();
 
             _bulletFactory.Activate(bullet, spawnPosition, forward, inheritedVelocity);
-            _bulletService.Add(bullet);
+            _bulletRegistry.Add(bullet);
         }
     }
 }

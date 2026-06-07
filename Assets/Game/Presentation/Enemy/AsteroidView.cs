@@ -9,10 +9,10 @@ namespace Game.Presentation.Enemy
     public class AsteroidView : MonoBehaviour, IBindableView<AsteroidModel>
     {
         private AsteroidModel _asteroidModel;
-        private ConfigService _config;
+        private ConfigRepository _config;
 
         [Inject]
-        public void Construct(ConfigService config)
+        public void Construct(ConfigRepository config)
         {
             _config = config;
         }

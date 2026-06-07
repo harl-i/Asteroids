@@ -8,11 +8,11 @@ using Zenject;
 
 namespace Game.Infrastructure.Weapons
 {
-    public class LaserStateService : ITickable, IInitializable
+    public class LaserState : ITickable, IInitializable
     {
-        private ConfigService _config;
+        private ConfigRepository _config;
         private SignalBus _signalBus;
-        private GameStateService _gameStateService;
+        private GameStateMachine _gameStateMachine;
 
         private int _currentCharges;
         private int _maxCharges;
@@ -23,14 +23,14 @@ namespace Game.Infrastructure.Weapons
         public int MaxCharges => _maxCharges;
         public float CooldownRemaining => _cooldownRemaining;
 
-        public LaserStateService(
-            ConfigService config,
+        public LaserState(
+            ConfigRepository config,
             SignalBus signalBus,
-            GameStateService gameStateService)
+            GameStateMachine gameStateMachine)
         {
             _config = config;
             _signalBus = signalBus;
-            _gameStateService = gameStateService;
+            _gameStateMachine = gameStateMachine;
         }
 
         public async void Initialize()
@@ -44,7 +44,7 @@ namespace Game.Infrastructure.Weapons
             if (!_config.IsLoaded)
                 return;
 
-            if (_gameStateService.CurrentState != GameState.Playing)
+            if (_gameStateMachine.CurrentState != GameState.Playing)
                 return;
 
             RechargeTick();

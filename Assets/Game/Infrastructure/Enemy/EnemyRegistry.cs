@@ -4,7 +4,7 @@ using Zenject;
 
 namespace Game.Infrastructure.Enemy
 {
-    public class EnemyService : ITickable
+    public class EnemyRegistry : ITickable
     {
         private List<IEnemy> _enemies = new List<IEnemy>();
 

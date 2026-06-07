@@ -3,11 +3,11 @@ using Game.Core.Services;
 
 namespace Game.Infrastructure.Services
 {
-    public class YandexAdService : IAdService
+    public class YandexAdProvider : IAdProvider
     {
         private IYandexAdsPlatformAdapter _platformAdapter;
 
-        public YandexAdService(IYandexAdsPlatformAdapter platformAdapter)
+        public YandexAdProvider(IYandexAdsPlatformAdapter platformAdapter)
         {
             _platformAdapter = platformAdapter;
         }

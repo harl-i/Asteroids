@@ -5,25 +5,25 @@ using Zenject;
 
 namespace Game.Infrastructure.Game
 {
-    public class RestartInputService : ITickable
+    public class RestartInputHandler : ITickable
     {
         private IGameInput _input;
         private SignalBus _signalBus;
-        private GameStateService _gameStateService;
+        private GameStateMachine _gameStateMachine;
 
-        public RestartInputService(
+        public RestartInputHandler(
             IGameInput input,
             SignalBus signalBus,
-            GameStateService gameStateService)
+            GameStateMachine gameStateMachine)
         {
             _input = input;
             _signalBus = signalBus;
-            _gameStateService = gameStateService;
+            _gameStateMachine = gameStateMachine;
         }
 
         public void Tick()
         {
-            if (_gameStateService.CurrentState != GameState.GameOver)
+            if (_gameStateMachine.CurrentState != GameState.GameOver)
                 return;
 
             if (_input.IsRestartPressed)

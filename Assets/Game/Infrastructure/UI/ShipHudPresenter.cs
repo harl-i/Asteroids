@@ -9,17 +9,17 @@ namespace Game.Infrastructure.UI
 {
     public class ShipHudPresenter : ITickable, IInitializable, IDisposable
     {
-        private ShipService _shipService;
+        private ShipRepository _shipRepository;
         private ShipHudViewModel _shipHudViewModel;
         private SignalBus _signalBus;
 
         public ShipHudViewModel ShipHudViewModel => _shipHudViewModel;
 
         public ShipHudPresenter(
-            ShipService shipService,
+            ShipRepository shipRepository,
             SignalBus signalBus)
         {
-            _shipService = shipService;
+            _shipRepository = shipRepository;
             _shipHudViewModel = new ShipHudViewModel();
             _signalBus = signalBus;
         }
@@ -36,7 +36,7 @@ namespace Game.Infrastructure.UI
 
         public void Tick()
         {
-            ShipModel ship = _shipService.Ship;
+            ShipModel ship = _shipRepository.Ship;
             if (ship == null) return;
 
             _shipHudViewModel.SetPosition(ship.Entity.Position);

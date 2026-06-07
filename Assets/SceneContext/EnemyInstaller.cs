@@ -23,23 +23,23 @@ public class EnemyInstaller : Installer<EnemyInstaller>
     private void BindAsteroids()
     {
         Container.Bind<AsteroidFactory>().AsSingle();
-        Container.BindInterfacesAndSelfTo<AsteroidSpawnService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<AsteroidSpawner>().AsSingle();
     }
 
     private void BindUfo()
     {
         Container.Bind<UfoFactory>().AsSingle();
-        Container.BindInterfacesAndSelfTo<UfoSpawnService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<UfoMovementService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UfoSpawner>().AsSingle();
+        Container.BindInterfacesAndSelfTo<UfoMovementController>().AsSingle();
     }
 
     private void BindServices()
     {
-        Container.Bind<SpawnPositionService>().AsSingle();
-        Container.Bind<AsteroidSplitService>().AsSingle();
+        Container.Bind<SpawnPositionProvider>().AsSingle();
+        Container.Bind<AsteroidSplitter>().AsSingle();
         Container.Bind<AsteroidViewFactory>().AsSingle();
         Container.Bind<UfoViewFactory>().AsSingle();
-        Container.BindInterfacesAndSelfTo<EnemyDeathService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<EnemyService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<EnemyDeathHandler>().AsSingle();
+        Container.BindInterfacesAndSelfTo<EnemyRegistry>().AsSingle();
     }
 }

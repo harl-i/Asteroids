@@ -1,20 +1,21 @@
 using System;
+using Game.Core.Services;
 using Game.Core.Signals;
 using Zenject;
 
 namespace Game.Infrastructure.Game
 {
-    public class RestartAnalyticsService : IInitializable, IDisposable
+    public class RestartAnalyticsHandler : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private IFirebaseAnalyticsService _analyticsService;
+        private IAnalyticsTracker _analyticsTracker;
 
-        public RestartAnalyticsService(
+        public RestartAnalyticsHandler(
             SignalBus signalBus,
-            IFirebaseAnalyticsService analyticsService)
+            IAnalyticsTracker analyticsTracker)
         {
             _signalBus = signalBus;
-            _analyticsService = analyticsService;
+            _analyticsTracker = analyticsTracker;
         }
 
         public void Initialize()
@@ -29,7 +30,7 @@ namespace Game.Infrastructure.Game
 
         private void OnRestart()
         {
-            _analyticsService.LogEvent(AnalyticsConstants.Events.GameRestart);
+            _analyticsTracker.LogEvent(AnalyticsConstants.Events.GameRestart);
         }
     }
 }

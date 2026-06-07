@@ -10,21 +10,21 @@ namespace Game.Presentation.Enemy
         [SerializeField] private AsteroidView _asteroidPrefab;
         [SerializeField] private Transform _container;
 
-        private EnemyService _enemyService;
+        private EnemyRegistry _enemyRegistry;
         private AsteroidViewFactory _factory;
 
         [Inject]
         public void Construct(
-            EnemyService enemyService,
+            EnemyRegistry enemyRegistry,
             AsteroidViewFactory factory)
         {
-            _enemyService = enemyService;
+            _enemyRegistry = enemyRegistry;
             _factory = factory;
         }
 
         private void Update()
         {
-            foreach (var enemy in _enemyService.Enemies)
+            foreach (var enemy in _enemyRegistry.Enemies)
             {
                 if (enemy is AsteroidModel asteroid)
                 {

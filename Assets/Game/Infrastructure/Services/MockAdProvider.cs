@@ -3,7 +3,7 @@ using Game.Core.Services;
 
 namespace Game.Infrastructure.Services
 {
-    public class MockAdService : IAdService
+    public class MockAdProvider : IAdProvider
     {
         public void ShowInterstitial()
         {

@@ -6,17 +6,17 @@ using Zenject;
 
 namespace Game.Infrastructure.Enemies
 {
-    public class EnemyDeathService : IInitializable, IDisposable
+    public class EnemyDeathHandler : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private AsteroidSplitService _asteroidSplitService;
+        private AsteroidSplitter _asteroidSplitter;
 
-        public EnemyDeathService(
+        public EnemyDeathHandler(
             SignalBus signalBus,
-            AsteroidSplitService asteroidSplitService)
+            AsteroidSplitter asteroidSplitter)
         {
             _signalBus = signalBus;
-            _asteroidSplitService = asteroidSplitService;
+            _asteroidSplitter = asteroidSplitter;
         }
 
         public void Initialize()
@@ -63,7 +63,7 @@ namespace Game.Infrastructure.Enemies
                 Type = asteroid.EnemyType
             });
 
-            _asteroidSplitService.Split(asteroid);
+            _asteroidSplitter.Split(asteroid);
         }
 
         private void KillUfo(UfoModel ufo)

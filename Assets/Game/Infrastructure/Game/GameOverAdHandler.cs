@@ -8,14 +8,14 @@ namespace Game.Infrastructure.Game
     public class GameOverAdHandler : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private IAdService _adService;
+        private IAdProvider _adProvider;
 
         public GameOverAdHandler(
             SignalBus signalBus,
-            IAdService adService)
+            IAdProvider adProvider)
         {
             _signalBus = signalBus;
-            _adService = adService;
+            _adProvider = adProvider;
         }
 
         public void Initialize()
@@ -30,7 +30,7 @@ namespace Game.Infrastructure.Game
 
         private void OnGameOver()
         {
-            _adService.ShowInterstitial();
+            _adProvider.ShowInterstitial();
         }
     }
 }

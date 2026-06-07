@@ -9,9 +9,9 @@ namespace Game.Infrastructure.Ship
     public class ShipFactory
     {
         private PhysicsWorldProvider _worldProvider;
-        private ConfigService _config;
+        private ConfigRepository _config;
 
-        public ShipFactory(PhysicsWorldProvider worldProvider, ConfigService config)
+        public ShipFactory(PhysicsWorldProvider worldProvider, ConfigRepository config)
         {
             _worldProvider = worldProvider;
             _config = config;

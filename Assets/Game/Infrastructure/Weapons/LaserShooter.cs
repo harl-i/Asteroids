@@ -12,32 +12,32 @@ using Zenject;
 
 namespace Game.Infrastructure.Weapons
 {
-    public class LaserFireService : ITickable
+    public class LaserShooter : ITickable
     {
         private IShipInput _input;
-        private ShipService _shipService;
-        private LaserStateService _laserStateService;
+        private ShipRepository _shipRepository;
+        private LaserState _laserState;
         private PhysicsWorldProvider _worldProvider;
-        private ConfigService _config;
+        private ConfigRepository _config;
         private SignalBus _signalBus;
-        private GameStateService _gameStateService;
+        private GameStateMachine _gameStateMachine;
 
-        public LaserFireService(
+        public LaserShooter(
             IShipInput input,
-            ShipService shipService,
-            LaserStateService laserStateService,
+            ShipRepository shipRepository,
+            LaserState laserState,
             PhysicsWorldProvider worldProvider,
-            ConfigService config,
+            ConfigRepository config,
             SignalBus signalBus,
-            GameStateService gameStateService)
+            GameStateMachine gameStateMachine)
         {
             _input = input;
-            _shipService = shipService;
-            _laserStateService = laserStateService;
+            _shipRepository = shipRepository;
+            _laserState = laserState;
             _worldProvider = worldProvider;
             _config = config;
             _signalBus = signalBus;
-            _gameStateService = gameStateService;
+            _gameStateMachine = gameStateMachine;
         }
 
         public void Tick()
@@ -45,14 +45,14 @@ namespace Game.Infrastructure.Weapons
             if (!_config.IsLoaded)
                 return;
 
-            if (_gameStateService.CurrentState != GameState.Playing)
+            if (_gameStateMachine.CurrentState != GameState.Playing)
                 return;
 
-            ShipModel ship = _shipService.Ship;
+            ShipModel ship = _shipRepository.Ship;
             if (ship == null || ship.IsControlLocked)
                 return;
 
-            if (_input.IsLaserPressed && _laserStateService.TrySpendCharge())
+            if (_input.IsLaserPressed && _laserState.TrySpendCharge())
             {
                 FireLaser(ship);
             }

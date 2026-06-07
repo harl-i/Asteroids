@@ -6,20 +6,20 @@ using Zenject;
 
 namespace Game.Infrastructure.Game
 {
-    public class ShipResetService : IInitializable, IDisposable
+    public class ShipResetHandler : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private ShipService _shipService;
-        private LaserStateService _laserStateService;
+        private ShipRepository _shipRepository;
+        private LaserState _laserState;
 
-        public ShipResetService(
+        public ShipResetHandler(
             SignalBus signalBus,
-            ShipService shipService,
-            LaserStateService laserStateService)
+            ShipRepository shipRepository,
+            LaserState laserState)
         {
             _signalBus = signalBus;
-            _shipService = shipService;
-            _laserStateService = laserStateService;
+            _shipRepository = shipRepository;
+            _laserState = laserState;
         }
 
         public void Initialize()
@@ -34,8 +34,8 @@ namespace Game.Infrastructure.Game
 
         private void OnRestart()
         {
-            _laserStateService.ResetState();
-            _shipService.ResetShip();
+            _laserState.ResetState();
+            _shipRepository.ResetShip();
         }
     }
 }

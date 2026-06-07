@@ -6,20 +6,20 @@ namespace Game.Presentation.Debug
 {
     public class BulletDebugDrawer : MonoBehaviour
     {
-        private BulletService _bulletService;
+        private BulletRegistry _bulletRegistry;
 
         [Inject]
-        public void Construct(BulletService bulletService)
+        public void Construct(BulletRegistry bulletRegistry)
         {
-            _bulletService = bulletService;
+            _bulletRegistry = bulletRegistry;
         }
 
         private void OnDrawGizmos()
         {
-            if (_bulletService == null)
+            if (_bulletRegistry == null)
                 return;
 
-            foreach (var bullet in _bulletService.Bullets)
+            foreach (var bullet in _bulletRegistry.Bullets)
             {
                 if (!bullet.IsAlive)
                     continue;

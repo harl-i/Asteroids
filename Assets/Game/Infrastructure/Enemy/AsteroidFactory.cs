@@ -9,16 +9,16 @@ namespace Game.Infrastructure.Enemy
     public class AsteroidFactory
     {
         private PhysicsWorldProvider _world;
-        private EnemyService _enemyService;
-        private ConfigService _config;
+        private EnemyRegistry _enemyRegistry;
+        private ConfigRepository _config;
 
         public AsteroidFactory(
             PhysicsWorldProvider world,
-            EnemyService enemyService,
-            ConfigService config)
+            EnemyRegistry enemyRegistry,
+            ConfigRepository config)
         {
             _world = world;
-            _enemyService = enemyService;
+            _enemyRegistry = enemyRegistry;
             _config = config;
         }
 
@@ -34,7 +34,7 @@ namespace Game.Infrastructure.Enemy
             AsteroidModel asteroid = new AsteroidModel(entity, size);
             entity.SetPhysicsOwner(asteroid);
 
-            _enemyService.Add(asteroid);
+            _enemyRegistry.Add(asteroid);
             return asteroid;
         }
 

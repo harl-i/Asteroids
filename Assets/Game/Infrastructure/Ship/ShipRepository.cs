@@ -5,14 +5,14 @@ using Zenject;
 
 namespace Game.Infrastructure.Ship
 {
-    public class ShipService
+    public class ShipRepository
     {
         private ShipFactory _factory;
         private SignalBus _signalBus;
 
         public ShipModel Ship { get; private set; }
 
-        public ShipService(
+        public ShipRepository(
             ShipFactory factory,
             SignalBus signalBus)
         {

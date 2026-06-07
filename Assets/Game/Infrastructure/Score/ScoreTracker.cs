@@ -1,23 +1,24 @@
 using System;
 using System.Collections.Generic;
 using Game.Core.Enemy;
+using Game.Core.Services;
 using Game.Core.Signals;
 using Zenject;
 
 namespace Game.Infrastructure.Score
 {
-    public class ScoreService : IInitializable, IDisposable
+    public class ScoreTracker : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
         private Dictionary<EnemyType, int> _rewardByEnemyType;
-        private IFirebaseAnalyticsService _analyticsService;
+        private IAnalyticsTracker _analyticsTracker;
 
         public int CurrentScore { get; private set; }
 
-        public ScoreService(SignalBus signalBus, IFirebaseAnalyticsService analyticsService)
+        public ScoreTracker(SignalBus signalBus, IAnalyticsTracker analyticsTracker)
         {
             _signalBus = signalBus;
-            _analyticsService = analyticsService;
+            _analyticsTracker = analyticsTracker;
 
             _rewardByEnemyType = new Dictionary<EnemyType, int>
             {
@@ -52,7 +53,7 @@ namespace Game.Infrastructure.Score
                 Score = CurrentScore 
             });
 
-            _analyticsService.LogEvent(
+            _analyticsTracker.LogEvent(
                 AnalyticsConstants.Events.EnemyKilled,
                 AnalyticsConstants.Parameters.EnemyType,
                 signal.Type.ToString());

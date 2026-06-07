@@ -20,17 +20,17 @@ public class WeaponsInstaller : Installer<WeaponsInstaller>
 
     private void BindBullets()
     {
-        Container.BindInterfacesAndSelfTo<BulletService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<BulletShooterService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<BulletRegistry>().AsSingle();
+        Container.BindInterfacesAndSelfTo<BulletShooter>().AsSingle();
         Container.Bind<BulletFactory>().AsSingle();
         Container.Bind<BulletViewFactory>().AsSingle();
-        Container.BindInterfacesAndSelfTo<BulletCollisionService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<BulletCollisionHandler>().AsSingle();
         Container.Bind<BulletPool>().AsSingle();
     }
 
     private void BindLaser()
     {
-        Container.BindInterfacesAndSelfTo<LaserStateService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<LaserFireService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LaserState>().AsSingle();
+        Container.BindInterfacesAndSelfTo<LaserShooter>().AsSingle();
     }
 }

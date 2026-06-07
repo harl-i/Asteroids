@@ -1,6 +1,6 @@
 namespace Game.Core.Services
 {
-    public interface IAdService
+    public interface IAdProvider
     {
         public void ShowInterstitial();
         public void ShowRewarded(System.Action onRewarded);

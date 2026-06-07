@@ -5,7 +5,7 @@ using Zenject;
 
 namespace Game.Infrastructure.Weapons
 {
-    public class BulletService : ITickable
+    public class BulletRegistry : ITickable
     {
         private BulletPool _bulletPool;
 
@@ -13,7 +13,7 @@ namespace Game.Infrastructure.Weapons
 
         public IReadOnlyList<BulletModel> Bullets => _bullets;
 
-        public BulletService(BulletPool bulletPool)
+        public BulletRegistry(BulletPool bulletPool)
         {
             _bulletPool = bulletPool;
         }

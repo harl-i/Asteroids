@@ -5,13 +5,13 @@ using Zenject;
 
 namespace Game.Presentation.Input
 {
-    public class MobileInputVisibilityService : IInitializable
+    public class MobileInputVisibilityHandler : IInitializable
     {
-        private ConfigService _config;
+        private ConfigRepository _config;
         private MobileInputSceneRefs _refs;
 
-        public MobileInputVisibilityService(
-            ConfigService config,
+        public MobileInputVisibilityHandler(
+            ConfigRepository config,
             MobileInputSceneRefs refs)
         {
             _config = config;

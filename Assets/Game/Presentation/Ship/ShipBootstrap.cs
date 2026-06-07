@@ -13,19 +13,19 @@ namespace Game.Presentation.Ship
     {
         [SerializeField] private ShipView _shipView;
 
-        private ShipService _shipService;
+        private ShipRepository _shipRepository;
         private SignalBus _signalBus;
-        private ConfigService _config;
+        private ConfigRepository _config;
         private PhysicsWorldProvider _worldProvider;
 
         [Inject]
         public void Construct(
-            ShipService shipService,
+            ShipRepository shipRepository,
             SignalBus signalBus,
-            ConfigService config,
+            ConfigRepository config,
             PhysicsWorldProvider worldProvider)
         {
-            _shipService = shipService;
+            _shipRepository = shipRepository;
             _signalBus = signalBus;
             _config = config;
             _worldProvider = worldProvider;
@@ -51,13 +51,13 @@ namespace Game.Presentation.Ship
             await _config.LoadAsync();
             await UniTask.WaitUntil(() => _worldProvider.World != null, cancellationToken: cancellationToken);
 
-            _shipService.CreateIfNeeded();
-            _shipView.Bind(_shipService.Ship);
+            _shipRepository.CreateIfNeeded();
+            _shipView.Bind(_shipRepository.Ship);
         }
 
         private void OnShipChanged()
         {
-            _shipView.Bind(_shipService.Ship);
+            _shipView.Bind(_shipRepository.Ship);
         }
     }
 }

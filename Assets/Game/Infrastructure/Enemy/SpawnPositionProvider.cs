@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Game.Infrastructure.Enemy
 {
-    public class SpawnPositionService
+    public class SpawnPositionProvider
     {
-        private ConfigService _config;
+        private ConfigRepository _config;
 
-        public SpawnPositionService(ConfigService config)
+        public SpawnPositionProvider(ConfigRepository config)
         {
             _config = config;
         }

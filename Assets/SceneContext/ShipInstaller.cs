@@ -21,8 +21,8 @@ public class ShipInstaller : Installer<ShipInstaller>
     private void BindServices()
     {
         Container.Bind<ShipFactory>().AsSingle();
-        Container.Bind<ShipService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ShipMovementService>().AsSingle();
-        Container.BindInterfacesAndSelfTo<ShipDamageService>().AsSingle();
+        Container.Bind<ShipRepository>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ShipMovementController>().AsSingle();
+        Container.BindInterfacesAndSelfTo<ShipDamageHandler>().AsSingle();
     }
 }

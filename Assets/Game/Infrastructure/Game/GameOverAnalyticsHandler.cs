@@ -1,4 +1,5 @@
 using System;
+using Game.Core.Services;
 using Game.Core.Signals;
 using Zenject;
 
@@ -7,11 +8,11 @@ namespace Game.Infrastructure.Game
     public class GameOverAnalyticsHandler : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private IFirebaseAnalyticsService _analytics;
+        private IAnalyticsTracker _analytics;
 
         public GameOverAnalyticsHandler(
             SignalBus signalBus,
-            IFirebaseAnalyticsService analytics)
+            IAnalyticsTracker analytics)
         {
             _signalBus = signalBus;
             _analytics = analytics;
