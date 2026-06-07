@@ -1,16 +1,21 @@
 using Game.Core.Enemy;
+using Game.Infrastructure.Services;
 using Game.Presentation.Common;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Presentation.Enemy
 {
     public class AsteroidView : MonoBehaviour, IBindableView<AsteroidModel>
     {
         private AsteroidModel _asteroidModel;
+        private ConfigService _config;
 
-        private float _largeSize = 2.5f;
-        private float _mediumSize = 1.5f;
-        private float _smallSize = 1f;
+        [Inject]
+        public void Construct(ConfigService config)
+        {
+            _config = config;
+        }
 
         public void Bind(AsteroidModel asteroidModel)
         {
@@ -40,10 +45,10 @@ namespace Game.Presentation.Enemy
 
             float scale = _asteroidModel.Size switch
             {
-                AsteroidSize.Large => _largeSize,
-                AsteroidSize.Medium => _mediumSize,
-                AsteroidSize.Small => _smallSize,
-                _ => _smallSize
+                AsteroidSize.Large => _config.ViewConfig.Asteroid.LargeScale,
+                AsteroidSize.Medium => _config.ViewConfig.Asteroid.MediumScale,
+                AsteroidSize.Small => _config.ViewConfig.Asteroid.SmallScale,
+                _ => _config.ViewConfig.Asteroid.SmallScale
             };
 
             transform.localScale = Vector3.one * scale;

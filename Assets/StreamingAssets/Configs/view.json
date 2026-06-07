@@ -1,0 +1,7 @@
+{
+  "Asteroid": {
+    "LargeScale": 2.5,
+    "MediumScale": 1.5,
+    "SmallScale": 1
+  }
+}

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace Game.Presentation.Common
 {
@@ -8,6 +9,13 @@ namespace Game.Presentation.Common
     {
         private Dictionary<TModel, TView> _views = new Dictionary<TModel, TView>();
         private List<TModel> _modelsToRemove = new List<TModel>();
+        private DiContainer _container;
+
+        [Inject]
+        public void Construct(DiContainer container)
+        {
+            _container = container;
+        }
 
         public TView GetOrCreate(TModel model, TView prefab, Transform parent)
         {
@@ -17,7 +25,7 @@ namespace Game.Presentation.Common
                 return existing;
             }
 
-            TView view = Object.Instantiate(prefab, parent);
+            TView view = _container.InstantiatePrefabForComponent<TView>(prefab, parent);
             view.Bind(model);
 
             _views.Add(model, view);

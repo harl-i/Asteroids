@@ -13,16 +13,19 @@ namespace Game.Infrastructure.Services
         private const string PlayerConfigFileName = "player.json";
         private const string WorldConfigFileName = "world.json";
         private const string EnemyConfigFileName = "enemy.json";
+        private const string ViewConfigFileName = "view.json";
 
         private PlayerConfig _playerConfig;
         private WorldConfig _worldConfig;
         private EnemyConfig _enemyConfig;
+        private ViewConfig _viewConfig;
         private UniTaskCompletionSource _loadCompletion;
         private bool _isLoading;
 
         public PlayerConfig PlayerConfig => _playerConfig;
         public WorldConfig WorldConfig => _worldConfig;
         public EnemyConfig EnemyConfig => _enemyConfig;
+        public ViewConfig ViewConfig => _viewConfig;
         public bool IsLoaded { get; private set; }
 
         public void Initialize()
@@ -49,6 +52,7 @@ namespace Game.Infrastructure.Services
                 _playerConfig = await LoadJsonAsync<PlayerConfig>(PlayerConfigFileName);
                 _worldConfig = await LoadJsonAsync<WorldConfig>(WorldConfigFileName);
                 _enemyConfig = await LoadJsonAsync<EnemyConfig>(EnemyConfigFileName);
+                _viewConfig = await LoadJsonAsync<ViewConfig>(ViewConfigFileName);
                 IsLoaded = true;
                 _loadCompletion.TrySetResult();
             }
