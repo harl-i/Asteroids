@@ -13,23 +13,16 @@ namespace Game.Core.UI
         public int LaserMaxCharges { get; private set; }
         public float LaserCooldownRemaining { get; private set; }
 
-        public void SetPosition(Vector2 position)
+        public void SetShipState(
+            Vector2 position,
+            float rotationDeg,
+            float speed,
+            int currentHealth,
+            int maxHealth)
         {
             Position = position;
-        }
-
-        public void SetRotation(float rotationDeg)
-        {
             RotationDeg = rotationDeg;
-        }
-
-        public void SetSpeed(float speed)
-        {
             Speed = speed;
-        }
-
-        public void SetHealth(int currentHealth, int maxHealth)
-        {
             CurrentHealth = currentHealth;
             MaxHealth = maxHealth;
         }

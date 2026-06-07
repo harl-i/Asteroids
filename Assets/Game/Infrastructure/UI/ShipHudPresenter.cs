@@ -39,10 +39,12 @@ namespace Game.Infrastructure.UI
             ShipModel ship = _shipRepository.Ship;
             if (ship == null) return;
 
-            _shipHudViewModel.SetPosition(ship.Entity.Position);
-            _shipHudViewModel.SetRotation(ship.RotationDeg);
-            _shipHudViewModel.SetSpeed(ship.Entity.Velocity.magnitude);
-            _shipHudViewModel.SetHealth(ship.CurrentHealth, ship.MaxHealth);
+            _shipHudViewModel.SetShipState(
+                ship.Entity.Position,
+                ship.RotationDeg,
+                ship.Entity.Velocity.magnitude,
+                ship.CurrentHealth,
+                ship.MaxHealth);
         }
 
         private void OnLaserChargesChanged(LaserChargesChangedSignal signal)
