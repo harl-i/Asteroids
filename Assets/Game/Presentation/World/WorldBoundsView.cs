@@ -10,6 +10,7 @@ namespace Game.Presentation.World
     {
         [SerializeField] private float _lineWidth = 0.08f;
         [SerializeField] private Color _lineColor = Color.white;
+        [SerializeField] private Material _lineMaterial;
 
         private LineRenderer _lineRenderer;
         private PhysicsWorldProvider _worldProvider;
@@ -56,9 +57,9 @@ namespace Game.Presentation.World
             _lineRenderer.startColor = _lineColor;
             _lineRenderer.endColor = _lineColor;
 
-            if (_lineRenderer.sharedMaterial == null)
+            if (_lineMaterial != null)
             {
-                _lineRenderer.sharedMaterial = new Material(Shader.Find("Sprites/Default"));
+                _lineRenderer.sharedMaterial = _lineMaterial;
             }
         }
 
