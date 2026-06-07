@@ -10,15 +10,18 @@ namespace Game.Infrastructure.Game
     {
         private SignalBus _signalBus;
         private BulletService _bulletService;
+        private BulletShooterService _bulletShooterService;
         private EnemyService _enemyService;
 
         public WorldResetService(
             SignalBus signalBus,
             BulletService bulletService,
+            BulletShooterService bulletShooterService,
             EnemyService enemyService)
         {
             _signalBus = signalBus;
             _bulletService = bulletService;
+            _bulletShooterService = bulletShooterService;
             _enemyService = enemyService;
         }
 
@@ -35,6 +38,7 @@ namespace Game.Infrastructure.Game
         private void OnRestart()
         {
             _bulletService.Clear();
+            _bulletShooterService.ResetCooldown();
             _enemyService.Clear();
         }
     }

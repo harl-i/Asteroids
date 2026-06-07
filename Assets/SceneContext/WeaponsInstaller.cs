@@ -21,6 +21,7 @@ public class WeaponsInstaller : Installer<WeaponsInstaller>
     private void BindBullets()
     {
         Container.BindInterfacesAndSelfTo<BulletService>().AsSingle();
+        Container.BindInterfacesAndSelfTo<BulletShooterService>().AsSingle();
         Container.Bind<BulletFactory>().AsSingle();
         Container.Bind<BulletViewFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<BulletCollisionService>().AsSingle();
