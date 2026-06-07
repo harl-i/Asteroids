@@ -10,6 +10,7 @@ namespace Game.Infrastructure.Enemy
 
         public IReadOnlyList<IEnemy> Enemies => _enemies;
         public int ActiveCount => _enemies.Count;
+        public int ActiveUfoCount => Count<UfoModel>();
 
         public void Add(IEnemy enemy)
         {
@@ -38,6 +39,28 @@ namespace Game.Infrastructure.Enemy
             }
 
             _enemies.Clear();
+        }
+
+        public IEnumerable<TEnemy> GetEnemies<TEnemy>() where TEnemy : class, IEnemy
+        {
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                if (_enemies[i] is TEnemy enemy)
+                    yield return enemy;
+            }
+        }
+
+        private int Count<TEnemy>() where TEnemy : class, IEnemy
+        {
+            int count = 0;
+
+            for (int i = 0; i < _enemies.Count; i++)
+            {
+                if (_enemies[i] is TEnemy && _enemies[i].IsAlive)
+                    count++;
+            }
+
+            return count;
         }
     }
 }

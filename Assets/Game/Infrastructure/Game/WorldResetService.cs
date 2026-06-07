@@ -11,18 +11,15 @@ namespace Game.Infrastructure.Game
         private SignalBus _signalBus;
         private BulletService _bulletService;
         private EnemyService _enemyService;
-        private UfoService _ufoService;
 
         public WorldResetService(
             SignalBus signalBus,
             BulletService bulletService,
-            EnemyService enemyService,
-            UfoService ufoService)
+            EnemyService enemyService)
         {
             _signalBus = signalBus;
             _bulletService = bulletService;
             _enemyService = enemyService;
-            _ufoService = ufoService;
         }
 
         public void Initialize()
@@ -39,7 +36,6 @@ namespace Game.Infrastructure.Game
         {
             _bulletService.Clear();
             _enemyService.Clear();
-            _ufoService.Clear();
         }
     }
 }

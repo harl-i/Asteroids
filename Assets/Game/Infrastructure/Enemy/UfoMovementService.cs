@@ -1,3 +1,4 @@
+using Game.Core.Enemy;
 using Game.Core.Game;
 using Game.Core.Ship;
 using Game.Core.World;
@@ -12,20 +13,20 @@ namespace Game.Infrastructure.Enemy
 {
     public class UfoMovementService : ITickable
     {
-        private UfoService _ufoService;
+        private EnemyService _enemyService;
         private ShipControllerService _shipController;
         private GameStateService _gameStateService;
         private PhysicsWorldProvider _worldProvider;
         private ConfigService _config;
 
         public UfoMovementService(
-            UfoService ufoService,
+            EnemyService enemyService,
             ShipControllerService shipController,
             GameStateService gameStateService,
             PhysicsWorldProvider worldProvider,
             ConfigService config)
         {
-            _ufoService = ufoService;
+            _enemyService = enemyService;
             _shipController = shipController;
             _gameStateService = gameStateService;
             _worldProvider = worldProvider;
@@ -44,7 +45,7 @@ namespace Game.Infrastructure.Enemy
             if (ship == null)
                 return;
 
-            foreach (var ufo in _ufoService.Ufos)
+            foreach (var ufo in _enemyService.GetEnemies<UfoModel>())
             {
                 if (!ufo.Entity.IsActive)
                     continue;

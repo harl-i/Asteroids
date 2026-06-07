@@ -27,7 +27,6 @@ public class EnemyInstaller : Installer<EnemyInstaller>
 
     private void BindUfo()
     {
-        Container.BindInterfacesAndSelfTo<UfoService>().AsSingle();
         Container.Bind<UfoFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<UfoSpawnService>().AsSingle();
         Container.BindInterfacesAndSelfTo<UfoMovementService>().AsSingle();

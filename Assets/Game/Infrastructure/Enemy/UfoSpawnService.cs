@@ -13,7 +13,7 @@ namespace Game.Infrastructure.Enemy
     public class UfoSpawnService : IInitializable, ITickable
     {
         private UfoFactory _factory;
-        private UfoService _ufoService;
+        private EnemyService _enemyService;
         private PhysicsWorldProvider _worldProvider;
         private GameStateService _gameStateService;
         private ConfigService _config;
@@ -23,14 +23,14 @@ namespace Game.Infrastructure.Enemy
 
         public UfoSpawnService(
             UfoFactory factory,
-            UfoService ufoService,
+            EnemyService enemyService,
             PhysicsWorldProvider worldProvider,
             GameStateService gameStateService,
             ConfigService config,
             SpawnPositionService spawnPositionService)
         {
             _factory = factory;
-            _ufoService = ufoService;
+            _enemyService = enemyService;
             _worldProvider = worldProvider;
             _gameStateService = gameStateService;
             _config = config;
@@ -58,7 +58,7 @@ namespace Game.Infrastructure.Enemy
 
             _spawnTimer = _config.EnemyConfig.UfoSpawnInterval;
 
-            if (_ufoService.ActiveCount > 0)
+            if (_enemyService.ActiveUfoCount > 0)
                 return;
 
             SpawnUfo();
