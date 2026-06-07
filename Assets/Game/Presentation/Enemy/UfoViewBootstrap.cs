@@ -14,14 +14,12 @@ namespace Game.Presentation.Enemy
         private UfoViewFactory _factory;
 
         [Inject]
-        public void Construct(EnemyService enemyService)
+        public void Construct(
+            EnemyService enemyService,
+            UfoViewFactory factory)
         {
             _enemyService = enemyService;
-        }
-
-        private void Awake()
-        {
-            _factory = new UfoViewFactory(_ufoPrefab, _container);
+            _factory = factory;
         }
 
         private void Update()
@@ -30,7 +28,7 @@ namespace Game.Presentation.Enemy
             {
                 if (enemy is UfoModel ufo)
                 {
-                    _factory.GetOrCreate(ufo);
+                    _factory.GetOrCreate(ufo, _ufoPrefab, _container);
                 }
             }
         }

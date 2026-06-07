@@ -1,6 +1,7 @@
 using Game.Core.Signals;
 using Game.Infrastructure.Enemies;
 using Game.Infrastructure.Enemy;
+using Game.Presentation.Enemy;
 using Zenject;
 
 public class EnemyInstaller : Installer<EnemyInstaller>
@@ -36,6 +37,8 @@ public class EnemyInstaller : Installer<EnemyInstaller>
     {
         Container.Bind<SpawnPositionService>().AsSingle();
         Container.Bind<AsteroidSplitService>().AsSingle();
+        Container.Bind<AsteroidViewFactory>().AsSingle();
+        Container.Bind<UfoViewFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemyDeathService>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemyService>().AsSingle();
     }

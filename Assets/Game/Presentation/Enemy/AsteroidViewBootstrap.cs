@@ -14,14 +14,12 @@ namespace Game.Presentation.Enemy
         private AsteroidViewFactory _factory;
 
         [Inject]
-        public void Construct(EnemyService enemyService)
+        public void Construct(
+            EnemyService enemyService,
+            AsteroidViewFactory factory)
         {
             _enemyService = enemyService;
-        }
-
-        private void Awake()
-        {
-            _factory = new AsteroidViewFactory(_asteroidPrefab, _container);
+            _factory = factory;
         }
 
         private void Update()
@@ -30,7 +28,7 @@ namespace Game.Presentation.Enemy
             {
                 if (enemy is AsteroidModel asteroid)
                 {
-                    _factory.GetOrCreate(asteroid);
+                    _factory.GetOrCreate(asteroid, _asteroidPrefab, _container);
                 }
             }
         }
