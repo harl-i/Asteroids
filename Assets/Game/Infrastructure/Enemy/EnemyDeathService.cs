@@ -2,9 +2,6 @@ using System;
 using Game.Core.Enemy;
 using Game.Core.Physics;
 using Game.Core.Signals;
-using Game.Infrastructure.Enemy;
-using Game.Infrastructure.Services;
-using UnityEngine;
 using Zenject;
 
 namespace Game.Infrastructure.Enemies
@@ -12,17 +9,14 @@ namespace Game.Infrastructure.Enemies
     public class EnemyDeathService : IInitializable, IDisposable
     {
         private SignalBus _signalBus;
-        private AsteroidFactory _asteroidFactory;
-        private ConfigService _configService;
+        private AsteroidSplitService _asteroidSplitService;
 
         public EnemyDeathService(
             SignalBus signalBus,
-            AsteroidFactory asteroidFactory,
-            ConfigService configService)
+            AsteroidSplitService asteroidSplitService)
         {
             _signalBus = signalBus;
-            _asteroidFactory = asteroidFactory;
-            _configService = configService;
+            _asteroidSplitService = asteroidSplitService;
         }
 
         public void Initialize()
@@ -69,26 +63,7 @@ namespace Game.Infrastructure.Enemies
                 Type = asteroid.EnemyType
             });
 
-            SpawnFragments(asteroid);
-        }
-
-        private void SpawnFragments(AsteroidModel asteroid)
-        {
-            if (asteroid.Size == AsteroidSize.Small)
-                return;
-
-            AsteroidSize newSize = asteroid.Size == AsteroidSize.Large
-                ? AsteroidSize.Medium
-                : AsteroidSize.Small;
-
-            Vector2 position = asteroid.Entity.Position;
-
-            AsteroidModel a1 = _asteroidFactory.Create(position, newSize);
-            AsteroidModel a2 = _asteroidFactory.Create(position, newSize);
-
-            float fragmentSpeed = _configService.EnemyConfig.AsteroidFragmentSpeed;
-            a1.Entity.SetVelocity(UnityEngine.Random.insideUnitCircle * fragmentSpeed);
-            a2.Entity.SetVelocity(UnityEngine.Random.insideUnitCircle * fragmentSpeed);
+            _asteroidSplitService.Split(asteroid);
         }
 
         private void KillUfo(UfoModel ufo)

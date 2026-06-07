@@ -36,6 +36,7 @@ public class EnemyInstaller : Installer<EnemyInstaller>
     private void BindServices()
     {
         Container.Bind<SpawnPositionService>().AsSingle();
+        Container.Bind<AsteroidSplitService>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemyDeathService>().AsSingle();
         Container.BindInterfacesAndSelfTo<EnemyService>().AsSingle();
     }

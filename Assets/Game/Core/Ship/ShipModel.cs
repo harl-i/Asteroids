@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Core.Ship
 {
-    public class ShipModel
+    public class ShipModel : IPhysicsOwner
     {
         private float _acceleration;
         private float _turnSpeedDeg;

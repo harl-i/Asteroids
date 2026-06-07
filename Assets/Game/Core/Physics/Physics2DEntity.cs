@@ -13,7 +13,7 @@ namespace Game.Core.Physics
         public Vector2 AccumulatedForce { get; private set; }
 
         public CollisionLayer CollisionLayer { get; private set; }
-        public object PhysicsOwner { get; private set; }
+        public IPhysicsOwner PhysicsOwner { get; private set; }
         public float Restitution { get; private set; }
 
         public float Mass { get; }
@@ -73,7 +73,7 @@ namespace Game.Core.Physics
             IsTrigger = isTrigger;
         }
 
-        public void SetPhysicsOwner(object owner)
+        public void SetPhysicsOwner(IPhysicsOwner owner)
         {
             PhysicsOwner = owner;
         }

@@ -2,7 +2,7 @@ using Game.Core.Physics;
 
 namespace Game.Core.Enemy
 {
-    public class UfoModel : IEnemy
+    public class UfoModel : IEnemy, IPhysicsOwner
     {
         public Physics2DEntity Entity { get; }
 

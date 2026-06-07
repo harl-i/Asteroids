@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game.Core.Weapons
 {
-    public class BulletModel
+    public class BulletModel : IPhysicsOwner
     {
         public Physics2DEntity Entity { get; }
         public float LifetimeRemaining { get; private set; }
