@@ -4,9 +4,9 @@ namespace Game.Core.Physics
 {
     public struct RaycastHit2DResult
     {
-        public Physics2DEntity Entity;
-        public Vector2 Point;
-        public float Distance;
+        public Physics2DEntity Entity { get; }
+        public Vector2 Point { get; }
+        public float Distance { get; }
 
         public RaycastHit2DResult(Physics2DEntity entity, Vector2 point, float distance)
         {
