@@ -7,6 +7,8 @@ namespace Game.Presentation.UI
 {
     public class ScoreView : MonoBehaviour
     {
+        private const string ScoreFormat = "Score: {0}";
+
         [SerializeField] private TextMeshProUGUI _scoreText;
 
         private SignalBus _signalBus;
@@ -39,7 +41,7 @@ namespace Game.Presentation.UI
 
         private void UpdateScore(int score)
         {
-            _scoreText.text = $"Score: {score}";
+            _scoreText.text = string.Format(ScoreFormat, score);
         }
     }
 }
