@@ -17,10 +17,11 @@ namespace Game.Infrastructure.UI
 
         public ShipHudPresenter(
             ShipRepository shipRepository,
+            ShipHudViewModel shipHudViewModel,
             SignalBus signalBus)
         {
             _shipRepository = shipRepository;
-            _shipHudViewModel = new ShipHudViewModel();
+            _shipHudViewModel = shipHudViewModel;
             _signalBus = signalBus;
         }
 
