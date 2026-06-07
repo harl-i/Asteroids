@@ -12,8 +12,6 @@ namespace Game.Presentation.UI
         [SerializeField] private TextMeshProUGUI _label;
 
         private SignalBus _signalBus;
-        private const string DesktopGameOverLabel = "GAME OVER\nPress R to Restart";
-        private const string MobileGameOverLabel = "GAME OVER\nTap screen to Restart";
 
         [Inject]
         public void Construct(SignalBus signalBus)
@@ -27,7 +25,9 @@ namespace Game.Presentation.UI
 
             if (_label != null)
             {
-                _label.text = Application.isMobilePlatform ? MobileGameOverLabel : DesktopGameOverLabel;
+                _label.text = Application.isMobilePlatform
+                    ? GameOverViewText.MobileLabel
+                    : GameOverViewText.DesktopLabel;
             }
         }
 
