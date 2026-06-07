@@ -5,13 +5,18 @@ namespace Game.Infrastructure.Services
 {
     public class YandexBridge : MonoBehaviour
     {
-        public static Action OnRewardedCallback;
+        private Action _onRewardedCallback;
+
+        public void SetRewardedCallback(Action onRewardedCallback)
+        {
+            _onRewardedCallback = onRewardedCallback;
+        }
 
         public void OnRewarded()
         {
             Debug.Log("[YandexAds] Reward received");
-            OnRewardedCallback?.Invoke();
-            OnRewardedCallback = null;
+            _onRewardedCallback?.Invoke();
+            _onRewardedCallback = null;
         }
     }
 }

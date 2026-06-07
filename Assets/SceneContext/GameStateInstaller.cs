@@ -47,6 +47,8 @@ public class GameStateInstaller : Installer<GameStateInstaller>
 
     private void BindExternalServices()
     {
+        Container.Bind<YandexBridge>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<IYandexAdsPlatformAdapter>().To<YandexAdsPlatformAdapter>().AsSingle();
         Container.Bind<IAdService>().To<YandexAdService>().AsSingle();
         Container.BindInterfacesAndSelfTo<FirebaseAnalyticsService>().AsSingle();
     }

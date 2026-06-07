@@ -1,36 +1,25 @@
 using System;
-using System.Runtime.InteropServices;
 using Game.Core.Services;
-using UnityEngine;
 
 namespace Game.Infrastructure.Services
 {
     public class YandexAdService : IAdService
     {
-        [DllImport("__Internal")]
-        private static extern void ShowInterstitialAd();
+        private IYandexAdsPlatformAdapter _platformAdapter;
 
-        [DllImport("__Internal")]
-        private static extern void ShowRewardedAd();
+        public YandexAdService(IYandexAdsPlatformAdapter platformAdapter)
+        {
+            _platformAdapter = platformAdapter;
+        }
 
         public void ShowInterstitial()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-            ShowInterstitialAd();
-#else
-            Debug.Log("[YandexAds] Interstitial (mock in editor)");
-#endif
+            _platformAdapter.ShowInterstitial();
         }
 
         public void ShowRewarded(Action onRewarded)
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
-            YandexBridge.OnRewardedCallback = onRewarded;
-            ShowRewardedAd();
-#else
-            Debug.Log("[YandexAds] Rewarded (mock in editor)");
-            onRewarded?.Invoke();
-#endif
+            _platformAdapter.ShowRewarded(onRewarded);
         }
     }
 }
