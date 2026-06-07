@@ -13,21 +13,19 @@ namespace Game.Presentation.Weapons
         private BulletViewFactory _bulletViewFactory;
 
         [Inject]
-        private void Construct(BulletService bulletService)
+        private void Construct(
+            BulletService bulletService,
+            BulletViewFactory bulletViewFactory)
         {
             _bulletService = bulletService;
-        }
-
-        private void Awake()
-        {
-            _bulletViewFactory = new BulletViewFactory(_bulletPrefab, _container);
+            _bulletViewFactory = bulletViewFactory;
         }
 
         private void Update()
         {
             foreach (var bullet in _bulletService.Bullets)
             {
-                _bulletViewFactory.GetOrCreate(bullet);
+                _bulletViewFactory.GetOrCreate(bullet, _bulletPrefab, _container);
             }
         }
     }

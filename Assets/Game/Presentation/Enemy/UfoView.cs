@@ -1,9 +1,10 @@
 using Game.Core.Enemy;
+using Game.Presentation.Common;
 using UnityEngine;
 
 namespace Game.Presentation.Enemy
 {
-    public class UfoView : MonoBehaviour
+    public class UfoView : MonoBehaviour, IBindableView<UfoModel>
     {
         private UfoModel _model;
 

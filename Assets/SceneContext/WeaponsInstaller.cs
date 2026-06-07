@@ -1,5 +1,6 @@
 using Game.Core.Signals;
 using Game.Infrastructure.Weapons;
+using Game.Presentation.Weapons;
 using Zenject;
 
 public class WeaponsInstaller : Installer<WeaponsInstaller>
@@ -21,6 +22,7 @@ public class WeaponsInstaller : Installer<WeaponsInstaller>
     {
         Container.BindInterfacesAndSelfTo<BulletService>().AsSingle();
         Container.Bind<BulletFactory>().AsSingle();
+        Container.Bind<BulletViewFactory>().AsSingle();
         Container.BindInterfacesAndSelfTo<BulletCollisionService>().AsSingle();
         Container.Bind<BulletPool>().AsSingle();
     }

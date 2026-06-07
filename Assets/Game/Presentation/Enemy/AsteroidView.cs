@@ -1,9 +1,10 @@
 using Game.Core.Enemy;
+using Game.Presentation.Common;
 using UnityEngine;
 
 namespace Game.Presentation.Enemy
 {
-    public class AsteroidView : MonoBehaviour
+    public class AsteroidView : MonoBehaviour, IBindableView<AsteroidModel>
     {
         private AsteroidModel _asteroidModel;
 

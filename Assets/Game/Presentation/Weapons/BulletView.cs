@@ -1,9 +1,10 @@
 using Game.Core.Weapons;
+using Game.Presentation.Common;
 using UnityEngine;
 
 namespace Game.Presentation.Weapons
 {
-    public class BulletView : MonoBehaviour
+    public class BulletView : MonoBehaviour, IBindableView<BulletModel>
     {
         private BulletModel _bulletModel;
 
